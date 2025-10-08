@@ -1,0 +1,2086 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MF0 version="1.1" packageUris="http://schema.mathworks.com/mf0/ci/19700101 http://schema.mathworks.com/mf0/sl_modelref_info/R2023a http://schema.mathworks.com/mf0/slexec_mm_sto/R2023a_202208151321 http://schema.mathworks.com/mf0/sltp_mm/R2023a_202209151115">
+  <ModelRefInfoRepo.ModelRefInfoRoot type="ModelRefInfoRepo.ModelRefInfoRoot" uuid="7dc93732-e4ba-4d75-91d0-4b4e2c22f7be">
+    <JITEngines>s0QZUVy6FWkImg0TxDy45wF</JITEngines>
+    <JITEngines>s0rE4Nif24K33XPrWh2A2RD</JITEngines>
+    <JITEngines>sBWdBP2trIG7O9gOiKw4KeD</JITEngines>
+    <JITEngines>sCnhYh5ytHEOTuWnfkdFsxF</JITEngines>
+    <JITEngines>sMU69BHdCl484kdlpc8RGpC</JITEngines>
+    <JITEngines>sN4U96dI9rFE21NoWLV9WCH</JITEngines>
+    <JITEngines>sU4nfBqQDHUSOehm59bgnQ</JITEngines>
+    <JITEngines>scYlp2LjgDAKC42PtyotC9C</JITEngines>
+    <JITEngines>sn97m60mbFg8KXWmVQRm97</JITEngines>
+    <JITEngines>sqLMgAeyEqQd00417roD6uH</JITEngines>
+    <JITEngines>sqvmlLuojT1eLCqVJ4t4wqH</JITEngines>
+    <JITEngines>sttmdcJMhh8Ild1HLZBk5OG</JITEngines>
+    <JITEngines>suSmfUU9J4ghTBJMYwXL8AD</JITEngines>
+    <JITEngines>szr5gXEK63ETao8idHyFfEB</JITEngines>
+    <childModelRefInfo type="ModelRefInfoRepo.ChildModelRefInfo" uuid="46fe9ede-4d3c-4028-aad4-a44f86a97542">
+      <modelName>ConfiguredVirtualVehicleModel</modelName>
+      <modelPath>ConfiguredVirtualVehicleModel</modelPath>
+    </childModelRefInfo>
+    <dataDictionary>VirtualVehicleTemplate.sldd</dataDictionary>
+    <dataDictionarySet>VirtualVehicleTemplate.sldd</dataDictionarySet>
+    <dataDictionarySetForDataTypeCheck>VirtualVehicleTemplate.sldd</dataDictionarySetForDataTypeCheck>
+    <dataTransferInfos>AAFJTQAAAAAOAAAAOAAAAAYAAAAIAAAAAgAAAAAAAAAFAAAACAAAAAAAAAABAAAAAQAAAAAAAAAFAAQAAQAAAAEAAAAAAAAA</dataTransferInfos>
+    <fastestNoncontSigFeedingDerivPorts>.0001</fastestNoncontSigFeedingDerivPorts>
+    <globalVariables>#CtrlBcuTrlrBrkGain#VirtualVehicleTemplate.sldd#</globalVariables>
+    <globalVariables>#CtrlTcuInitGear#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#CtrlVcuCltch1InitCmd#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#CtrlVcuEvChrgLmtBpt#EvVCU.sldd#</globalVariables>
+    <globalVariables>#CtrlVcuEvRegenBrkCutOff#EvVCU.sldd#</globalVariables>
+    <globalVariables>#CtrlVcuEvRegenBrkSpdBpt#EvVCU.sldd#</globalVariables>
+    <globalVariables>#CtrlVcuEvSocBpt#EvVCU.sldd#</globalVariables>
+    <globalVariables>#EnvAbsPrs#Environment.sldd#</globalVariables>
+    <globalVariables>#EnvAirTemp#Environment.sldd#</globalVariables>
+    <globalVariables>#EnvGrvty#Environment.sldd#</globalVariables>
+    <globalVariables>#EnvNomFrictionScaling#Environment.sldd#</globalVariables>
+    <globalVariables>#EnvNominalGrade#Environment.sldd#</globalVariables>
+    <globalVariables>#EnvWindVelX#Environment.sldd#</globalVariables>
+    <globalVariables>#EnvWindVelY#Environment.sldd#</globalVariables>
+    <globalVariables>#EnvWindVelZ#Environment.sldd#</globalVariables>
+    <globalVariables>#PlntBattCapInit#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattChrgMax#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattIntrnRes#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattModNumCellPar#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattModNumCellSer#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattNumCellPar#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattNumCellSer#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattNumMod#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattOpenCirctVolt#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattSocBpt#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattSocInit#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattTempBpt#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattTempInitDegC#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattTimeCnst#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBattVoltSocBpt#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntBrkActrBoreFrnt#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkActrBoreRear#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkFrntBias#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkKinFricCffFrnt#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkKinFricCffRear#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkNumPadsFrnt#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkNumPadsRear#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkPadMeanRadiusFrnt#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkPadMeanRadiusRear#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkPrsFctr#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkRearBias#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkStcFricCffFrnt#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkStcFricCffRear#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntBrkWc#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntDCDCEff#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntDCDCLossI#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntDCDCLossTbl#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntDCDCLossV#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntDCDCPwrLmt#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntDCDCTimeCnst#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntDCDCVoltInit#BatteryDCDC.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlAxl1Damp#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlAxl1Inertia#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlAxl1InitVel#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlAxl2Damp#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlAxl2Inertia#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlAxl2InitVel#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlCarrDamp#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlCarrInertia#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlEff#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlEffSpdBpt#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlEffTbl#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlEffTempBpt#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlEffTrqBpt#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDiffrntlRatio#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDriveshftDamp#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDriveshftDampCutoffFreq#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDriveshftInitDeflect#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDriveshftInitVel#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntDriveshftStiff#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntEM1EffTbl#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1RotDamp#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1RotInertia#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1RotInitSpd#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1Spd#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1SpdEff#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1TimeCnst#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1Trq#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1TrqEff#ElectricMachine1.sldd#</globalVariables>
+    <globalVariables>#PlntEM1TrqLossTbl#VirtualVehicleTemplate.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCAlgnTrqCambCompl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCAlgnTrqSteerCompl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCBumpCamber#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCBumpCaster#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCBumpSteer#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCCambVsSteerAng#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCCastVsSteerAng#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLatCambCompl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLatSteerCompl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLatWhlCtrComplLat#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLatWhlCtrComplLngBrk#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLatWhlCtrDisp#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLngCambCompl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLngCastCompl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLngSteerCompl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLngWhlCtrCompl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCLngWhlCtrDisp#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCMotRatios#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCNrmlWhlFrcOff#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCNrmlWhlRates#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCRollStiffArb#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCRollStiffNoArb#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCShckFrcVsCompRate#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCStatCamber#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCStatCaster#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCStatToe#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSpKCVrtLdTrnsfr#VirtualVehicleTemplate.sldd#</globalVariables>
+    <globalVariables>#PlntSpStatLdWhlR#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerDst#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerEpsilon#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerHbLead#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerKngpnOfst#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerLambda#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerLowerInertia#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerMaxDamp#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerMaxStf#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerMaxUpprFric#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerPctAck#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerPnInert#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerPrsFric#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerPwrLimit#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerRange#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerRatio#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerRckCsLngth#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerRckGn#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerSlgStf#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerStcLdRadius#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerStrgArmLngth#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerTieRodLngth#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerTorDamp#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerTorStf#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerTrqAsstTbl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerTrqLimit#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerUpperInertia#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerUpprFric#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerWc#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntSteerWheelTrqBpt#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntTrnsfrCaseAxlSpdLock#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntTrnsfrCaseTrqSplitRatio#Drivetrain.sldd#</globalVariables>
+    <globalVariables>#PlntVehAeroDragCff#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehAeroFrntArea#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehAeroLiftCff#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehAeroPitchCff#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehCGHgtAxl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehDstCGFrntAxl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehDstCGRearAxl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehFrntUnsprgMass#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehHtchDst#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehHtchHgtAxl#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitLatPos#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitLatVel#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitLongPos#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitLongVel#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitPitchAng#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitPitchRate#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitRollAng#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitRollRate#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitVertPos#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitVertVel#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitYawAng#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehInitYawRate#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehMass#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehPitchMomentInertia#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehRearUnsprgMass#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehRollMomentInertia#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehTrckWdth#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntVehYawMomentInertia#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlDampCoeffFrnt#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlDampCoeffRear#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlInertia#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlInitAngVel#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlLdRadius#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlLongSpd#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMass#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMaxCmbr#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMaxFz#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMaxPress#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMaxSlipAngle#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMaxSlipRatio#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMinCmbr#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMinFz#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMinPress#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMinSlipAngle#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlMinSlipRatio#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlNomNorlForce#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlNomPress#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlPrsFrnt#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlPrsRear#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlRimRadius#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlUnldRadius#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlVelTolLowVel#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlVertDampCoeff#PassVeh.sldd#</globalVariables>
+    <globalVariables>#PlntWhlWidth#PassVeh.sldd#</globalVariables>
+    <globalVariables>#ScnSimTime#Scenario.sldd#</globalVariables>
+    <globalVariables>#VehicleVariable#VehicleConfig.sldd#</globalVariables>
+    <hasBlockWithPeriodicDiscreteSampleTime>true</hasBlockWithPeriodicDiscreteSampleTime>
+    <hasBwsAccessed>true</hasBwsAccessed>
+    <hasBwsAccessedByAnyModel>true</hasBwsAccessedByAnyModel>
+    <hasContinuousSampleTime>true</hasContinuousSampleTime>
+    <hasInlineVariantBlock>true</hasInlineVariantBlock>
+    <hasNonVirtualConstantTs>true</hasNonVirtualConstantTs>
+    <hasNoncontSigFeedingDerivPorts>true</hasNoncontSigFeedingDerivPorts>
+    <hasStateInsideForEachSubsystem>true</hasStateInsideForEachSubsystem>
+    <hasStatesModifiedInOutputUpdate>true</hasStatesModifiedInOutputUpdate>
+    <hasVariantModelOrSubsystem>true</hasVariantModelOrSubsystem>
+    <inports type="ModelRefInfoRepo.InportInformation" uuid="3d9d1714-57e3-47f8-8d5d-9399b632ffb4">
+      <designMax>inf</designMax>
+      <designMin>-inf</designMin>
+      <indexType>2</indexType>
+      <rateInfos type="ModelRefInfoRepo.RateInfo">
+        <compiled>true</compiled>
+        <period>0.0</period>
+        <priority>40</priority>
+        <rateIdx>0</rateIdx>
+      </rateInfos>
+      <resolvedSignalObject></resolvedSignalObject>
+      <trueHiers>0</trueHiers>
+      <executionInterface type="ModelRefInfoRepo.InputExecutionInterface" uuid="e446d8e5-be23-435c-b46c-dd1de404c4e8"/>
+      <sigNameToEMVCEMap type="ModelRefInfoRepo.SigNameEMVCEInfo" uuid="8e9666a8-ed12-4190-994b-0b7c2f4f2d36"/>
+    </inports>
+    <inports type="ModelRefInfoRepo.InportInformation" uuid="bfc89e5b-6f4f-454f-b842-8b4853b83148">
+      <isNotDerivPort>true</isNotDerivPort>
+      <designMax>inf</designMax>
+      <designMin>-inf</designMin>
+      <indexType>2</indexType>
+      <originalPortNumber>1</originalPortNumber>
+      <rateInfos type="ModelRefInfoRepo.RateInfo">
+        <compiled>true</compiled>
+        <nonFcnCallPartitionName>Cont</nonFcnCallPartitionName>
+        <period>.0001</period>
+        <priority>40</priority>
+        <rateIdx>1</rateIdx>
+      </rateInfos>
+      <resolvedSignalObject></resolvedSignalObject>
+      <trueHiers>0</trueHiers>
+      <executionInterface type="ModelRefInfoRepo.InputExecutionInterface" uuid="23b05fac-ef1a-4f76-8c63-316d3745b67e"/>
+      <sigNameToEMVCEMap type="ModelRefInfoRepo.SigNameEMVCEInfo" uuid="893f5fce-289d-434b-8d20-f1dd209858e7"/>
+    </inports>
+    <inports type="ModelRefInfoRepo.InportInformation" uuid="fdce40e7-f088-418a-a1ee-40f2768389fb">
+      <isNotDerivPort>true</isNotDerivPort>
+      <designMax>inf</designMax>
+      <designMin>-inf</designMin>
+      <indexType>2</indexType>
+      <originalPortNumber>2</originalPortNumber>
+      <rateInfos type="ModelRefInfoRepo.RateInfo">
+        <compiled>true</compiled>
+        <nonFcnCallPartitionName>Cont</nonFcnCallPartitionName>
+        <period>.0001</period>
+        <priority>40</priority>
+        <rateIdx>1</rateIdx>
+      </rateInfos>
+      <resolvedSignalObject></resolvedSignalObject>
+      <trueHiers>0</trueHiers>
+      <executionInterface type="ModelRefInfoRepo.InputExecutionInterface" uuid="59d730ba-25cf-4cfa-92bd-77d7b5bb6075"/>
+      <sigNameToEMVCEMap type="ModelRefInfoRepo.SigNameEMVCEInfo" uuid="d7dd01e2-765c-494b-8b78-7abdbafda5d1"/>
+    </inports>
+    <inports type="ModelRefInfoRepo.InportInformation" uuid="be5dc4c6-e4b1-4d60-b13d-f58cb5177266">
+      <isNotDerivPort>true</isNotDerivPort>
+      <designMax>inf</designMax>
+      <designMin>-inf</designMin>
+      <indexType>2</indexType>
+      <originalPortNumber>3</originalPortNumber>
+      <rateInfos type="ModelRefInfoRepo.RateInfo">
+        <compiled>true</compiled>
+        <period>0.0</period>
+        <priority>40</priority>
+        <rateIdx>0</rateIdx>
+      </rateInfos>
+      <resolvedSignalObject></resolvedSignalObject>
+      <trueHiers>0</trueHiers>
+      <executionInterface type="ModelRefInfoRepo.InputExecutionInterface" uuid="4e91c741-c0ae-4677-8575-cbe8b3d8556f"/>
+      <sigNameToEMVCEMap type="ModelRefInfoRepo.SigNameEMVCEInfo" uuid="58242522-3f2f-468a-95fe-75d49a1bd671"/>
+    </inports>
+    <inports type="ModelRefInfoRepo.InportInformation" uuid="b89b388a-55e4-42ae-a4c5-20fb744defd0">
+      <designMax>inf</designMax>
+      <designMin>-inf</designMin>
+      <indexType>2</indexType>
+      <originalPortNumber>4</originalPortNumber>
+      <rateInfos type="ModelRefInfoRepo.RateInfo">
+        <compiled>true</compiled>
+        <period>0.0</period>
+        <priority>40</priority>
+        <rateIdx>0</rateIdx>
+      </rateInfos>
+      <resolvedSignalObject></resolvedSignalObject>
+      <trueHiers>0</trueHiers>
+      <executionInterface type="ModelRefInfoRepo.InputExecutionInterface" uuid="8576785b-4f92-425d-8093-4df3dac1864c"/>
+      <sigNameToEMVCEMap type="ModelRefInfoRepo.SigNameEMVCEInfo" uuid="7d99db7f-a964-4288-8330-8a7c8cc6716c"/>
+    </inports>
+    <inports type="ModelRefInfoRepo.InportInformation" uuid="2b5bbda0-2505-44bd-84a3-18f60a559226">
+      <designMax>inf</designMax>
+      <designMin>-inf</designMin>
+      <indexType>2</indexType>
+      <originalPortNumber>5</originalPortNumber>
+      <rateInfos type="ModelRefInfoRepo.RateInfo">
+        <compiled>true</compiled>
+        <period>0.0</period>
+        <priority>40</priority>
+        <rateIdx>0</rateIdx>
+      </rateInfos>
+      <resolvedSignalObject></resolvedSignalObject>
+      <trueHiers>0</trueHiers>
+      <executionInterface type="ModelRefInfoRepo.InputExecutionInterface" uuid="983daebf-8752-4560-8018-9ea43f7cacbd"/>
+      <sigNameToEMVCEMap type="ModelRefInfoRepo.SigNameEMVCEInfo" uuid="9deb9076-3ba0-4d5b-9711-514e9fd1c48b"/>
+    </inports>
+    <inports type="ModelRefInfoRepo.InportInformation" uuid="68d38961-5179-45de-b6c2-31e3d91d29d7">
+      <isNotDerivPort>true</isNotDerivPort>
+      <designMax>inf</designMax>
+      <designMin>-inf</designMin>
+      <indexType>2</indexType>
+      <originalPortNumber>6</originalPortNumber>
+      <rateInfos type="ModelRefInfoRepo.RateInfo">
+        <compiled>true</compiled>
+        <nonFcnCallPartitionName>Cont</nonFcnCallPartitionName>
+        <period>.0001</period>
+        <priority>40</priority>
+        <rateIdx>1</rateIdx>
+      </rateInfos>
+      <resolvedSignalObject></resolvedSignalObject>
+      <trueHiers>0</trueHiers>
+      <executionInterface type="ModelRefInfoRepo.InputExecutionInterface" uuid="145d7664-a287-4fb9-86b8-95805fbc40d5"/>
+      <sigNameToEMVCEMap type="ModelRefInfoRepo.SigNameEMVCEInfo" uuid="a31602ee-0a69-4287-be6f-c32a1737d812"/>
+    </inports>
+    <inports type="ModelRefInfoRepo.InportInformation" uuid="f14c3863-6be3-4976-b4e3-9143c4d3ebc7">
+      <isNotDerivPort>true</isNotDerivPort>
+      <designMax>inf</designMax>
+      <designMin>-inf</designMin>
+      <indexType>2</indexType>
+      <originalPortNumber>7</originalPortNumber>
+      <rateInfos type="ModelRefInfoRepo.RateInfo">
+        <compiled>true</compiled>
+        <period>0.0</period>
+        <priority>40</priority>
+        <rateIdx>0</rateIdx>
+      </rateInfos>
+      <resolvedSignalObject></resolvedSignalObject>
+      <trueHiers>0</trueHiers>
+      <executionInterface type="ModelRefInfoRepo.InputExecutionInterface" uuid="21327351-feba-473e-ae7a-78909272ccf3"/>
+      <sigNameToEMVCEMap type="ModelRefInfoRepo.SigNameEMVCEInfo" uuid="c64dc119-313c-44ed-bb76-57f696224175"/>
+    </inports>
+    <isBdInSimModeForSimCodegenVariants>false</isBdInSimModeForSimCodegenVariants>
+    <isOrigInportVirtualBus>false</isOrigInportVirtualBus>
+    <isOrigInportVirtualBus>false</isOrigInportVirtualBus>
+    <isOrigInportVirtualBus>false</isOrigInportVirtualBus>
+    <isOrigInportVirtualBus>false</isOrigInportVirtualBus>
+    <isOrigInportVirtualBus>false</isOrigInportVirtualBus>
+    <isOrigInportVirtualBus>false</isOrigInportVirtualBus>
+    <isOrigInportVirtualBus>false</isOrigInportVirtualBus>
+    <isOrigInportVirtualBus>false</isOrigInportVirtualBus>
+    <loggingSaveFormat>2</loggingSaveFormat>
+    <massMatrixNzMax>118</massMatrixNzMax>
+    <maxFreqHz>-1.0</maxFreqHz>
+    <nonTunableVariables>PlntBattCapInit</nonTunableVariables>
+    <nonTunableVariables>PlntBattChrgMax</nonTunableVariables>
+    <nonTunableVariables>PlntBattModNumCellSer</nonTunableVariables>
+    <nonTunableVariables>PlntBattNumCellSer</nonTunableVariables>
+    <nonTunableVariables>PlntBattNumMod</nonTunableVariables>
+    <nonTunableVariables>PlntBattOpenCirctVolt</nonTunableVariables>
+    <nonTunableVariables>PlntBattTempInitDegC</nonTunableVariables>
+    <nonTunableVariables>PlntBattVoltSocBpt</nonTunableVariables>
+    <nonTunableVariables>PlntBrkActrBoreFrnt</nonTunableVariables>
+    <nonTunableVariables>PlntBrkActrBoreRear</nonTunableVariables>
+    <nonTunableVariables>PlntBrkKinFricCffFrnt</nonTunableVariables>
+    <nonTunableVariables>PlntBrkKinFricCffRear</nonTunableVariables>
+    <nonTunableVariables>PlntBrkNumPadsFrnt</nonTunableVariables>
+    <nonTunableVariables>PlntBrkNumPadsRear</nonTunableVariables>
+    <nonTunableVariables>PlntBrkPadMeanRadiusFrnt</nonTunableVariables>
+    <nonTunableVariables>PlntBrkPadMeanRadiusRear</nonTunableVariables>
+    <nonTunableVariables>PlntBrkStcFricCffFrnt</nonTunableVariables>
+    <nonTunableVariables>PlntBrkStcFricCffRear</nonTunableVariables>
+    <nonTunableVariables>PlntSpKCLatWhlCtrComplLngBrk</nonTunableVariables>
+    <nonTunableVariables>PlntSpKCLngCambCompl</nonTunableVariables>
+    <nonTunableVariables>PlntSpKCLngCastCompl</nonTunableVariables>
+    <nonTunableVariables>PlntSpKCLngSteerCompl</nonTunableVariables>
+    <nonTunableVariables>PlntSpKCLngWhlCtrCompl</nonTunableVariables>
+    <nonTunableVariables>PlntVehCGHgtAxl</nonTunableVariables>
+    <nonTunableVariables>PlntVehFrntUnsprgMass</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitLatPos</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitLatVel</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitLongPos</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitLongVel</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitPitchAng</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitPitchRate</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitRollAng</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitRollRate</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitVertPos</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitVertVel</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitYawAng</nonTunableVariables>
+    <nonTunableVariables>PlntVehInitYawRate</nonTunableVariables>
+    <nonTunableVariables>PlntVehPitchMomentInertia</nonTunableVariables>
+    <nonTunableVariables>PlntVehRearUnsprgMass</nonTunableVariables>
+    <nonTunableVariables>PlntVehRollMomentInertia</nonTunableVariables>
+    <nonTunableVariables>PlntVehTrckWdth</nonTunableVariables>
+    <nonTunableVariables>PlntVehYawMomentInertia</nonTunableVariables>
+    <nonTunableVariables>PlntWhlDampCoeffFrnt</nonTunableVariables>
+    <nonTunableVariables>PlntWhlDampCoeffRear</nonTunableVariables>
+    <nonTunableVariables>PlntWhlInertia</nonTunableVariables>
+    <nonTunableVariables>PlntWhlInitAngVel</nonTunableVariables>
+    <numCStateRecs>48</numCStateRecs>
+    <numContinuousStates>118</numContinuousStates>
+    <numDStateRecs>9</numDStateRecs>
+    <numDataInputPorts>8</numDataInputPorts>
+    <numLoggableCStateRecs>47</numLoggableCStateRecs>
+    <numLoggableDStateRecs>7</numLoggableDStateRecs>
+    <numLoggableJacobianDStates>197</numLoggableJacobianDStates>
+    <numSigs>1</numSigs>
+    <origInportBusType></origInportBusType>
+    <origInportBusType></origInportBusType>
+    <origInportBusType></origInportBusType>
+    <origInportBusType></origInportBusType>
+    <origInportBusType></origInportBusType>
+    <origInportBusType></origInportBusType>
+    <origInportBusType></origInportBusType>
+    <origInportBusType></origInportBusType>
+    <periodicStateInfo type="ModelRefInfoRepo.PeriodicStateInfo" uuid="440ef336-197a-4e31-86e8-3ba7f8cde862">
+      <continuousStateIndex>62</continuousStateIndex>
+      <stateLowerValue>-3.141592653589793</stateLowerValue>
+      <stateUpperValue>3.141592653589793</stateUpperValue>
+    </periodicStateInfo>
+    <periodicStateInfo type="ModelRefInfoRepo.PeriodicStateInfo" uuid="8a1d12d1-a39d-4e56-8df1-44e67132c64a">
+      <continuousStateIndex>63</continuousStateIndex>
+      <stateLowerValue>-3.141592653589793</stateLowerValue>
+      <stateUpperValue>3.141592653589793</stateUpperValue>
+    </periodicStateInfo>
+    <periodicStateInfo type="ModelRefInfoRepo.PeriodicStateInfo" uuid="99772ca0-3a82-4bb7-8fbd-f84972616c62">
+      <continuousStateIndex>64</continuousStateIndex>
+      <stateLowerValue>-3.141592653589793</stateLowerValue>
+      <stateUpperValue>3.141592653589793</stateUpperValue>
+    </periodicStateInfo>
+    <runtimeNonFcnCallRateInfos type="ModelRefInfoRepo.RateInfo">
+      <compiled>true</compiled>
+      <period>0.0</period>
+      <priority>40</priority>
+      <rateIdx>0</rateIdx>
+    </runtimeNonFcnCallRateInfos>
+    <runtimeNonFcnCallRateInfos type="ModelRefInfoRepo.RateInfo">
+      <compiled>true</compiled>
+      <nonFcnCallPartitionName>Cont</nonFcnCallPartitionName>
+      <period>.0001</period>
+      <priority>40</priority>
+      <rateIdx>1</rateIdx>
+    </runtimeNonFcnCallRateInfos>
+    <runtimeNonFcnCallRateInfos type="ModelRefInfoRepo.RateInfo">
+      <compiled>true</compiled>
+      <nonFcnCallPartitionName>Cont</nonFcnCallPartitionName>
+      <period>.01</period>
+      <priority>40</priority>
+      <rateIdx>2</rateIdx>
+    </runtimeNonFcnCallRateInfos>
+    <runtimeNonFcnCallRateInfos type="ModelRefInfoRepo.RateInfo">
+      <compiled>true</compiled>
+      <nonFcnCallPartitionName>Cont</nonFcnCallPartitionName>
+      <period>.1</period>
+      <priority>40</priority>
+      <rateIdx>3</rateIdx>
+    </runtimeNonFcnCallRateInfos>
+    <runtimeNonFcnCallRateInfos type="ModelRefInfoRepo.RateInfo">
+      <compiled>true</compiled>
+      <nonFcnCallPartitionName>Cont</nonFcnCallPartitionName>
+      <period>5.0</period>
+      <priority>40</priority>
+      <rateIdx>4</rateIdx>
+    </runtimeNonFcnCallRateInfos>
+    <sampleTimeInheritanceRule>2</sampleTimeInheritanceRule>
+    <solverStatusFlags>327</solverStatusFlags>
+    <standaloneEnumInfos type="ModelRefInfoRepo.StandaloneEnumInfo" uuid="fd5cce47-bdd2-4442-81ec-90493f816496">
+      <defaultValue>Open</defaultValue>
+      <enumName>Contact</enumName>
+      <labels>Init</labels>
+      <labels>Open</labels>
+      <labels>Close</labels>
+      <storageType>int8</storageType>
+      <values>0</values>
+      <values>1</values>
+      <values>2</values>
+    </standaloneEnumInfos>
+    <standaloneEnumInfos type="ModelRefInfoRepo.StandaloneEnumInfo" uuid="810de7e7-5903-490a-b3d0-f1e579d63a26">
+      <defaultValue>None</defaultValue>
+      <enumName>MonitorCellTempModeType</enumName>
+      <labels>None</labels>
+      <labels>NoCellTempFault</labels>
+      <labels>HighTemperatureFault</labels>
+      <labels>LowTemperatureFault</labels>
+      <storageType>int32</storageType>
+      <values>0</values>
+      <values>1</values>
+      <values>2</values>
+      <values>3</values>
+    </standaloneEnumInfos>
+    <standaloneEnumInfos type="ModelRefInfoRepo.StandaloneEnumInfo" uuid="948d6237-d7fd-40a0-b2be-46b7d338d9e2">
+      <defaultValue>None</defaultValue>
+      <enumName>MonitorCellVoltageModeType</enumName>
+      <labels>None</labels>
+      <labels>NoCellVoltFault</labels>
+      <labels>OverVoltageFault</labels>
+      <labels>SensorFaut</labels>
+      <labels>UnderVoltageFault</labels>
+      <storageType>int32</storageType>
+      <values>0</values>
+      <values>1</values>
+      <values>2</values>
+      <values>3</values>
+      <values>4</values>
+    </standaloneEnumInfos>
+    <standaloneEnumInfos type="ModelRefInfoRepo.StandaloneEnumInfo" uuid="1c6d23df-0ea1-4b70-b5c4-2e37f4d58713">
+      <defaultValue>None</defaultValue>
+      <enumName>MonitorCurrLimModeType</enumName>
+      <labels>None</labels>
+      <labels>NoCurrLimFault</labels>
+      <labels>Wait</labels>
+      <labels>OverCurrentFault</labels>
+      <storageType>int32</storageType>
+      <values>0</values>
+      <values>1</values>
+      <values>2</values>
+      <values>3</values>
+    </standaloneEnumInfos>
+    <stateflowAutoEnumInfos type="ModelRefInfoRepo.StateflowAutoEnumInfo" uuid="2d64f36b-0fa8-4179-9e98-042247a3cb9a">
+      <checksum>3020429297.1990863963.4137313355.2022204937.</checksum>
+      <enumName>MonitorCellTempModeType</enumName>
+      <modelName>ConfiguredVirtualVehicleModel</modelName>
+      <sidString>ConfiguredVirtualVehicleModel:21619:22970:587</sidString>
+    </stateflowAutoEnumInfos>
+    <stateflowAutoEnumInfos type="ModelRefInfoRepo.StateflowAutoEnumInfo" uuid="fd5b4927-8019-4902-aa24-167003c82ce2">
+      <checksum>524025827.3091690200.1294083730.243711814.</checksum>
+      <enumName>MonitorCellVoltageModeType</enumName>
+      <modelName>ConfiguredVirtualVehicleModel</modelName>
+      <sidString>ConfiguredVirtualVehicleModel:21619:22970:603</sidString>
+    </stateflowAutoEnumInfos>
+    <stateflowAutoEnumInfos type="ModelRefInfoRepo.StateflowAutoEnumInfo" uuid="9813d15f-a822-498f-bfe4-b215d0ef27f6">
+      <checksum>226834550.4221699760.1359948087.813875902.</checksum>
+      <enumName>MonitorCurrLimModeType</enumName>
+      <modelName>ConfiguredVirtualVehicleModel</modelName>
+      <sidString>ConfiguredVirtualVehicleModel:21619:22970:625</sidString>
+    </stateflowAutoEnumInfos>
+    <timingAndTaskingRegistry>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;slexec_sto version=&quot;1.1&quot; packageUris=&quot;http://schema.mathworks.com/mf0/slexec_mm_sto/R2023a_202208151321&quot;&gt;
+  &lt;sto.Registry type=&quot;sto.Registry&quot; uuid=&quot;d46b03f6-6d38-4a72-8de3-2d0a3130583c&quot;&gt;
+    &lt;executionSpec&gt;Undetermined&lt;/executionSpec&gt;
+    &lt;identifier&gt;ConfiguredVirtualVehicleModel&lt;/identifier&gt;
+    &lt;clockRegistry type=&quot;sto.ClockRegistry&quot; uuid=&quot;cd7e14db-b3f1-4879-9891-7cf1136f4dfa&quot;&gt;
+      &lt;clocks type=&quot;sto.Timer&quot; uuid=&quot;ce4d1b1d-dead-47eb-be76-bd5d3adff1cc&quot;&gt;
+        &lt;clockTickConstraint&gt;PeriodicWithFixedResolution&lt;/clockTickConstraint&gt;
+        &lt;computedFundamentalDiscretePeriod&gt;.0001&lt;/computedFundamentalDiscretePeriod&gt;
+        &lt;fastestDiscreteRate type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;a546d7b8-ea22-4183-a3f9-84ad794ab79e&quot;/&gt;
+        &lt;isDefaultTimer&gt;true&lt;/isDefaultTimer&gt;
+        &lt;resolution&gt;.0001&lt;/resolution&gt;
+        &lt;timeAdvanceMode&gt;FixedStep&lt;/timeAdvanceMode&gt;
+        &lt;identifier&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/identifier&gt;
+        &lt;rates type=&quot;sto.ContinuousRate&quot; uuid=&quot;31b919d8-7e23-4f7a-9667-8eeb7441b500&quot;&gt;
+          &lt;annotation&gt;Cont&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;description&gt;Continuous&lt;/description&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;163beae5-6601-4c9e-b689-4089dcbf8d36&quot;/&gt;
+        &lt;/rates&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;a546d7b8-ea22-4183-a3f9-84ad794ab79e&quot;&gt;
+          &lt;annotation&gt;D1&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;colorIndex&gt;2&lt;/colorIndex&gt;
+          &lt;description&gt;Discrete 1&lt;/description&gt;
+          &lt;rateIdx&gt;1&lt;/rateIdx&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;64ae2ceb-7657-494b-8a7a-7b7b8bdf7b27&quot;&gt;
+            &lt;period&gt;.0001&lt;/period&gt;
+            &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;4cd19c87-2148-4d4a-aaeb-6d8505548088&quot;&gt;
+          &lt;annotation&gt;D2&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;colorIndex&gt;3&lt;/colorIndex&gt;
+          &lt;description&gt;Discrete 2&lt;/description&gt;
+          &lt;rateIdx&gt;2&lt;/rateIdx&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;2d1a5809-4297-4e6f-aca3-78f9278266dc&quot;&gt;
+            &lt;period&gt;.01&lt;/period&gt;
+            &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;d881a8cc-8b0e-441a-81ed-d24afa1d57d0&quot;&gt;
+          &lt;annotation&gt;D3&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;colorIndex&gt;4&lt;/colorIndex&gt;
+          &lt;description&gt;Discrete 3&lt;/description&gt;
+          &lt;rateIdx&gt;3&lt;/rateIdx&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;02f26e5d-a1a1-4e6a-b6b3-b9bec92cadc5&quot;&gt;
+            &lt;period&gt;.1&lt;/period&gt;
+            &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;8941e8d5-3449-481b-a890-36239ed5d4a9&quot;&gt;
+          &lt;annotation&gt;D4&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;colorIndex&gt;10&lt;/colorIndex&gt;
+          &lt;description&gt;Discrete 4&lt;/description&gt;
+          &lt;rateIdx&gt;4&lt;/rateIdx&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;985e7f42-f993-4724-bdbd-b8ebfe603c26&quot;&gt;
+            &lt;period&gt;5.0&lt;/period&gt;
+            &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;baseRate type=&quot;sto.ContinuousRate&quot; uuid=&quot;9ccbc69f-6378-4d67-8479-1c619c0c0511&quot;&gt;
+          &lt;annotation&gt;Cont&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;description&gt;Continuous&lt;/description&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;9e411a45-c672-4a25-957a-df0c2aa54449&quot;/&gt;
+        &lt;/baseRate&gt;
+      &lt;/clocks&gt;
+      &lt;clocks type=&quot;sto.Event&quot; uuid=&quot;0a2211ae-1465-44c8-bc84-d6bbcf36433a&quot;&gt;
+        &lt;eventType&gt;PARAMETER_CHANGE_EVENT&lt;/eventType&gt;
+        &lt;cNum&gt;1&lt;/cNum&gt;
+        &lt;clockType&gt;Event&lt;/clockType&gt;
+        &lt;identifier&gt;ParameterChangeEvent&lt;/identifier&gt;
+        &lt;rates type=&quot;sto.ModelWideEventRate&quot; uuid=&quot;72903ab8-eb9b-48bd-907f-55107e36590e&quot;&gt;
+          &lt;clockId&gt;ParameterChangeEvent&lt;/clockId&gt;
+          &lt;rateIdx&gt;-1&lt;/rateIdx&gt;
+          &lt;taskId&gt;ModelWideParameterChangeEvent&lt;/taskId&gt;
+          &lt;useForExecution&gt;NotForExecution&lt;/useForExecution&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;372e1232-9b5c-4953-ad7b-953bf72286d7&quot;&gt;
+            &lt;period&gt;inf&lt;/period&gt;
+            &lt;rateType&gt;ModelWideParameterChangeEvent&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+      &lt;/clocks&gt;
+      &lt;timeAdvanceMode&gt;FixedStep&lt;/timeAdvanceMode&gt;
+    &lt;/clockRegistry&gt;
+    &lt;taskRegistry type=&quot;sto.TaskRegistry&quot; uuid=&quot;6f11e0ce-ac92-4dd4-ac6b-4126815374b3&quot;&gt;
+      &lt;rootTaskHierarchyElements type=&quot;sto.Task&quot; uuid=&quot;52fdcdff-7142-4811-ac33-90455fa84abc&quot;&gt;
+        &lt;isExplicit&gt;true&lt;/isExplicit&gt;
+        &lt;rates type=&quot;sto.ModelWideEventRate&quot; uuid=&quot;153c4a00-af97-4fe1-b86d-2bbdbb28eef9&quot;&gt;
+          &lt;clockId&gt;ParameterChangeEvent&lt;/clockId&gt;
+          &lt;rateIdx&gt;-1&lt;/rateIdx&gt;
+          &lt;taskId&gt;ModelWideParameterChangeEvent&lt;/taskId&gt;
+          &lt;useForExecution&gt;NotForExecution&lt;/useForExecution&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;d5fe09ba-fc7b-4fb6-95a7-d787d8870449&quot;&gt;
+            &lt;period&gt;inf&lt;/period&gt;
+            &lt;rateType&gt;ModelWideParameterChangeEvent&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;schedulingClockId&gt;ParameterChangeEvent&lt;/schedulingClockId&gt;
+        &lt;timeKeeperClockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/timeKeeperClockId&gt;
+        &lt;elementType&gt;Task&lt;/elementType&gt;
+        &lt;identifier&gt;ModelWideParameterChangeEvent&lt;/identifier&gt;
+        &lt;priority&gt;-1&lt;/priority&gt;
+      &lt;/rootTaskHierarchyElements&gt;
+      &lt;rootTaskHierarchyElements type=&quot;sto.Task&quot; uuid=&quot;cc11b7a2-b35a-4b27-bedd-18ef0ddee3aa&quot;&gt;
+        &lt;isExecutable&gt;true&lt;/isExecutable&gt;
+        &lt;orderIndex&gt;1&lt;/orderIndex&gt;
+        &lt;rates type=&quot;sto.ContinuousRate&quot; uuid=&quot;3ce23c10-ef1d-4449-8171-6e51fec75a45&quot;&gt;
+          &lt;annotation&gt;Cont&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;description&gt;Continuous&lt;/description&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;2c885e36-bf9f-4c36-b14e-278950e481ee&quot;/&gt;
+        &lt;/rates&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;b5a4d6b8-c480-4138-99cd-1f70e953656a&quot;&gt;
+          &lt;annotation&gt;D1&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;colorIndex&gt;2&lt;/colorIndex&gt;
+          &lt;description&gt;Discrete 1&lt;/description&gt;
+          &lt;rateIdx&gt;1&lt;/rateIdx&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;ebac55a2-574e-46ee-a75f-3938bf37a6df&quot;&gt;
+            &lt;period&gt;.0001&lt;/period&gt;
+            &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;949c009c-0fe0-4a11-8bc1-102934cb8f39&quot;&gt;
+          &lt;annotation&gt;D2&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;colorIndex&gt;3&lt;/colorIndex&gt;
+          &lt;description&gt;Discrete 2&lt;/description&gt;
+          &lt;rateIdx&gt;2&lt;/rateIdx&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;671f6b74-b2ab-4dec-92c6-9685e7b63f38&quot;&gt;
+            &lt;period&gt;.01&lt;/period&gt;
+            &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;09e23f63-427d-45a8-83f7-980ae809f913&quot;&gt;
+          &lt;annotation&gt;D3&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;colorIndex&gt;4&lt;/colorIndex&gt;
+          &lt;description&gt;Discrete 3&lt;/description&gt;
+          &lt;rateIdx&gt;3&lt;/rateIdx&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;7c154111-6c72-4ffe-a1a2-44d53d5440c4&quot;&gt;
+            &lt;period&gt;.1&lt;/period&gt;
+            &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;rates type=&quot;sto.ClassicPeriodicDiscreteRate&quot; uuid=&quot;367c1a93-2e5c-4af3-8293-a2ae6197b140&quot;&gt;
+          &lt;annotation&gt;D4&lt;/annotation&gt;
+          &lt;clockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockId&gt;
+          &lt;colorIndex&gt;10&lt;/colorIndex&gt;
+          &lt;description&gt;Discrete 4&lt;/description&gt;
+          &lt;rateIdx&gt;4&lt;/rateIdx&gt;
+          &lt;taskId&gt;_task0&lt;/taskId&gt;
+          &lt;rateSpec type=&quot;sto.RateSpec&quot; uuid=&quot;f4ee7adf-a887-4fcb-a11e-cd130b95b8e1&quot;&gt;
+            &lt;period&gt;5.0&lt;/period&gt;
+            &lt;rateType&gt;ClassicPeriodicDiscrete&lt;/rateType&gt;
+          &lt;/rateSpec&gt;
+        &lt;/rates&gt;
+        &lt;schedulingClockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/schedulingClockId&gt;
+        &lt;timeKeeperClockId&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/timeKeeperClockId&gt;
+        &lt;elementType&gt;Task&lt;/elementType&gt;
+        &lt;identifier&gt;_task0&lt;/identifier&gt;
+        &lt;priority&gt;40&lt;/priority&gt;
+      &lt;/rootTaskHierarchyElements&gt;
+      &lt;taskDependencyGraph type=&quot;sto.SerializedTaskConnectionList&quot; uuid=&quot;3b054817-8fdb-4af8-92a3-d374829d4d03&quot;&gt;
+        &lt;clockIdentifier&gt;ConfiguredVirtualVehicleModel::defaultTimer&lt;/clockIdentifier&gt;
+        &lt;taskIdentifier&gt;_task0&lt;/taskIdentifier&gt;
+      &lt;/taskDependencyGraph&gt;
+      &lt;taskDependencyGraph type=&quot;sto.SerializedTaskConnectionList&quot; uuid=&quot;887bbc3e-a8fb-4c2d-a6c0-d3e50d3510c8&quot;&gt;
+        &lt;clockIdentifier&gt;ParameterChangeEvent&lt;/clockIdentifier&gt;
+        &lt;taskIdentifier&gt;ModelWideParameterChangeEvent&lt;/taskIdentifier&gt;
+      &lt;/taskDependencyGraph&gt;
+      &lt;taskPriorityDirection&gt;HighNumberLast&lt;/taskPriorityDirection&gt;
+    &lt;/taskRegistry&gt;
+  &lt;/sto.Registry&gt;
+&lt;/slexec_sto&gt;</timingAndTaskingRegistry>
+    <varSigHier>,,</varSigHier>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="59e98248-2b87-410c-b516-4131ab38e7df">
+      <direction>7</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Reset</name>
+      <needsEventNotification>true</needsEventNotification>
+      <needsSolverReset>true</needsSolverReset>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="fd5b58ff-e3d5-41ea-9f4b-f273bc8a7880">
+      <direction>7</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Reset</name>
+      <needsEventNotification>true</needsEventNotification>
+      <needsSolverReset>true</needsSolverReset>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="47fb514b-19b9-4873-abbe-8da132e765b2">
+      <direction>7</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Reset</name>
+      <needsEventNotification>true</needsEventNotification>
+      <needsSolverReset>true</needsSolverReset>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="91bddd1a-a191-4fa8-a579-bc271e2a4224">
+      <direction>7</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Trig</name>
+      <needsEventNotification>true</needsEventNotification>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="2923136a-cfe3-4424-b7be-4e1808b5ee15">
+      <direction>7</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Trig</name>
+      <needsEventNotification>true</needsEventNotification>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="4c880618-9d7d-4cb0-bc04-35e8d654529b">
+      <direction>7</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Trig</name>
+      <needsEventNotification>true</needsEventNotification>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="7c181072-11c9-4e48-8a25-fdac5a71c01f">
+      <direction>63</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Trig</name>
+      <needsEventNotification>true</needsEventNotification>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="3ffcf2f5-a6d9-46e2-9158-4e050ff93f4e">
+      <direction>63</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Trig</name>
+      <needsEventNotification>true</needsEventNotification>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="3622cdf3-263b-4d72-894f-59af5178384e">
+      <direction>63</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Trig</name>
+      <needsEventNotification>true</needsEventNotification>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroCrossingInfo type="ModelRefInfoRepo.ZeroCrossingInfo" uuid="998c1e05-2f1d-4b94-bc49-ed3b61cdd8cd">
+      <direction>63</direction>
+      <isDiscrete>true</isDiscrete>
+      <name>Trig</name>
+      <needsEventNotification>true</needsEventNotification>
+      <tolerance>-1.0</tolerance>
+      <type>1</type>
+      <width>1</width>
+    </zeroCrossingInfo>
+    <zeroInternalMemoryAtStartupUnchecked>true</zeroInternalMemoryAtStartupUnchecked>
+    <FMUBlockMap type="ModelRefInfoRepo.FMUBlockInfo" uuid="29c90ee5-73d8-4820-9ebe-44f9efe204ee"/>
+    <codeGenInfo type="ModelRefInfoRepo.CodeGenInformation" uuid="5eaad5fa-14ec-4d4b-9612-4f1aeaadcce2"/>
+    <compiledVariantInfos type="ModelRefInfoRepo.CompiledVariantInfoMap" uuid="e54c12cf-9910-4b49-abc0-ad67619b92b0">
+      <entries type="ModelRefInfoRepo.CompiledVariantInfo" uuid="9cf26fda-6511-4f18-a03f-56196a201a51">
+        <IsActive>true</IsActive>
+        <modelBlockPath>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/BMS Out</modelBlockPath>
+      </entries>
+      <entries type="ModelRefInfoRepo.CompiledVariantInfo" uuid="6feeaaf7-b4d5-4245-a0b4-4ccc4a415ac7">
+        <IsActive>true</IsActive>
+        <modelBlockPath>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/Balancing Logic</modelBlockPath>
+      </entries>
+      <entries type="ModelRefInfoRepo.CompiledVariantInfo" uuid="299d5df4-c19a-4ce5-a29c-018ed4c05d97">
+        <IsActive>true</IsActive>
+        <modelBlockPath>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/Current Power Limits Calc1</modelBlockPath>
+      </entries>
+      <entries type="ModelRefInfoRepo.CompiledVariantInfo" uuid="7ce1acb7-62a1-473d-a331-369a74ad1cda">
+        <IsActive>true</IsActive>
+        <modelBlockPath>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/SOC Estimation</modelBlockPath>
+      </entries>
+      <entries type="ModelRefInfoRepo.CompiledVariantInfo" uuid="ee8b9f9c-5131-4a7f-b675-af607d279591">
+        <IsActive>true</IsActive>
+        <modelBlockPath>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/State Machine1</modelBlockPath>
+      </entries>
+      <entries type="ModelRefInfoRepo.CompiledVariantInfo" uuid="c3e045c9-5f00-46d1-8ec4-cc99248e97b2">
+        <modelBlockPath>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/Battery Management System</modelBlockPath>
+      </entries>
+      <entries type="ModelRefInfoRepo.CompiledVariantInfo" uuid="a1a6f634-81d0-4a58-8950-92e2d5f68342">
+        <modelBlockPath>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Brake Control Unit (BCU)/Open Loop Braking</modelBlockPath>
+      </entries>
+      <entries type="ModelRefInfoRepo.CompiledVariantInfo" uuid="839d43d6-8df2-4c45-a2b1-f2ed263da179">
+        <modelBlockPath>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Vehicle Control Unit (VCU)/EV 1EM with BMS</modelBlockPath>
+      </entries>
+    </compiledVariantInfos>
+    <configSettingsForConsistencyChecks type="ModelRefInfoRepo.ConfigSettingsForConsistencyChecks" uuid="766be8e9-2196-4bde-ae29-51dc01b46995">
+      <consistentOutportInitialization>true</consistentOutportInitialization>
+      <fixedStepSize>.0001</fixedStepSize>
+      <frameDiagnosticSetting>2</frameDiagnosticSetting>
+      <hasHybridSampleTime>true</hasHybridSampleTime>
+      <signalLoggingSaveFormat>2</signalLoggingSaveFormat>
+      <simSIMDOptimization>1</simSIMDOptimization>
+      <solverName>ode3</solverName>
+      <solverType>SOLVER_TYPE_FIXEDSTEP</solverType>
+      <hardwareSettings type="ModelRefInfoRepo.HardwareSettings" uuid="424505c5-4375-4cfb-8369-530a3b1e0300">
+        <prodBitPerChar>8</prodBitPerChar>
+        <prodBitPerDouble>64</prodBitPerDouble>
+        <prodBitPerFloat>32</prodBitPerFloat>
+        <prodBitPerInt>32</prodBitPerInt>
+        <prodBitPerLong>32</prodBitPerLong>
+        <prodBitPerLongLong>64</prodBitPerLongLong>
+        <prodBitPerPointer>64</prodBitPerPointer>
+        <prodBitPerPtrDiffT>64</prodBitPerPtrDiffT>
+        <prodBitPerShort>16</prodBitPerShort>
+        <prodBitPerSizeT>64</prodBitPerSizeT>
+        <prodEndianess>1</prodEndianess>
+        <prodShiftRight>true</prodShiftRight>
+        <prodWordSize>64</prodWordSize>
+      </hardwareSettings>
+    </configSettingsForConsistencyChecks>
+    <controllableInputRatesMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="655e3ba8-489b-4f0a-af11-9879048344bc"/>
+    <controllableOutputRatesMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="1f852954-184a-43ce-926a-855735fc682c"/>
+    <dataPortGroup type="ModelRefInfoRepo.DataPortGroup" uuid="acb9eb8b-637e-4578-b019-54b116a0a31b">
+      <compDataInputPorts>0</compDataInputPorts>
+      <compDataInputPorts>1</compDataInputPorts>
+      <compDataInputPorts>2</compDataInputPorts>
+      <compDataInputPorts>3</compDataInputPorts>
+      <compDataInputPorts>4</compDataInputPorts>
+      <compDataInputPorts>5</compDataInputPorts>
+      <compDataInputPorts>6</compDataInputPorts>
+      <compDataInputPorts>7</compDataInputPorts>
+      <dataInputPorts>0</dataInputPorts>
+      <dataInputPorts>1</dataInputPorts>
+      <dataInputPorts>2</dataInputPorts>
+      <dataInputPorts>3</dataInputPorts>
+      <dataInputPorts>4</dataInputPorts>
+      <dataInputPorts>5</dataInputPorts>
+      <dataInputPorts>6</dataInputPorts>
+      <dataInputPorts>7</dataInputPorts>
+    </dataPortGroup>
+    <expFcnUnconnectedDataPortGroup type="ModelRefInfoRepo.DataPortGroup" uuid="981ae493-93b2-4c3c-acb3-f7c29ad74f78"/>
+    <interfaceParameterInfo type="ModelRefInfoRepo.InterfaceParameterInfo" uuid="2d9e9ae9-5fb4-4586-822f-e878e933997c">
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="49cbf3ce-cb1a-41e0-9cc2-d65b0dbff34c">
+        <dimensions>1</dimensions>
+        <dimensions>11</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>CtrlVcuEvChrgLmtBpt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="6e3a6ab8-9ae1-4d15-8d7b-c7f4340849c5">
+        <dimensions>1</dimensions>
+        <dimensions>2</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>CtrlVcuEvRegenBrkCutOff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="f931ef52-f8ff-45fa-9726-9cb512916a1c">
+        <dimensions>1</dimensions>
+        <dimensions>2</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>CtrlVcuEvRegenBrkSpdBpt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="e7f92d8f-9380-49aa-a982-395ba505b8f9">
+        <dimensions>1</dimensions>
+        <dimensions>11</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>CtrlVcuEvSocBpt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="2123caa0-c835-4b1d-9c4f-302f846a2a2e">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>EnvAbsPrs</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="d0399cdf-8487-4a27-9b5b-c13e16c55f85">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>EnvAirTemp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="f5b3ec5c-f992-4da8-854c-5595e0e77636">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>EnvGrvty</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="8e687414-0404-4716-9c98-169d718dc227">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>EnvNomFrictionScaling</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="371cd91e-a2cd-4b08-bc01-9ba1f5323420">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>EnvWindVelX</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="29ee109e-2248-48ac-a5d3-038738053dc7">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>EnvWindVelY</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="712d3f15-5029-4724-859e-f3ea26c7325e">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>EnvWindVelZ</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="04c4812d-fff8-4c61-ab1f-b80a9fcdc61f">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattCapInit</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="14afa7fa-c89c-4dc3-b7e8-58047d8440a2">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattChrgMax</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="28675d2d-682d-40b6-809f-9de339025758">
+        <dimensions>7</dimensions>
+        <dimensions>6</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattIntrnRes</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="94b75558-c996-4bd6-a49f-be43ce16f244">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattModNumCellPar</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="4045d2e2-4117-4f6a-b683-b97459255332">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattNumCellPar</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="55a45302-d0f2-427e-804c-3bd5b34d2f60">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattNumCellSer</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="f29742ff-1f06-448b-a6b3-5d5c9c42c045">
+        <dimensions>1</dimensions>
+        <dimensions>101</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattOpenCirctVolt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="84f214e4-fba8-438f-8c28-2ef8b37490e5">
+        <dimensions>1</dimensions>
+        <dimensions>6</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattSocBpt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="b3bae440-7a7e-4488-a012-c709e93b005b">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattSocInit</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="14ddad15-caa3-4a57-ba5f-6f1fe5208951">
+        <dimensions>1</dimensions>
+        <dimensions>7</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattTempBpt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="43edf175-914b-432e-91f5-f2ab888f8cd9">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattTimeCnst</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="5173dc31-cad8-4ee3-a36e-486ba93f0093">
+        <dimensions>1</dimensions>
+        <dimensions>101</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBattVoltSocBpt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="16c43d6b-9f90-468a-a935-86eff863afb0">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBrkFrntBias</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="7ecbaa78-065a-42b6-ba6b-2fccdab38fda">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBrkKinFricCffFrnt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="22b9fb96-99b8-4a76-bfd8-00defaad5c0f">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBrkNumPadsFrnt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="3e41dd39-ec9f-41e1-9951-c12eae095e8e">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBrkPadMeanRadiusFrnt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="6505cce8-1c9a-4a5c-8d31-ce9518b7c6c3">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBrkPrsFctr</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="1f5e714b-e2a8-44d9-babe-f82137d60744">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBrkRearBias</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="104f12e1-ab69-4d13-929e-e4ac2460e35b">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntBrkWc</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="c8652066-f31b-4d4e-9a7f-0fd5a092a4ab">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDCDCEff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="d8e65194-b940-4c6e-81fb-d0a424b59100">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDCDCPwrLmt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="61e46ce0-c10d-4cc1-a085-4a62812d0fd6">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDCDCTimeCnst</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="49366b88-cd78-446d-b490-fbfc1394ab90">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDCDCVoltInit</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="4ba8c397-d6a8-4853-ba70-40ccc38e0a51">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlAxl1Damp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="81a57145-34c6-46b1-9fe2-f3506f1f133d">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlAxl1Inertia</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="ed52b073-874d-4f8b-bca3-a0fce7ce17c0">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlAxl1InitVel</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="3dd787be-1538-495b-93b1-d19205460065">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlAxl2Damp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="290df7cf-fd40-4eb0-82e4-518b32779b8b">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlAxl2Inertia</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="f77ee325-090d-48d4-a172-b1df2a243d65">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlAxl2InitVel</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="9eabca98-62c7-471d-8f15-978d720296ff">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlCarrDamp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="071d4ecf-1fcd-432f-9ca4-d21f14cd776e">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlCarrInertia</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="361a0a24-5738-42e6-8fdf-96942bef2914">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlEff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="0bfbffe2-a7eb-4d45-83e5-3f32369b3453">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDiffrntlRatio</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="9b9edefb-cb21-4da3-bdf8-0e0c331d7e99">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDriveshftDamp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="dc0d90f5-23bb-4efa-915c-e581b9e990fe">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDriveshftDampCutoffFreq</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="0b4fd28d-92dc-4d74-8ec0-740e0130a0f3">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDriveshftInitDeflect</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="17b04882-20e2-4541-be9b-7d7fed36d227">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDriveshftInitVel</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="c7ed84ee-06fe-492d-adfb-291599704d06">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntDriveshftStiff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="9e7d4524-700d-485c-8a31-b7a19a189875">
+        <dimensions>14</dimensions>
+        <dimensions>11</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntEM1EffTbl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="ce6678c3-a76b-46e9-a05e-9ee53ef2484f">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntEM1RotDamp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="7d094904-7be6-4f04-957b-849fd2251a81">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntEM1RotInertia</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="93c173e2-e36f-408d-bd29-b2ec2e3f8770">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntEM1RotInitSpd</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="8e5b9510-34e5-4aee-b6b7-9701104784fd">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntEM1TimeCnst</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="f03b408b-2afa-4f17-8c9c-f4cc6f945665">
+        <dimensions>1</dimensions>
+        <dimensions>14</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntEM1Trq</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="9951c401-e259-4741-a0d0-f86e9e565369">
+        <dimensions>1</dimensions>
+        <dimensions>11</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntEM1TrqEff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="53ca587e-44fb-4794-afca-d671e0111e4d">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCAlgnTrqCambCompl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="f5101be0-512b-4576-9b15-e7e10487ceb2">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCAlgnTrqSteerCompl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="70a9ee01-3177-43f7-b0bb-9a0d7be70b08">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCBumpCamber</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="aeadeff1-dbf8-4b8f-9279-3d8cd644dd60">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCBumpCaster</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="179f15cf-840c-44d3-ada1-4bb2f23230cd">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCBumpSteer</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="c0b99952-d7f2-442e-b389-96379f204be2">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCCambVsSteerAng</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="fbd0afc1-4d7b-4760-9693-da5e9b62e10a">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCCastVsSteerAng</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="d0a71862-9216-4622-82ca-ef2ad5801cfe">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCLatCambCompl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="5eadc452-c5d2-4a59-9d1e-73b337b8903e">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCLatSteerCompl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="11a122f2-c794-4c84-a999-6de4182300ce">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCLatWhlCtrComplLat</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="7f444b66-a6ff-40a8-a806-4ae0f7d84fc6">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCLatWhlCtrDisp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="367c46ea-a83f-489c-aead-c0c7b3050b77">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCLngWhlCtrDisp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="bb9ff306-1391-48a4-a93a-65f27f70ce26">
+        <dimensions>1</dimensions>
+        <dimensions>2</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCMotRatios</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="4f9ac7f6-8d59-4652-9c00-7adc8ce32abf">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCNrmlWhlFrcOff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="ef0360fb-a7e4-4c25-833b-1eb99d32d151">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCNrmlWhlRates</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="44e76f5a-137a-49e1-a1b5-2a954d2bcc34">
+        <dimensions>1</dimensions>
+        <dimensions>2</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCRollStiffArb</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="1462697f-d5dc-43d9-a197-375c6a31fb26">
+        <dimensions>1</dimensions>
+        <dimensions>2</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCRollStiffNoArb</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="2768b023-0000-49ed-838d-64acf54f9911">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCShckFrcVsCompRate</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="2560c384-6278-4acd-8622-77faeda3a28f">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCStatCamber</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="aac18f10-745c-431a-8eb4-44824a820e8e">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCStatCaster</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="8f581ffb-cb68-4bb3-83b2-5e5723eaeab7">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSpKCStatToe</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="88d0c24e-e26a-43ce-9eb4-b25e36f3f652">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerEpsilon</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="a3c20001-4023-4e00-8dd7-fa502d5d3df9">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerHbLead</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="97670e6b-c539-4b2b-b05c-8d8b45992b51">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerKngpnOfst</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="03ba906e-283c-461a-9a7b-d9bdbdb2eaab">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerLambda</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="ecd4b8b9-1faa-45be-b76e-9122528877f3">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerLowerInertia</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="b5cd6b95-d8dd-45d9-95b6-e1b240c4a365">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerPctAck</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="9a6a50c2-e615-46c8-94b6-555c9a37c943">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerPnInert</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="64665027-5680-478e-9526-8196da189455">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerPwrLimit</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="8474a5ab-0603-46c5-890c-057294d15bbb">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerRange</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="e5058f32-1448-4bf7-b438-bd50337c6cf6">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerRatio</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="9ce7c471-fd40-4aa4-809e-d3d044bfa33e">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerRckCsLngth</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="b3331090-ec05-4df5-aebe-676cc7c722ab">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerRckGn</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="5444f776-589f-4d7f-bb8d-98d7f9a2cd21">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerSlgStf</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="97700aa1-66ea-4f64-a9a3-add39e095292">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerStcLdRadius</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="a6adae45-311f-4bee-bcc5-b7c0afd3831f">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerStrgArmLngth</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="a1ff7a77-df37-4865-823a-499d6c6eb70c">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerTieRodLngth</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="1c3cdb22-16f1-49d4-887e-997120fddd6d">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerTorDamp</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="ac632365-4683-4953-aad4-b8c82a81ef8f">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerTorStf</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="2d68ab09-96c2-42ba-85ec-ab225384b6ca">
+        <dimensions>3</dimensions>
+        <dimensions>2</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerTrqAsstTbl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="6e245a21-de1c-4cb1-a023-8bb6aa0eb6f2">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerTrqLimit</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="476671a4-339c-4858-bdef-e1eefac05d38">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerUpperInertia</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="c70c3264-0b67-4c1b-89dd-a1ab287ee541">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerUpprFric</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="31b8d37c-46c9-40ef-97cf-d467ada49672">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerWc</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="8427228b-f9dc-41bd-8f26-001b735fb08c">
+        <dimensions>1</dimensions>
+        <dimensions>3</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntSteerWheelTrqBpt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="9bb3e475-5783-4e37-b0ca-bda9aae11220">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehAeroDragCff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="b565bb7b-9dba-4abb-ae18-dff9144d9d0b">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehAeroFrntArea</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="ad046f31-6829-47cb-be58-1b0686199c03">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehAeroLiftCff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="c712078a-9d18-412b-ada0-939ce78e195b">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehAeroPitchCff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="1ef6dd38-f8e0-42ff-be78-b5a0d3ee9b73">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehCGHgtAxl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="efbe37ad-9d27-49df-b0a8-7a331c152c38">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehDstCGFrntAxl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="5ef04c31-60a1-495c-beb8-0e1403cfc601">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehDstCGRearAxl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="8c48d8f5-d792-4f1b-be36-767818d7553a">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehHtchDst</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="8cc2fd4a-3bae-493e-a261-5c7bf7aa4f1c">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehHtchHgtAxl</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="e6f5e818-30f5-4e40-b69c-97df3f02dcce">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehInitVertPos</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="248dd395-6edf-4afa-b7c6-ec2894f686e3">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehMass</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="ef620470-dffa-4da7-9f6e-bef2f3e27ab7">
+        <dimensions>1</dimensions>
+        <dimensions>2</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntVehTrckWdth</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="bc3c724a-e50e-4273-839f-6b0c8754b350">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlLongSpd</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="1cf73601-02e5-4fa0-b52c-682c99901ab1">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMass</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="aaa3ccef-804f-4272-b538-f1365de0021c">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMaxCmbr</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="f1441b8c-6eaa-49f2-8590-be1c17f3ff02">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMaxFz</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="0cd635ed-f234-43cc-bf58-3c06ddf032aa">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMaxPress</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="642431da-deb9-49e2-9802-a8dc5ee4e9eb">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMaxSlipAngle</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="30ed684c-2553-474c-8c7a-1934cf323611">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMaxSlipRatio</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="a54bd4f6-fe4d-4546-8066-0bf6c24f24a6">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMinCmbr</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="eec09c86-013f-4bef-b551-2b63aac671eb">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMinFz</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="6130a447-aca7-4ddc-8a7c-634329a7e949">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMinPress</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="48d1d25f-53a0-4413-898f-4a22b0e7eb78">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMinSlipAngle</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="59821941-0674-4fb3-974d-be5063bc6e60">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlMinSlipRatio</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="6d18b954-1bc9-4646-b9ea-d34b088b1c20">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlNomNorlForce</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="d949ccf2-625a-4b97-9909-492188c6a13d">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlNomPress</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="879a2d69-0bee-4dec-9c95-7cf375f8ee11">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlPrsFrnt</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="15120034-96b6-4395-ba44-96a5b3d13519">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlPrsRear</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="f23d9a4f-181f-42cf-8e9f-723a2728a71f">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlRimRadius</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="d81ffa5c-be3c-4e7a-a3d7-c410f0717e57">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlUnldRadius</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="58837857-53e1-47c4-a18e-6dcdadbd63d3">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlVelTolLowVel</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="63a3f9ee-3651-4db9-8326-718090a38455">
+        <dimensions>1</dimensions>
+        <dimensions>4</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlVertDampCoeff</parameterName>
+      </globalVariables>
+      <globalVariables type="ModelRefInfoRepo.BuiltinParameter" uuid="b8aa59dd-2dae-44a2-932d-11c98141e4b1">
+        <dimensions>1</dimensions>
+        <dimensions>1</dimensions>
+        <isUsed>true</isUsed>
+        <numDimensions>2</numDimensions>
+        <parameterName>PlntWhlWidth</parameterName>
+      </globalVariables>
+    </interfaceParameterInfo>
+    <messageInfo type="ModelRefInfoRepo.MessageInformation" uuid="58905bfc-0a7c-4665-ac86-9fec4c84a371"/>
+    <methodInfo type="ModelRefInfoRepo.MethodExistenceInfo" uuid="a00b152d-2091-4116-a209-a95ba6cb7337">
+      <hasDerivMethod>true</hasDerivMethod>
+      <hasEnableMethod>true</hasEnableMethod>
+      <hasForcingFunctionMethod>true</hasForcingFunctionMethod>
+      <hasSystemInitializeMethod>true</hasSystemInitializeMethod>
+      <hasSystemResetMethod>true</hasSystemResetMethod>
+      <hasTerminateMethod>true</hasTerminateMethod>
+      <hasUpdateMethod>true</hasUpdateMethod>
+    </methodInfo>
+    <periodicEventPortUnsupportedBlockInfo type="ModelRefInfoRepo.PeriodicEventPortUnsupportedBlockInfo" uuid="0d49acfb-c47a-4b75-bbd2-b7eca9bb6db6">
+      <deterministicRTBs>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/RT</deterministicRTBs>
+      <deterministicRTBs>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/RT1</deterministicRTBs>
+      <deterministicRTBs>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/RT2</deterministicRTBs>
+      <deterministicRTBs>ConfiguredVirtualVehicleModel/AdasPlantModel/Controllers/Battery Management System (BMS)/BMS (non-reference)/RT3</deterministicRTBs>
+      <deterministicRTBs>ConfiguredVirtualVehicleModel/AdasPlantModel/Vehicle/Drivetrain Input/Rate Transition</deterministicRTBs>
+      <deterministicRTBs>ConfiguredVirtualVehicleModel/AdasPlantModel/Vehicle/Drivetrain Input/Rate Transition1</deterministicRTBs>
+      <multiRateBlocks>ConfiguredVirtualVehicleModel/AdasPlantModel/Vehicle/Drivetrain Input/First Order Hold1</multiRateBlocks>
+      <multiRateBlocks>ConfiguredVirtualVehicleModel/AdasPlantModel/Vehicle/Electrical System Input/First Order Hold</multiRateBlocks>
+      <multiRateBlocks>ConfiguredVirtualVehicleModel/AdasPlantModel/Vehicle/Electrical System Input/First Order Hold1</multiRateBlocks>
+      <multiRateBlocks>ConfiguredVirtualVehicleModel/AdasPlantModel/Vehicle/Electrical System Input/First Order Hold2</multiRateBlocks>
+    </periodicEventPortUnsupportedBlockInfo>
+    <portGroupsRequireSameRate type="ModelRefInfoRepo.PortGroupsRequireSameRate" uuid="00c04a83-f345-46d0-966f-53253019022c">
+      <DSMPortGroups type="ModelRefInfoRepo.NameToPortGroupIdxVectMap" uuid="63e28140-2be8-46cc-8cf4-7a3f0afa432e"/>
+      <GlobalDSMPortGroups type="ModelRefInfoRepo.NameToPortGroupIdxVectMap" uuid="9868e962-42a1-45c5-b473-a1fcb6790e1d"/>
+      <mergedPortGroups type="ModelRefInfoRepo.NameToPortGroupIdxVectMap" uuid="549ecad7-bb8c-4824-87a5-138e912c94ef"/>
+    </portGroupsRequireSameRate>
+    <rateBasedMdlGlobalDSMRateSpec type="ModelRefInfoRepo.GlobalDSMRateSpecMap" uuid="5ef220ba-4c1d-4ffc-a14c-661bf16ffc33"/>
+    <rateSpecOfGlobalDSMAccessedByDescExpFcnMdlMap type="ModelRefInfoRepo.GlobalDSMRateSpecMap" uuid="b2c1a3b2-6af4-4541-870b-52f51e9ac221"/>
+    <rootBlockDiagramInterface type="ci.Model" uuid="c49b985a-e1ed-44a4-8376-28fa2952e098">
+      <p_RootComponentInterface type="ci.ComponentInterface" uuid="47b84592-a56d-482b-b1c0-9a85632a54b5">
+        <p_InputPorts type="ci.SignalInterface" uuid="686dd25d-07fc-4254-bb39-a224c8b2f4e0">
+          <p_ComputedNumericDimensions>1.0</p_ComputedNumericDimensions>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_Name>DriverSteerCmd</p_Name>
+        </p_InputPorts>
+        <p_InputPorts type="ci.SignalInterface" uuid="f3492f7e-bc1e-4099-8735-3d0c7a4b72f2">
+          <p_ComputedNumericDimensions>1.0</p_ComputedNumericDimensions>
+          <p_ComputedSampleTime>.0001</p_ComputedSampleTime>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_Name>DriverAccelCmd</p_Name>
+        </p_InputPorts>
+        <p_InputPorts type="ci.SignalInterface" uuid="30d69a4e-fc6d-46ea-9353-d528c18a7d18">
+          <p_ComputedNumericDimensions>1.0</p_ComputedNumericDimensions>
+          <p_ComputedSampleTime>.0001</p_ComputedSampleTime>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_Name>DriverBrakeCmd</p_Name>
+        </p_InputPorts>
+        <p_InputPorts type="ci.SignalInterface" uuid="53411a8a-e1ef-4f30-8248-352f1f33c708">
+          <p_ComputedNumericDimensions>1.0</p_ComputedNumericDimensions>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_Name>DriverGearCmd</p_Name>
+        </p_InputPorts>
+        <p_InputPorts type="ci.SignalInterface" uuid="37151688-c832-4d60-b6f6-48dc8d0317f0">
+          <p_ComputedNumericDimensions>1.0</p_ComputedNumericDimensions>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_Name>AdasEnable</p_Name>
+        </p_InputPorts>
+        <p_InputPorts type="ci.SignalInterface" uuid="d5a57f67-e4d5-434b-9796-ed3b95b47113">
+          <p_ComputedNumericDimensions>1.0</p_ComputedNumericDimensions>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_Name>AdasSteerCmd</p_Name>
+        </p_InputPorts>
+        <p_InputPorts type="ci.SignalInterface" uuid="4d9f7c21-43cf-4072-9386-44bb7a4576ff">
+          <p_ComputedNumericDimensions>1.0</p_ComputedNumericDimensions>
+          <p_ComputedSampleTime>.0001</p_ComputedSampleTime>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_Name>AdasLongTrq</p_Name>
+        </p_InputPorts>
+        <p_InputPorts type="ci.SignalInterface" uuid="011b6a65-cdd0-43f5-ac73-2b765ef4a458">
+          <p_ComputedNumericDimensions>1.0</p_ComputedNumericDimensions>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_ComputedSampleTime>0.0</p_ComputedSampleTime>
+          <p_Name>AdasGearCmd</p_Name>
+        </p_InputPorts>
+        <p_Name>ConfiguredVirtualVehicleModel</p_Name>
+        <p_Type>ROOT</p_Type>
+      </p_RootComponentInterface>
+    </rootBlockDiagramInterface>
+    <simulinkFunctions type="ModelRefInfoRepo.SimulinkFunctions" uuid="a38d154f-3d2c-4d77-b0e7-6d89789fbd17">
+      <compSimulinkFunctionCatalog></compSimulinkFunctionCatalog>
+    </simulinkFunctions>
+    <sltpContext type="sltp.mm.core.Context" uuid="748de467-57ba-4dd4-a1f3-37e2716dd4d1">
+      <globalData type="sltp.mm.core.GlobalData" uuid="d061e695-a82f-4d41-b7b3-8276e3ac69eb">
+        <dataName>portAdasEnable</dataName>
+        <type>RootInport</type>
+      </globalData>
+      <globalData type="sltp.mm.core.GlobalData" uuid="d6e71f99-d701-4e35-9446-71f510e22f28">
+        <dataName>portAdasGearCmd</dataName>
+        <type>RootInport</type>
+      </globalData>
+      <globalData type="sltp.mm.core.GlobalData" uuid="727bd1fb-49d8-4e58-b82f-45a89755430e">
+        <dataName>portAdasLongTrq</dataName>
+        <type>RootInport</type>
+      </globalData>
+      <globalData type="sltp.mm.core.GlobalData" uuid="c9604f6f-f16e-426a-b483-9ef583e6ef3b">
+        <dataName>portAdasSteerCmd</dataName>
+        <type>RootInport</type>
+      </globalData>
+      <globalData type="sltp.mm.core.GlobalData" uuid="3f2eb9cf-15d8-4ee3-8879-fa84649127f4">
+        <dataName>portDriverAccelCmd</dataName>
+        <type>RootInport</type>
+      </globalData>
+      <globalData type="sltp.mm.core.GlobalData" uuid="7e1c5534-10ad-4dfa-aa3f-7df51764f4c5">
+        <dataName>portDriverBrakeCmd</dataName>
+        <type>RootInport</type>
+      </globalData>
+      <globalData type="sltp.mm.core.GlobalData" uuid="a4c9539c-2231-43d5-83f0-1f04a0536246">
+        <dataName>portDriverGearCmd</dataName>
+        <type>RootInport</type>
+      </globalData>
+      <globalData type="sltp.mm.core.GlobalData" uuid="1d2ab673-30f1-4ca3-8664-6fa0ae73d3ad">
+        <dataName>portDriverSteerCmd</dataName>
+        <type>RootInport</type>
+      </globalData>
+      <priorityDirection>HighNumberLast</priorityDirection>
+      <unusedTaskIds>2</unusedTaskIds>
+      <unusedTaskIds>3</unusedTaskIds>
+      <unusedTaskIds>4</unusedTaskIds>
+      <defaultEventBehavior type="sltp.mm.core.EventBehavior" uuid="e7fd9639-9833-44a4-a549-581d8c081b64"/>
+      <editorState type="sltp.mm.core.EditorState" uuid="9b691f05-d2fd-4d36-bbc5-e16056b4a2a6">
+        <isSynchronized>true</isSynchronized>
+        <panelState type="sltp.mm.core.EditorPanelState" uuid="83b64d29-9aaf-41b3-a54c-cbc5765fb1e9"/>
+      </editorState>
+      <rootTask type="sltp.mm.core.Task" uuid="90419b73-a990-4143-918c-474152ad19a2">
+        <context type="sltp.mm.core.Context" uuid="748de467-57ba-4dd4-a1f3-37e2716dd4d1"/>
+        <explicit>false</explicit>
+        <name>Default</name>
+        <priority>-2147483648</priority>
+        <subgraph type="sltp.mm.core.Graph" uuid="8beb6f2d-e30f-43da-9d34-f930480b171f">
+          <tasks type="sltp.mm.core.Task" uuid="9a3f337f-fa1f-461e-97ce-ff6c53834143">
+            <baseTask>true</baseTask>
+            <context type="sltp.mm.core.Context" uuid="748de467-57ba-4dd4-a1f3-37e2716dd4d1"/>
+            <explicit>false</explicit>
+            <id>1</id>
+            <isTimed>true</isTimed>
+            <name>Cont</name>
+            <priority>40</priority>
+            <rates type="sltp.mm.core.Rate" uuid="720061a0-372d-49c4-b12b-ca0d6b180797">
+              <annotation>Cont</annotation>
+              <color>255</color>
+              <hasBlocks>true</hasBlocks>
+              <identifier>Continuous00</identifier>
+              <rateIndex>0</rateIndex>
+              <rateSpec type="sltp.mm.core.RateSpec">
+                <period>0.0</period>
+              </rateSpec>
+              <sti>0</sti>
+            </rates>
+            <rates type="sltp.mm.core.Rate" uuid="5bb236be-2e7c-4756-b01c-1601884a01f0">
+              <annotation>D1</annotation>
+              <color>-436207361</color>
+              <hasBlocks>true</hasBlocks>
+              <rateIndex>1</rateIndex>
+              <rateSpec type="sltp.mm.core.RateSpec">
+                <period>.0001</period>
+              </rateSpec>
+              <sti>1</sti>
+            </rates>
+            <rates type="sltp.mm.core.Rate" uuid="5703b03c-f748-4d04-a647-3ebd5a45c4c3">
+              <annotation>D2</annotation>
+              <color>13697279</color>
+              <hasBlocks>true</hasBlocks>
+              <rateIndex>2</rateIndex>
+              <rateSpec type="sltp.mm.core.RateSpec">
+                <period>.01</period>
+              </rateSpec>
+              <sti>2</sti>
+            </rates>
+            <rates type="sltp.mm.core.Rate" uuid="acee7736-6306-42b4-b910-86c425973b67">
+              <annotation>D3</annotation>
+              <color>52479</color>
+              <hasBlocks>true</hasBlocks>
+              <rateIndex>3</rateIndex>
+              <rateSpec type="sltp.mm.core.RateSpec">
+                <period>.1</period>
+              </rateSpec>
+              <sti>3</sti>
+            </rates>
+            <rates type="sltp.mm.core.Rate" uuid="5322ec55-a960-454e-b0f6-39ca9d12bdf5">
+              <annotation>D4</annotation>
+              <color>1639841023</color>
+              <hasBlocks>true</hasBlocks>
+              <rateIndex>4</rateIndex>
+              <rateSpec type="sltp.mm.core.RateSpec">
+                <period>5.0</period>
+              </rateSpec>
+              <sti>4</sti>
+            </rates>
+          </tasks>
+        </subgraph>
+      </rootTask>
+    </sltpContext>
+    <stateWriterToOwnerMap type="ModelRefInfoRepo.StateWriterInfo" uuid="2a2c2169-0400-4ecc-b7fd-d18c610c1828"/>
+    <stoClientDataRegistry type="sto.ClientDataRegistry" uuid="f35c1e2f-bca7-4c8d-b238-7d3e1c0913e0">
+      <dataSets type="sto.ClientClockNamedDataSet" uuid="fbee97d6-79c2-490c-a79f-73359c3247c0">
+        <tag>sltpEvents</tag>
+      </dataSets>
+      <dataSets type="sto.ClientTaskHierarchyElementNamedDataSet" uuid="908f4483-286c-48a8-8ef1-a2888f01a061">
+        <tag>sltpTaskGroups</tag>
+      </dataSets>
+      <dataSets type="sto.ClientTaskHierarchyElementNamedDataSet" uuid="bd74e1a2-457d-4d8d-884b-91c019316610">
+        <dSet type="ModelRefInfoRepo.SltpTaskData" uuid="c61d1387-f765-40f5-b028-c382587d7007"/>
+        <tSet type="ModelRefInfoRepo.SltpTaskData" uuid="c61d1387-f765-40f5-b028-c382587d7007">
+          <dataName>Cont</dataName>
+          <linkedSet type="sto.ClientTaskHierarchyElementNamedDataSet" uuid="bd74e1a2-457d-4d8d-884b-91c019316610"/>
+          <id type="sto.TaskHierarchyElementId">
+            <clockId>ConfiguredVirtualVehicleModel::defaultTimer</clockId>
+            <id>_task0</id>
+          </id>
+        </tSet>
+        <tag>sltpTasks</tag>
+      </dataSets>
+    </stoClientDataRegistry>
+    <varTsUIDMap type="ModelRefInfoRepo.VarTsUIDMap" uuid="1c0cea49-86db-481c-a14a-bfb0a9afd492"/>
+  </ModelRefInfoRepo.ModelRefInfoRoot>
+</MF0>

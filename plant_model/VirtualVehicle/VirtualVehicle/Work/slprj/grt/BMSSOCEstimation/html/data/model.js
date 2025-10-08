@@ -1,0 +1,1 @@
+var modelInfo = {model:"BMSSOCEstimation"};var modelHierarchy=[{model:"BMSSOCEstimation",relativePath:"_internal.html",parent:"null"},];

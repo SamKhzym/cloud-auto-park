@@ -1,0 +1,1 @@
+var reportPages = [["Summary","BMSCurrPowerLimCalc_survey.html"],["Subsystem Report","BMSCurrPowerLimCalc_subsystems.html"]];

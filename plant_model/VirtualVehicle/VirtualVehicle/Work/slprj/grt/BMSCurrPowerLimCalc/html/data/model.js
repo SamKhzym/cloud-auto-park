@@ -1,0 +1,1 @@
+var modelInfo = {model:"BMSCurrPowerLimCalc"};var modelHierarchy=[{model:"BMSCurrPowerLimCalc",relativePath:"_internal.html",parent:"null"},];
