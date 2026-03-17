@@ -1,0 +1,8 @@
+**/core.**
+
+# latex report ignores
+report/out/**
+**/svg-inkscape/**
+**/build/**
+**/install/**
+**/log/**
