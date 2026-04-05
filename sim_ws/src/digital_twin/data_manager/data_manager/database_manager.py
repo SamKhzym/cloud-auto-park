@@ -83,6 +83,10 @@ class DatabaseManager:
         df = pd.read_sql_query(f"SELECT * FROM veh_data WHERE time >= to_timestamp({time_threshold});", self.connection)
         
         return df
+    
+    def get_veh_data_df_since(self, time_threshold_s):
+        df = pd.read_sql_query(f"SELECT * FROM veh_data WHERE time >= to_timestamp({time_threshold_s});", self.connection)
+        return df
         
 if __name__ == '__main__':
     print('test record insertions...')
@@ -104,6 +108,15 @@ if __name__ == '__main__':
     dm.buffer_odom_data(time.time(), 12.0, 2.0, 200.0, -28.0, 10.0)
     dm.buffer_odom_data(time.time(), 12.0, 2.0, 200.0, -29.0, 10.0)
     dm.write_odom_data()
+    dm.buffer_drive_data(time.time(), 10.0)
+    dm.buffer_drive_data(time.time(), 20.0)
+    dm.buffer_drive_data(time.time(), 30.0)
+    dm.buffer_drive_data(time.time(), 40.0)
+    dm.buffer_drive_data(time.time(), 50.0)
+    dm.buffer_drive_data(time.time(), 60.0)
+    dm.buffer_drive_data(time.time(), 70.0)
+    dm.buffer_drive_data(time.time(), 80.0)
+    dm.write_drive_data()
     df = dm.get_veh_data_df(10.0)
     print(df)
     print('done!')
