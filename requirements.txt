@@ -1,3 +1,7 @@
 numpy
 pandas
 psycopg2
+scipy
+matplotlib
+opencv-python
+pyyaml
