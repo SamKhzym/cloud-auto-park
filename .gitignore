@@ -1,5 +1,6 @@
 **/core.**
 **/*.pkl
+**/__pycache__/**
 
 # latex report ignores
 report/out/**
