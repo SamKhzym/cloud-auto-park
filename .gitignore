@@ -1,4 +1,5 @@
 **/core.**
+**/*.pkl
 
 # latex report ignores
 report/out/**
