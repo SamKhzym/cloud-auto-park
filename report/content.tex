@@ -8,13 +8,15 @@ Once the physical twin is ready to do an automated parking maneuver, which is ge
 
 The intention of the majority of the work is to go towards my Master's thesis, and I would be interested in writing a journal paper on the digital twin system design and fault-tolerant properties of the system.
 
+All code and analysis the author has written for the purposes of this project can be found at the following GitHub link: \url{https://github.com/SamKhzym/cloud-auto-park}.
+
 \section{Scope and requirements}
 
 \subsection{Scope}
 
 The scope of the project will be broken up into a physical twin (the vehicle), and the digital twin (cloud-based application). The physical twin shall be implemented in two domains, simulation and in-vehicle. 
 
-The first domain for the physicial twin is in simulation, where a virtual vehicle model provided by creators of the RoboRacer framework with variable dynamics parameters. The virtual vehicle model shall represent the physical twin and periodically communicate its state to the digital twin while manually driving. The state of the simulated physical twin will consist of its GPS location, speed, yaw rate, acceleration, and steering wheel angle. The digital twin will periodically re-optimize the vehicle parameters on the most recently received vehicle data. Once the auto-park maneuver starts, the simulated vehicle shall send the camera and LiDAR data to the digital twin, which will find the obstacles using SLAM and determine an optimal path for the simulated vehicle to follow with the best vehicle dynamics parameters determined by the parameter optimizer. The simulation will also contain a setting to drop a percentage of incoming packets to the digital twin, to simulate the unreliability of the medium in practical applications.
+The first domain for the physicial twin is in simulation, where a virtual vehicle model provided by creators of the F1TENTH framework with variable dynamics parameters. The virtual vehicle model shall represent the physical twin and periodically communicate its state to the digital twin while manually driving. The state of the simulated physical twin will consist of its GPS location, speed, yaw rate, acceleration, and steering wheel angle. The digital twin will periodically re-optimize the vehicle parameters on the most recently received vehicle data. Once the auto-park maneuver starts, the simulated vehicle shall send the camera and LiDAR data to the digital twin, which will find the obstacles using SLAM and determine an optimal path for the simulated vehicle to follow with the best vehicle dynamics parameters determined by the parameter optimizer. The simulation will also contain a setting to drop a percentage of incoming packets to the digital twin, to simulate the unreliability of the medium in practical applications.
 
 The second domain for the physical twin is in-vehicle, which will use McSCert's Mini M-City one-tenth scale vehicles. The vehicle shall report the same information as the simulated physical twin, with the exception of using a localization technology such as AprilTags to determine the global position of the vehicle in the room in the absence of GPS information.
 
@@ -76,7 +78,7 @@ Figure \ref{fig:arch} shows the high-level architecture of the vehicle (physical
 There are two primary hardware platforms which will be used in this project.
 
 \begin{itemize}
-    \item The physical twin vehicle will be running on the RoboRacer one-tenth scale autonomous vehicle stack. It is equipped with a camera, 2D LiDAR, and IMU sensors. The primary compute unit where the vehicle-level software will be deployed is an NVIDIA Jetson Nano.
+    \item The physical twin vehicle will be running on the F1TENTH one-tenth scale autonomous vehicle stack. It is equipped with a camera, 2D LiDAR, and IMU sensors. The primary compute unit where the vehicle-level software will be deployed is an NVIDIA Jetson Nano.
     \item The digital twin will be running on a server which can be accessed wirelessly. For the purposes of this project, it will be run locally on my machine, but this could be deployed on a cloud provider as well. 
 \end{itemize}
 
@@ -113,7 +115,7 @@ Each software component will be implemented as a ROS2 node (either C++ or Python
 
 \subsection{Deployment plans}
 
-The artifacts for the physcial twin shall be deployed onto the onboard compute unit on the RoboRacer vehicle, the NVIDIA Jetson Orin Nano, and a ROS2 launcher shall manage running all the components together. The components of the digital twin shall run on my laptop and shall also be deployed using the ROS2 launcher.
+The artifacts for the physcial twin shall be deployed onto the onboard compute unit on the F1TENTH vehicle, the NVIDIA Jetson Orin Nano, and a ROS2 launcher shall manage running all the components together. The components of the digital twin shall run on my laptop and shall also be deployed using the ROS2 launcher.
 
 \subsection{Schedule}
 % \id{At least weekly schedule, it can be half-weekly, too.}
@@ -127,11 +129,176 @@ The artifacts for the physcial twin shall be deployed onto the onboard compute u
     \item Mar 22: Submit final report.
 \end{itemize}
 
-% \section{Roles and responsibilities}
+\subsubsection{Addendum for Final Submission}
 
-% \id{Delete this section if you worked alone. When working in a team, team members should contribute to the work equally.}
+This final submission has de-scoped some of the work outlined in the project plans, although the author intends to see the project through to the end after the class is completed. Notably, this includes dropping the deployment on the real physical twin and doing all performance analysis on the simulated digital twin temporarily. Furthermore, the SLAM + Obstacle Detection software component has been de-scoped and currently just reports the ground truth location of the actors without taking into account the simulated LiDAR in the simulation.
 
-% \begin{itemize}
-%     \item \TODO{\textbf{John Doe} contributes the hardware design.}
-%     \item \TODO{...}
-% \end{itemize}
+\section{Detailed Implementation of Software Components}
+
+All code and analysis the author has written for the purposes of this project can be found at the following GitHub link: \url{https://github.com/SamKhzym/cloud-auto-park}.
+
+The simulation platform used to simulate the dynamics of the physical twin and deploy all its relevent ROS2 nodes is the F1TENTH gym environment, which contains a simulated vehicle with a custom vehicle dynamics model (slightly higher fidelity than the one I implement for this project). It also contains a simulated 2D LiDAR, and odometry sensors that would be present on the real physcial twin. It interfaces with other ROS2 components by publishing data to the \verb|/ego_racecar/odom| topic and listening to the \verb|/drive| for speed and steering angle messages. It also publishes its LiDAR scans to the \verb|/scan| topic. It allows for the importing of custom maps which are implemented as single-channel grayscale images, where pixels higher than a specified threshold are treated as barriers that are detected by the simulated LiDAR.
+
+The script \verb|gen_parking_lot_map.py| was created as a configurable helper to generate parking lots of different sizes, with vehicle parked in different orientations and positions within the parking space, allowing for more robust testing suites to be performed when this work is more mature. An example of a common testing environment used for the project with two vehicles parked near the center of two parking spaces is shown in Figure \ref{fig:sim_env}.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/f1tenth_gym_env.png}
+  \caption{F1TENTH Gym Simulation Environment with Custom Parking Lot Map}
+  \label{fig:sim_env}
+\end{figure}
+
+\subsection{Data Collection (Physical Twin)}
+
+The Data Collection component implementation is quite trivial and involves a ROS2 node listening to the \verb|/ego_racecar/odom|, \verb|/drive|, and \verb|/scan| topics, then sending that information to the Data Management node on the digital twin (although this communication has been dropped since all communication interfaces are virtual for the purposes of the final submission). Since it is uncommon for vehicle applications to be working with a world reference frame, as the simulation environment provides, helper functions were written to convert the global x-y coordinates to a pair of GPS coordinates which are more commonly used in vehicle applications for global localization. This was done using the Haversine equations and deriving simplified inverse Haversine equations to go from GPS to global coordinates and vice versa. Note that the origin is an arbitrary initial GPS coordinate pair $(\phi_{ref}, \lambda_{ref})$ used as a reference for all other calculations. For all following equations, $R$ represents the radius of the Earth.
+
+Core Haversine Equation:
+
+\begin{equation}
+    d_{hav}(\phi_1, \lambda_1, \phi_2, \lambda_2) = 2R \arcsin\left(\sqrt{\sin^2\left(\frac{\phi_2 - \phi_1}{2}\right) + \cos(\phi_1)\cos(\phi_2)\sin^2\left(\frac{\lambda_2 - \lambda_1}{2}\right)}\right)
+\end{equation}
+
+Signed Haversine Equations (Conversion from GPS to Cartesian Coordinates):
+
+\begin{equation}
+\begin{aligned}
+\Delta m_{lat} &= \operatorname{sgn}(\phi_{new} - \phi_{ref}) \cdot d_{hav}(\phi_{ref}, \lambda_{ref}, \phi_{new}, \lambda_{ref}) \\
+\Delta m_{long} &= \operatorname{sgn}(\lambda_{new} - \lambda_{ref}) \cdot d_{hav}(\phi_{ref}, \lambda_{ref}, \phi_{ref}, \lambda_{new}) \\
+x_{ego} &= \Delta m_{long} \sin(\theta) + \Delta m_{lat} \cos(\theta) \\
+y_{ego} &= -(\Delta m_{long} \cos(\theta)) + \Delta m_{lat} \sin(\theta) \\
+\end{aligned}
+\end{equation}
+
+Inverse Haversine Equations (conversion from Cartesian to GPS Coordinates):
+\begin{equation}
+\begin{aligned}
+\phi &= \frac{x_{ego}}{R} + \phi_{ref}\\
+\lambda &= 2 \arcsin \left( \frac{\sin\left(\frac{-y_{ego}}{2R}\right)}{\cos(\phi_{ref})} \right) + \lambda_{ref}
+\end{aligned}
+\end{equation}
+
+\subsection{Data Management (Digital Twin)}
+
+The Data Management component recevies all sensor data and constantly pushes them to a PostgreSQL database called \verb|veh_data| for later lookup. This database has fields for time, speed, yaw rate, road wheel angles, GPS latitudes, longitudes, and headings. This is shown in Figure \ref{fig:data_manager}. Because of the TimescaleDB extension, pushing and retrieving timeseries data is very efficient, allowing for the handling of odometer data coming in at roughly 200 Hz. This is also accomplished by using a buffering system and only pushing to the database once enough entries have been collected. This leaves room for potential data loss if terminated early, but allows for much more efficient batch writes. Helper functions were also written to filter the vehicle data by date and interpolate where no data was received, allowing for more complex data analysis to be done. These database utils are implemented in \verb|database_manager.py|.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{img/data_manager.png}
+  \caption{PostgreSQL Database for Incoming Vehicle Data}
+  \label{fig:data_manager}
+\end{figure}
+
+\subsection{Manual Vehicle Controller (Physical Twin)}
+
+There are two distinct ROS2 nodes which allow for the manual control of the simulated physical twin. The first is the provided \verb|teleop_twist_keyboard| ROS2 component which allows the user to press keyboard buttons to control the speed and steering angle of the physical twin. This provides helpful for exploratory, unstructured testing. The second implementation is a custom \verb|manual_controller| node which causes the vehicle to drive in a swept sine pattern (both in the speed and steering domains). This allows for a rich amount of more structured data which allows exposure to many different combinations of speed and steering and can be used in data processing and optimization sweeps. An example of the vehicle's path with this script is shown in Figure \ref{fig:example_path}.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{img/manual_controlled_path.png}
+  \caption{Path of Manually Controlled Physical Twin}
+  \label{fig:example_path}
+\end{figure}
+
+\subsection{Vehicle Parameter Optimizer (Digital Twin)}
+
+The Vehicle Parameter Optimizer component currently is not fully set up as a ROS2 node, but the core implementation exists in a Jupyter notebook called \verb|process_driving_data.ipynb|. The core function of this component, and one of the major premises of including a cloud-based digital twin to this particular application, is that it allows the controller to be adaptable to changes in the system (mass or tire changes, etc.) long after the original software calibration set had been deployed.
+
+The mathematical model used to simulate vehicle plant model dynamics for many model-based controllers is called the dynamic vehicle bicycle model, which treats each axle of the vehicle as an individual wheel. For accurate system modeling, this model relies on six vehicle parameters. These are the distances from the front and rear axles to the center of gravity ($l_f$, $l_r$), the front and rear tire cornering stiffnesses ($C_f$, $C_r$), the mass ($m$), and the moment of inertia about the vertical axis ($I_z$). The state update equation is shown in Equation \ref{eq:vbm}, with the lateral velocity ($v_y$) and yaw rate ($\omega$) being the state variables, and the vehicle's road wheel angle ($\delta$) as the input variable. The vehicle speed is assumed to be known from a different source and incorporated in the $A$ matrix as $v_x$. This is integrated forward by using the Forward Euler method, shown in equation \ref{eq:forward_euler}.
+
+\begin{equation}
+\label{eq:vbm}
+\underbrace{
+\begin{bmatrix} \dot{v_y} \\ \dot{\omega} \end{bmatrix}
+}_\mathbf{\dot{x}} =
+\underbrace{
+\left[ \begin{smallmatrix}
+-\frac{C_f + C_r}{m v_x} & \frac{l_r C_r - l_f C_f}{m v_x} - v_x \\
+\frac{l_r C_r - l_f C_f}{I_z v_x} & -\frac{l_f^2 C_f + l_r^2 C_r}{I_z v_x}
+\end{smallmatrix} \right]}_A
+\underbrace{
+\begin{bmatrix} v_y \\ \omega \end{bmatrix}}_\mathbf{x} +
+\underbrace{
+\begin{bmatrix} \frac{C_f}{m} \\ \frac{l_f C_f}{I_z} \end{bmatrix}
+}_B
+\delta
+\end{equation}
+\begin{equation}
+\label{eq:forward_euler}
+\mathbf{x}_{k+1} = \mathbf{\dot{x}}_k \cdot \Delta t + \mathbf{x}_k
+\end{equation}
+
+The global vehicle pose can also be tracked using the state variables from the bicycle model and integrated using the Forward Euler method, shown in Equation \ref{eq:pose_update}.
+\begin{equation}
+\label{eq:pose_update}
+\begin{bmatrix} 
+\dot{x} \\ \dot{y} \\ \dot{\psi}
+\end{bmatrix} = 
+\begin{bmatrix} 
+\cos\psi & -\sin\psi & 0\\ 
+\sin\psi & \cos\psi & 0\\
+0 & 0 & 1\\
+\end{bmatrix}
+\begin{bmatrix} 
+v_x \\ v_y \\ \omega
+\end{bmatrix}
+\end{equation}
+
+While the axle locations are unlikely to ever change, the mass ditribution and tire dynamics could change if the driver decides to replace the tires, or if they are carrying something heavy that throws off the original distribution estimate. While these parameters may not deviate much from the original parameter set immediately, it is likely that the lifetime of a normal vehicle will cause enough parameter drift due to maintenance and repair will cause the accuracy of these parameters to drift, thus degrading model-based controller performance.
+
+An online estimator for these parameters was created by taking a manual driving log over a sufficiently long period (1-2 minutes), and optimizing the $C_f, C_r, m, I_z$ parameters to achieve the closest performance between predicted and measured variables over the yaw rate and vehicle path of the driving data. Two distinct root mean square error (RMSE) terms are used as metrics. The $\lambda_\omega$ and $\lambda_{path}$ hyperparameters control which term is more influential in the cost function.
+
+\begin{equation}
+\label{rmse_omega}
+RMSE_{\omega} = \sqrt{\frac{1}{N} \sum_{i=1}^N (\omega_{i} - \hat{\omega_{i}})^2}\\
+\end{equation}
+\begin{equation}
+\label{rmse_path}
+RMSE_{path} = \sqrt{\frac{1}{N} \sum_{i=1}^N (x_{i} - \hat{x_{i}})^2 + (y_{i} - \hat{y_{i}})^2}\\
+\end{equation}
+\begin{equation}
+\label{cornering_stiffness_cost_function}
+C_f^{\star}, C_r^{\star}, m^\star, I_z^\star = \underset{C_f, C_r, m, I_z}{\mathrm{argmin}} (\lambda_{\omega} \cdot RMSE_{\omega} + \lambda_{path} \cdot RMSE_{path})\\
+\end{equation}
+
+This optimization was only performed once for the purposes of this project, but a future version of this project should have it running periodically on more recent driving data to consistently update the parameters.
+
+\subsection{SLAM + Obstacle Detection (Digital Twin)}
+
+As mentioned in the addendum, this component has been de-scoped and does not perform any SLAM or obstacle detection yet. In the current iteration of the project, it just reports the ground truth centroids and orientations of the vehicles in the environment to the \verb|/actors| topic to allow the planning and controls modules to perform the auto-park maneuver.
+
+In future work, this component would receive data from the physical twin and perform SLAM and obstacle detection in the cloud to allow for less onboard compute and memory required on the physical twin.
+
+\subsection{Auto-Park Trajectory Planner (Digital Twin)}
+
+The Auto-Park Trajectory Planner component receives the obstacle map from the obstacle detection component. In its current iteration, it calculates the desired pose of the parking vehicle to be in-between two existing parked vehicles, although there should be additional work to this component to determine the best desired pose given the free space of the environment. It then uses the vehicle's immediate state as the reference pose, and constructs a cubic spline with control points placed in geometrically pre-determined locations to try and minimize sharp turns during the parking maneuver. An example of the control point selection and path generation is shown in Figure \ref{fig:traj_gen}.
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{img/traj_gen.png}
+  \caption{Generated Cubic Spline Trajectory with Control Points}
+  \label{fig:traj_gen}
+\end{figure}
+
+The trajectory generation is done assuming a constant speed, and with the final trajectory quantized such that each control point corresponds to the desired vehicle pose at each controller step. It is also currently optimized for perpendicular parking and does not work well on angled or parallel parking, which will be the exploration of future work as well. The implementation uses the \verb|splprep| and \verb|splev| implementations from \verb|scipy|, which is convenient as it also allows to return the curvature of the path at every point.
+
+This component is structured as a ROS2 service (\verb|cloud_auto_park_srv.py|), which the client (physical twin) can call by providing the desired final vehicle pose (to be removed in a future version and replaced with outputs of the obstacle detector), the desired vehicle speed, and the controller sample rate. Once the trajectory generation is complete, it is packed as a \verb|Trajectory| custom message as a list of points with an x-position, y-position, and curvature, and sent along with the optimal vehicle bicycle parameters back to the physical twin, implemented as the \verb|BicycleModelParams| message.
+
+\subsection{Auto-Park Vehicle Controller (Physical Twin)}
+
+The Auto-Park Vehicle Controller receives the optimal vehicle bicycle model parameters and the desired trajectory from the digital twin, and uses a model-predictive controller (MPC) to determine the control actions for the physical twin. This involves solving an online optimization problem over a control horizon $N_p$ to determine the optimal series of control actions $\delta_{1}$ to $\delta_{N_p}$ with respect to a cost function $J(\delta_1, \dots, \delta_{N_p})$. Regularization was also added to prevent the optimizer from saturating to the input bounds in more complex environments. The first control input $\delta_1$ is then used as the command. The cost function used for this controller is purely position-based, taking the RMSE of vehicle path as the optimzation objective, as shown in Equation \ref{eq:mpc_cost_func}. 
+
+\begin{equation}
+\label{eq:mpc_cost_func}
+\begin{aligned}
+\delta_1^{\star}, \dots, \delta_{N_p}^{\star} &= \underset{\delta_1, \dots, \delta_{N_p}}{\mathrm{argmin}} (RMSE_{path} + \lambda \cdot || \mathbf{\delta} ||_2)\\
+&\text{s.t.} |\delta_i| \leq \delta_{\max} 
+\end{aligned}
+\end{equation}
+
+The \verb|scipy.optimize.minimize| function was used with the SLSQP option for least squares optimization, allowing for relatively fast convergence for an online optimizer. The control horizon length $N_p$ is a hyperparameter which was tuned to allow for quick convergence time while maintaining sufficient performance. The implementation of this component is in \verb|mpc.py| and the ROS2 client which calls the trajectory planner service is implemented in \verb|parking_controller.py|.
+
+\section{Results}
+
+\subsection{Online Parameter Optimizer}
+
+So much writing...
