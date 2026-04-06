@@ -16,11 +16,11 @@ All code and analysis the author has written for the purposes of this project ca
 
 The scope of the project will be broken up into a physical twin (the vehicle), and the digital twin (cloud-based application). The physical twin shall be implemented in two domains, simulation and in-vehicle. 
 
-The first domain for the physicial twin is in simulation, where a virtual vehicle model provided by creators of the F1TENTH framework with variable dynamics parameters. The virtual vehicle model shall represent the physical twin and periodically communicate its state to the digital twin while manually driving. The state of the simulated physical twin will consist of its GPS location, speed, yaw rate, acceleration, and steering wheel angle. The digital twin will periodically re-optimize the vehicle parameters on the most recently received vehicle data. Once the auto-park maneuver starts, the simulated vehicle shall send the camera and LiDAR data to the digital twin, which will find the obstacles using SLAM and determine an optimal path for the simulated vehicle to follow with the best vehicle dynamics parameters determined by the parameter optimizer. The simulation will also contain a setting to drop a percentage of incoming packets to the digital twin, to simulate the unreliability of the medium in practical applications.
+The first domain for the physical twin is in simulation, where a virtual vehicle model provided by creators of the F1TENTH framework with variable dynamics parameters. The virtual vehicle model shall represent the physical twin and periodically communicate its state to the digital twin while manually driving. The state of the simulated physical twin will consist of its GPS location, speed, yaw rate, acceleration, and steering wheel angle. The digital twin will periodically re-optimize the vehicle parameters on the most recently received vehicle data. Once the auto-park maneuver starts, the simulated vehicle shall send the camera and LiDAR data to the digital twin, which will find the obstacles using SLAM and determine an optimal path for the simulated vehicle to follow with the best vehicle dynamics parameters determined by the parameter optimizer. The simulation will also contain a setting to drop a percentage of incoming packets to the digital twin, to simulate the unreliability of the medium in practical applications.
 
 The second domain for the physical twin is in-vehicle, which will use McSCert's Mini M-City one-tenth scale vehicles. The vehicle shall report the same information as the simulated physical twin, with the exception of using a localization technology such as AprilTags to determine the global position of the vehicle in the room in the absence of GPS information.
 
-The digital twin shall run on a server which will receive the periodic information from the digital twin, and periodically solve an optimization problem to update the vehicle dynamics parameters. It shall use a timeseries database to store and retreive previous dynamics information as well. During the parking maneuver, the digital twin shall receive the LiDAR and camera data from the physical twin (either real or simulated), run a path planning algorithm to determine the trajectory to follow, then transmit the path to follow and the vehicle parameters to the physical twin for it to execute the commands to follow the trajectory with its own controller.
+The digital twin shall run on a server which will receive the periodic information from the digital twin, and periodically solve an optimization problem to update the vehicle dynamics parameters. It shall use a timeseries database to store and retrieve previous dynamics information as well. During the parking maneuver, the digital twin shall receive the LiDAR and camera data from the physical twin (either real or simulated), run a path planning algorithm to determine the trajectory to follow, then transmit the path to follow and the vehicle parameters to the physical twin for it to execute the commands to follow the trajectory with its own controller.
 
 \subsection{Requirements}
 
@@ -123,7 +123,7 @@ The artifacts for the physcial twin shall be deployed onto the onboard compute u
 \begin{itemize}
     \item Week of Feb 15: Begin implementation of Data Collection, Manual Controller, and Auto-Park Vehicle Controller. Begin setup of simulated physical twin and interfaces between physical twin and digital twin.
     \item Week of Feb 22: Begin setup of TimescaleDB database, Data Management component, and vehicle parameter optimizer. Perform experiements with simulated vehicle to see if optimizer is able to effectively detect changes in vehicle parameters.
-    \item Week of Mar 1: Begin development of SLAM and obstacle detection algorithm with simulated vehicle. Test with virutalized obstacles.
+    \item Week of Mar 1: Begin development of SLAM and obstacle detection algorithm with simulated vehicle. Test with virtualized obstacles.
     \item Week of Mar 8: Begin development of Auto-Park Trajectory Planner, test end to end auto-park stack in simulation.
     \item Week of Mar 15: Transition to deploying the software onto the real physical twin in the McSCert lab. Begin final report writeup.
     \item Mar 22: Submit final report.
@@ -137,7 +137,7 @@ This final submission has de-scoped some of the work outlined in the project pla
 
 All code and analysis the author has written for the purposes of this project can be found at the following GitHub link: \url{https://github.com/SamKhzym/cloud-auto-park}.
 
-The simulation platform used to simulate the dynamics of the physical twin and deploy all its relevent ROS2 nodes is the F1TENTH gym environment, which contains a simulated vehicle with a custom vehicle dynamics model (slightly higher fidelity than the one I implement for this project). It also contains a simulated 2D LiDAR, and odometry sensors that would be present on the real physcial twin. It interfaces with other ROS2 components by publishing data to the \verb|/ego_racecar/odom| topic and listening to the \verb|/drive| for speed and steering angle messages. It also publishes its LiDAR scans to the \verb|/scan| topic. It allows for the importing of custom maps which are implemented as single-channel grayscale images, where pixels higher than a specified threshold are treated as barriers that are detected by the simulated LiDAR.
+The simulation platform used to simulate the dynamics of the physical twin and deploy all its relevant ROS2 nodes is the F1TENTH gym environment, which contains a simulated vehicle with a custom vehicle dynamics model (slightly higher fidelity than the one I implement for this project). It also contains a simulated 2D LiDAR, and odometry sensors that would be present on the real physical twin. It interfaces with other ROS2 components by publishing data to the \verb|/ego_racecar/odom| topic and listening to the \verb|/drive| for speed and steering angle messages. It also publishes its LiDAR scans to the \verb|/scan| topic. It allows for the importing of custom maps which are implemented as single-channel grayscale images, where pixels higher than a specified threshold are treated as barriers that are detected by the simulated LiDAR.
 
 The script \verb|gen_parking_lot_map.py| was created as a configurable helper to generate parking lots of different sizes, with vehicle parked in different orientations and positions within the parking space, allowing for more robust testing suites to be performed when this work is more mature. An example of a common testing environment used for the project with two vehicles parked near the center of two parking spaces is shown in Figure \ref{fig:sim_env}.
 
@@ -243,7 +243,7 @@ v_x \\ v_y \\ \omega
 \end{bmatrix}
 \end{equation}
 
-While the axle locations are unlikely to ever change, the mass ditribution and tire dynamics could change if the driver decides to replace the tires, or if they are carrying something heavy that throws off the original distribution estimate. While these parameters may not deviate much from the original parameter set immediately, it is likely that the lifetime of a normal vehicle will cause enough parameter drift due to maintenance and repair will cause the accuracy of these parameters to drift, thus degrading model-based controller performance.
+While the axle locations are unlikely to ever change, the mass distribution and tire dynamics could change if the driver decides to replace the tires, or if they are carrying something heavy that throws off the original distribution estimate. While these parameters may not deviate much from the original parameter set immediately, it is likely that the lifetime of a normal vehicle will cause enough parameter drift due to maintenance and repair will cause the accuracy of these parameters to drift, thus degrading model-based controller performance.
 
 An online estimator for these parameters was created by taking a manual driving log over a sufficiently long period (1-2 minutes), and optimizing the $C_f, C_r, m, I_z$ parameters to achieve the closest performance between predicted and measured variables over the yaw rate and vehicle path of the driving data. Two distinct root mean square error (RMSE) terms are used as metrics. The $\lambda_\omega$ and $\lambda_{path}$ hyperparameters control which term is more influential in the cost function.
 
@@ -285,7 +285,7 @@ This component is structured as a ROS2 service (\verb|cloud_auto_park_srv.py|), 
 
 \subsection{Auto-Park Vehicle Controller (Physical Twin)}
 
-The Auto-Park Vehicle Controller receives the optimal vehicle bicycle model parameters and the desired trajectory from the digital twin, and uses a model-predictive controller (MPC) to determine the control actions for the physical twin. This involves solving an online optimization problem over a control horizon $N_p$ to determine the optimal series of control actions $\delta_{1}$ to $\delta_{N_p}$ with respect to a cost function $J(\delta_1, \dots, \delta_{N_p})$. Regularization was also added to prevent the optimizer from saturating to the input bounds in more complex environments. The first control input $\delta_1$ is then used as the command. The cost function used for this controller is purely position-based, taking the RMSE of vehicle path as the optimzation objective, as shown in Equation \ref{eq:mpc_cost_func}. 
+The Auto-Park Vehicle Controller receives the optimal vehicle bicycle model parameters and the desired trajectory from the digital twin, and uses a model-predictive controller (MPC) to determine the control actions for the physical twin. This involves solving an online optimization problem over a control horizon $N_p$ to determine the optimal series of control actions $\delta_{1}$ to $\delta_{N_p}$ with respect to a cost function $J(\delta_1, \dots, \delta_{N_p})$. Regularization was also added to prevent the optimizer from saturating to the input bounds in more complex environments. The first control input $\delta_1$ is then used as the command. The cost function used for this controller is purely position-based, taking the RMSE of vehicle path as the optimization objective, as shown in Equation \ref{eq:mpc_cost_func}. 
 
 \begin{equation}
 \label{eq:mpc_cost_func}
@@ -301,4 +301,75 @@ The \verb|scipy.optimize.minimize| function was used with the SLSQP option for l
 
 \subsection{Online Parameter Optimizer}
 
-So much writing...
+To start, an initial guess for vehicle bicycle model parameters was applied to a manual driving log. A note is that this simulation environment seems to provide weird artifacting in the yaw rate data that becomes exaggerated with higher speed. This does not seem to affect the results much, but is something to keep in mind for model inaccuracies.
+
+The initial (unoptimized) vehicle parameter results (vehicle path and yaw rate) are shown in Figure \ref{fig:unoptimized_params}, with an $RMSE_{path}$ of 0.639 m and an $RMSE_{\omega}$ of 0.0274 rad/s. The predicted path noticeably deviates substantially from the actual path, and the peaks of the yaw rate curve are larger in the actual vehicle data. The parameter optimizer ran for about 30 seconds over an 80 second driving log, and the final results are visibly much better as shown in Figure \ref{fig:optimized_params}, with an $RMSE_{path}$ of 0.116 m and an $RMSE_{\omega}$ of 0.0228 rad/s. This technique seems to be effective to find optimal vehicle parameters and relatively computationally efficient considering how infrequently it would be run.
+
+\begin{figure}%
+    \centering
+    \subfloat[\centering Vehicle Path Comparison]{{\includegraphics[width=4.5cm]{img/unoptimized_path.png} }}%
+    \qquad
+    \subfloat[\centering Yaw Rate Comparison]{{\includegraphics[width=10.5cm]{img/unoptimized_yaw_rate.png} }}%
+    \caption{Unoptimized Vehicle Parameter State Integration Comparisons}%
+    \label{fig:unoptimized_params}%
+\end{figure}
+
+\begin{figure}%
+    \centering
+    \subfloat[\centering Vehicle Path Comparison]{{\includegraphics[width=4.5cm]{img/optimized_path.png} }}%
+    \qquad
+    \subfloat[\centering Yaw Rate Comparison]{{\includegraphics[width=10.5cm]{img/optimized_yaw_rate.png} }}%
+    \caption{Optimized Vehicle Parameter State Integration Comparisons}%
+    \label{fig:optimized_params}%
+\end{figure}
+
+\subsection{Trajectory Generator}
+
+The trajectory generation technique used is rather simple, placing control points at geometrically "well-behaved" locations. These locations are heuristically picked, but they generally produce paths that have relatively low maximum absolute curvatures. This is desirable to avoid large changes in vehicle dynamics which generally perform worse with the MPC, and also avoids the possibility that the generated path is infeasible given the minimum turning radius of the vehicle.
+
+Figure \ref{fig:generated_path} shows three examples of perpendicular parking trajectories, with the green points representing the control points of the cubic spline, and the color corresponding to the curvature. In general, these results are good, with maximum curvature rarely going above 1 m$^{-1}$. However, these paths do not generalize to other types of parking, and the rules used to place the control points cause highly suboptimal results if the desired pose is too close to the initial pose. To obtain better results in future work that are more generalizable for different kinds of paths, an optimization sweep could be performed at this stage of the problem to try to minimize the path's maximum absolute curvature, thus corresponding to potentially better performance of the final performance. This also could help with if there are additional obstacles in the original path, allowing the control points to move around any obstacles.
+
+\begin{figure}%
+    \centering
+    \subfloat[\centering Desired Pose = (5, -3.1)]{{\includegraphics[width=4.5cm]{img/desired_path_1.png} }}%
+    \qquad
+    \subfloat[\centering Desired Pose = (20, -2.1)]{{\includegraphics[width=4.5cm]{img/desired_path_2.png} }}%
+    \qquad
+    \subfloat[\centering Desired Pose = (10, 2)]{{\includegraphics[width=4.5cm]{img/desired_path_3.png} }}%
+    \caption{Trajectory Generation Examples for Different Desired Poses}%
+    \label{fig:generated_path}%
+\end{figure}
+
+\subsection{MPC Performance}
+
+The MPC was tested on several desired poses with a horizon of 10 timesteps. Overall, the performance was very good, almost never deviating significantly from the paths under test, as shown in Figure \ref{fig:mpc_perf}. However, there are a few issues with the current controller performance. The first are occasional oscillations in the traveled path, potentially due to few suboptimal optimization results for that segment. Furthermore, looking at the road wheel angle commands over time in Figure \ref{fig:mpc_rwa}, there seem to be several small spikes in the output and larger peaks where the MPC saturates to the last value. This road wheel angle command high rate of change is not good in practical systems, so needs to be mitigated in future iterations of this work. This is a very promising base to start with, though.
+
+\begin{figure}%
+    \centering
+    \subfloat[\centering Desired Pose = (5, -3.1)]{{\includegraphics[width=4.5cm]{img/mpc_results_1.png} }}%
+    \qquad
+    \subfloat[\centering Desired Pose = (20, -2.1)]{{\includegraphics[width=4.5cm]{img/mpc_results_2.png} }}%
+    \qquad
+    \subfloat[\centering Desired Pose = (10, 2)]{{\includegraphics[width=4.5cm]{img/mpc_results_3.png} }}%
+    \caption{MPC Controller Evaluation on Different Desired Poses}%
+    \label{fig:mpc_perf}%
+\end{figure}
+
+\begin{figure}%
+    \centering
+    \includegraphics[width=15cm]{img/mpc_rwa_1.png} %
+    \caption{MPC Controller Evaluation on Different Desired Poses}%
+    \label{fig:mpc_rwa}%
+\end{figure}
+
+\section{Discussion and Future Work}
+
+Overall, I think this project was much larger than I initially anticipated, with many independent systems which have their own areas where they can be improved and optimized. However, given the complexity of the system, I am satisfied with the work that's been presented as an initial baseline and flexible framework to further improve and scale the systems presented in this project.
+
+The vehicle parameter optimizer generally seems to be effective in improving vehicle dynamic modeling, but further consideration needs to be taken as to how often to run the optimizer and when to trust the results. For example, if the optimized results are still very poor, it could be indicative of an issue with the vehicle that is not accounted for in the bicycle model, and there should be a way for the system to avoid doing the parameter update and disallow the feature altogether. Furthermore, I would like to analyze how effective these optimization techniques are with slightly more sparse data (lower frequency and/or data drops).
+
+The trajectory generator seems to perform well in a limited set of trial examples, and it is convenient to work with since it easily provides the curvature of the path, which is good to calculate "warm start" inputs for the MPC optimizer. However, it performs quite poorly on certain final poses and does not consider any obstacles in the path. I think an optimization sweep on the control points to minimize maximum absolute curvature and get as far away from obstacles as possible would be beneficial in the overall performance and potentially may scale to other parking types.
+
+The MPC performs very well in the majority of cases, purely in terms of following the path. However, there is a lot of turbulence in the road wheel angle command, which may be due to occasional poor optimization convergence. An additional term in the cost function to penalize rate of change of the inputs may help with dealing with these oscillations. Adding RMSE of yaw rate over the horizon to the cost function as well might help the optimizer converge more easily and avoid these poorly-performing regions.
+
+Finally, of course, I would like to see if this whole system will work on the physical units on the real physical twins, and what affects, if any, latency would have on the results. I think the appealing component of this digital twin application in the automotive is that the latency is generally tolerable since the vehicle is not moving while the calculation is happening in the server. Since many automotive control tasks often require very tight deadlines and reliability which cannot be provided in a wireless medium, this is a unique application which lends itself well to distributed computing while still allowing for a more solid argument on system safety. Even if the control tasks are hard to generalize to other online control tasks that are more safety-critical, I do believe this online parameter estimation technique would be effective for a large family of algorithms which require accurate vehicle parameters, and thus vehicle data monitoring over a long time horizon as the vehicle changes and ages over time.
