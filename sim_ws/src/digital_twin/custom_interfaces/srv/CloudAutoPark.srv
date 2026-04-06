@@ -1,0 +1,6 @@
+Pose finalpose
+float64 sampletime
+float64 speed
+---
+BicycleModelParams params
+Trajectory traj

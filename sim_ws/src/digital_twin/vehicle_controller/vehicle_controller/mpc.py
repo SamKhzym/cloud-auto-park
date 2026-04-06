@@ -7,6 +7,8 @@ from scipy import interpolate
 from copy import deepcopy
 from scipy.optimize import minimize
 
+CONTROLLER_SAMPLETIME_S = 0.02
+
 @dataclass
 class VehicleBicycleModelParams:
     cf_Nprad: float = 0.0

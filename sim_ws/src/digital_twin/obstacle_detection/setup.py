@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'vehicle_controller'
+package_name = 'obstacle_detection'
 
 setup(
     name=package_name,
@@ -20,8 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'manual_controller = vehicle_controller.manual_controller:main',
-            'cloud_auto_park_client = vehicle_controller.parking_controller.:main',
+            'gt_reporter = obstacle_detection.ground_truth_reporter:main',
         ],
     },
 )

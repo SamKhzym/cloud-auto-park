@@ -36,6 +36,10 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Actor.msg"
   "msg/ActorList.msg"
+  "msg/BicycleModelParams.msg"
+  "msg/Point.msg"
+  "msg/Pose.msg"
+  "msg/Trajectory.msg"
 )
 
 ament_package()

@@ -138,7 +138,14 @@ class ParkingLotRow:
                 )
                 
                 centroid = list(np.mean(np.array(rect_patch.get_corners()), axis=0))
-                self.actor_centroids.append([centroid[0], centroid[1], self.spot_skew_deg + actor.skew_offset_deg])
+                self.actor_centroids.append([
+                    centroid[0], 
+                    centroid[1], 
+                    np.radians(self.spot_skew_deg + actor.skew_offset_deg), 
+                    actor.length_m, 
+                    actor.width_m
+                ])
+                
                 print('actor centroid:', centroid)
                 
             ax.add_patch(rect_patch)
@@ -169,7 +176,13 @@ class ParkingLotRow:
         
         actor_centroid_array = []
         for centroid in self.actor_centroids:
-            actor_centroid_array.append({'x': float(centroid[0]), 'y': float(centroid[1]), 'theta': float(centroid[2])})
+            actor_centroid_array.append({
+                'x': float(centroid[0] + ORIGIN[0]), 
+                'y': float(centroid[1] + ORIGIN[1]), 
+                'theta': float(centroid[2]),
+                'length': centroid[3],
+                'width': centroid[4],
+            })
         
         yaml_info = {
             'image': f'{filename}.png',

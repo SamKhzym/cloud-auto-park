@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'vehicle_controller'
+package_name = 'cloud_auto_park'
 
 setup(
     name=package_name,
@@ -20,8 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'manual_controller = vehicle_controller.manual_controller:main',
-            'cloud_auto_park_client = vehicle_controller.parking_controller.:main',
+            'cloud_auto_park_service = cloud_auto_park.cloud_auto_park_srv:main',
         ],
     },
 )
