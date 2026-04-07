@@ -13,13 +13,16 @@ class CloudAutoParkAsync(Node):
     def __init__(self):
         super().__init__('cloud_auto_park_async')
         self.desired_pose = None
+        self.init_timer = self.create_timer(0.1, self.check_readiness_callback)
         self.odom_subscriber = self.create_subscription(ActorList, '/actors', self.actor_rx_callback, 10)
         self.cli = self.create_client(CloudAutoPark, 'cloud_auto_park')
-        while not self.cli.wait_for_service(timeout_sec=1.0):
-            self.get_logger().info('service not available, waiting again...')
-        while self.desired_pose is None:
-            self.get_logger().info('waiting for desired pose...')
         self.req = CloudAutoPark.Request()
+        self.ready = False
+        
+    def check_readiness_callback(self):
+        if self.desired_pose is not None and self.cli.service_is_ready():
+            self.get_logger().info('Everything ready!')
+            self.ready = True
         
     def actor_rx_callback(self, msg):
         
@@ -37,22 +40,34 @@ class CloudAutoParkAsync(Node):
         self.desired_pose.theta = sum(centroids_theta) / len(centroids_theta)
 
     def send_request(self):
+        
+        self.get_logger().info('Sending request!')
         self.req.finalpose = self.desired_pose
-        self.req.sample_time = CONTROLLER_SAMPLETIME_S
+        self.req.sampletime = CONTROLLER_SAMPLETIME_S
         self.req.speed = SPEED_MPS
         self.future = self.cli.call_async(self.req)
         rclpy.spin_until_future_complete(self, self.future)
-        return self.future.result()
+        self.response = self.future.result()
+        self.get_logger().info('Response received!')
+        
+    def run_controller(self):
+        print(self.response)
+        print('doin the ting')
 
 def main(args=None):
     rclpy.init(args=args)
 
     cap_client = CloudAutoParkAsync()
-    response = cap_client.send_request()
     
-    # TODO: now that we have the path, need to setup the listeners to get the car
-    # to localize itself in its new frame of reference correctly and hook up all
-    # the publishing interfaces. Yeah this'll have to come a little later.
+    # wait for service to start and actor locations to be rx'd...
+    while not cap_client.ready:
+        rclpy.spin_once(cap_client)
+        
+    # send request
+    cap_client.send_request()
+    
+    # execute received path
+    cap_client.run_controller()
     
     cap_client.destroy_node()
     rclpy.shutdown()

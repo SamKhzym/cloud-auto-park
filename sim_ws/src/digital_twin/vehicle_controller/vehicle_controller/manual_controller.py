@@ -42,7 +42,7 @@ class VehicleController(Node):
         msg.header.stamp.sec = int(curr_time)
         msg.header.stamp.nanosec = int((curr_time - int(curr_time)) * 1e9)
         
-        print(f'controller speed = {msg.drive.speed:.2f} and angle = {msg.drive.steering_angle:.2f}')
+        # print(f'controller speed = {msg.drive.speed:.2f} and angle = {msg.drive.steering_angle:.2f}')
         
         self.drive_cmd_publisher.publish(msg)
 

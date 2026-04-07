@@ -40,6 +40,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Point.msg"
   "msg/Pose.msg"
   "msg/Trajectory.msg"
+  "srv/CloudAutoPark.srv"
 )
 
 ament_package()

@@ -52,10 +52,10 @@ class CloudAutoParkService(Node):
             speed_mps=speed_mps, 
             sample_rate_hz=int(1 / sample_time_s)
         )
-        self.get_logger().info('Made a traj, sending it down!')
         
         response.params = self.vbm_params_to_msg()
-        response.path = self.arrays_to_trajectory(desired_path[0], desired_path[1], curv)
+        response.traj = self.arrays_to_trajectory(desired_path[0], desired_path[1], curv)
+        self.get_logger().info('Made a traj, sending it down!')
 
         return response
 
