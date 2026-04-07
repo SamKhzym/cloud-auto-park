@@ -45,12 +45,12 @@ class CloudAutoParkService(Node):
             request.finalpose.theta
         )
         speed_mps = request.speed
-        sample_time_s = request.sampletime
+        sample_rate_hz = request.sampletime
         
         desired_path, curv = generate_desired_path(
             desired_pose, 
             speed_mps=speed_mps, 
-            sample_rate_hz=int(1 / sample_time_s)
+            sample_rate_hz=sample_rate_hz
         )
         
         response.params = self.vbm_params_to_msg()

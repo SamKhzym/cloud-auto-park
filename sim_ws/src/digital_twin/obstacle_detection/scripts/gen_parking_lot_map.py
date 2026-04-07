@@ -179,7 +179,7 @@ class ParkingLotRow:
             actor_centroid_array.append({
                 'x': float(centroid[0] + ORIGIN[0]), 
                 'y': float(centroid[1] + ORIGIN[1]), 
-                'theta': float(centroid[2]),
+                'theta': float(centroid[2] + math.pi/2), # adding pi/2 to account for coord frame of gym
                 'length': centroid[3],
                 'width': centroid[4],
             })
