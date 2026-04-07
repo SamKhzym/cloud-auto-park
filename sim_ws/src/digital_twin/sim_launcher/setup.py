@@ -2,7 +2,7 @@ from setuptools import setup
 import os
 from glob import glob
 
-package_name = 'vehicle_controller'
+package_name = 'sim_launcher'
 
 setup(
     name=package_name,
@@ -23,8 +23,6 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'manual_controller = vehicle_controller.manual_controller:main',
-            'cloud_auto_park_client = vehicle_controller.parking_controller:main',
         ],
     },
 )
