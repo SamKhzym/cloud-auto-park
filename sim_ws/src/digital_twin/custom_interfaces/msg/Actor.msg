@@ -1,5 +1,5 @@
-float64 x
-float64 y
-float64 theta
-float64 length
-float64 width
+float32 x
+float32 y
+float32 theta
+float32 length
+float32 width

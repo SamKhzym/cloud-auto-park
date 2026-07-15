@@ -197,8 +197,8 @@ class ParkingLotRow:
         with open(path, 'w') as f:
             yaml.dump(yaml_info, f)
         
-p = ParkingLotRow(0, 0, 4, 0.0, spot_width_m=0.54, spot_length_m=1.08)
+p = ParkingLotRow(0, 0, 4, 45.0, spot_width_m=0.54, spot_length_m=1.08)
 p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 1)
 p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 3)
 p.draw_parking_lot()
-p.write_yaml_file('my_custom_map')
+p.write_yaml_file('angled')

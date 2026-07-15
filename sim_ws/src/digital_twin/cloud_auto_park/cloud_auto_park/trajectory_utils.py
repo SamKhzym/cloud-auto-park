@@ -43,8 +43,9 @@ def cubic_spline(control_points, speed_mps=1.0, sample_rate_hz=25):
     path = interpolate.splev(u_final_sample, tck)
     first_derivative = interpolate.splev(u_final_sample, tck, der=1)
     second_derivative = interpolate.splev(u_final_sample, tck, der=2)
+    headings = np.arctan2(first_derivative[1], first_derivative[0])
     curvature = (first_derivative[0] * second_derivative[1] - first_derivative[1] * second_derivative[0]) / np.power(np.square(first_derivative[0]) + np.square(first_derivative[1]), 1.5)
-    return path, curvature
+    return path, headings, curvature
 
 def generate_control_points(final_veh_pose):
     
@@ -81,13 +82,13 @@ def generate_control_points(final_veh_pose):
 def generate_desired_path(final_veh_pose, speed_mps=1.0, sample_rate_hz=25):
     
     control_points = np.array(generate_control_points(final_veh_pose))
-    path = cubic_spline(control_points, speed_mps, sample_rate_hz)
-    return path
+    path, headings, curvature = cubic_spline(control_points, speed_mps, sample_rate_hz)
+    return path, headings, curvature
 
 def plot_desired_path(final_veh_pose: VehiclePose):
     
     control_points = generate_control_points(final_veh_pose)
-    desired_path, curvature = generate_desired_path(final_veh_pose)
+    path, headings, curvature = generate_desired_path(final_veh_pose)
     
     # plt.xlim(-3, 3)
     # plt.ylim(-1, 3)

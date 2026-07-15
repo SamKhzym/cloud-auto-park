@@ -24,13 +24,14 @@ class CloudAutoParkService(Node):
             izz=0.061255774235714676
         )
         
-    def arrays_to_trajectory(self, xs, ys, curvs):
+    def arrays_to_trajectory(self, xs, ys, headings, curvs):
         
         traj = Trajectory()
         for i in range(len(xs)):
             point = Point()
             point.x = float(xs[i])
             point.y = float(ys[i])
+            point.heading = float(headings[i])
             point.curv = float(curvs[i])
             traj.points.append(point)
         return traj
@@ -47,14 +48,14 @@ class CloudAutoParkService(Node):
         speed_mps = request.speed
         sample_rate_hz = request.sampletime
         
-        desired_path, curv = generate_desired_path(
+        desired_path, headings, curv = generate_desired_path(
             desired_pose, 
             speed_mps=speed_mps, 
             sample_rate_hz=sample_rate_hz
         )
         
         response.params = self.vbm_params_to_msg()
-        response.traj = self.arrays_to_trajectory(desired_path[0], desired_path[1], curv)
+        response.traj = self.arrays_to_trajectory(desired_path[0], desired_path[1], headings, curv)
         self.get_logger().info('Made a traj, sending it down!')
 
         return response

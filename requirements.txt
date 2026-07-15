@@ -5,3 +5,5 @@ scipy
 matplotlib
 opencv-python
 pyyaml
+scikit-learn
+opencv-python

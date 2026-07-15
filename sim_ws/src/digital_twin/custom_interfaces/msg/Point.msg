@@ -1,3 +1,4 @@
-float64 x
-float64 y
-float64 curv
+float32 x
+float32 y
+float32 heading
+float32 curv

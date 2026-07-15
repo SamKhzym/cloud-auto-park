@@ -24,6 +24,7 @@ setup(
     entry_points={
         'console_scripts': [
             'gt_reporter = obstacle_detection.ground_truth_reporter:main',
+            'slam_manager = obstacle_detection.slam_manager:main',
         ],
     },
 )

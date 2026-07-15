@@ -40,9 +40,11 @@ class MpcController:
         self.timestep = 0
         self.curr_state = np.array([[0.0], [0.0]])
         self.curr_pose = np.array([[0.0], [0.0], [0.0]])
+        self.last_delta = 0.0
         
-    def set_path(self, path, curvatures):
+    def set_path(self, path, headings, curvatures):
         self.path = path
+        self.headings = headings
         self.curvatures = curvatures
         self.last_timestep = len(self.curvatures)
         self.reset()
@@ -101,6 +103,7 @@ class MpcController:
         
         xs = np.zeros(N)
         ys = np.zeros(N)
+        thetas = np.zeros(N)
         
         for i in range(N):
             simulated_state, simulated_pose = self.step_simulation(simulated_state, simulated_pose, deltas[i])
@@ -108,21 +111,62 @@ class MpcController:
             # save intermediates for cost function
             xs[i] = simulated_pose[0]
             ys[i] = simulated_pose[1]
+            thetas[i] = simulated_pose[2]
             
-        return xs, ys
+        return xs, ys, thetas
         
-    def cost_function(self, desired_x, desired_y, actual_x, actual_y, deltas):
-        REGULARIZATION_PENALTY = 0.0007
-        squared_path_cost = np.sum(np.square(desired_x - actual_x) + np.square(desired_y - actual_y))
-        regularization_cost = np.linalg.norm(deltas)
-        # print('squared path:', squared_path_cost, '| regularization', regularization_cost)
-        total_cost = squared_path_cost + REGULARIZATION_PENALTY * regularization_cost
+    def cost_function(self, desired_x, desired_y, desired_theta, actual_x, actual_y, actual_theta, deltas):
+        
+        # horizon length
+        H = len(deltas)
+        
+        # MSE vehicle path term
+        w_path = 1.0
+        max_mse_path = 0.5 #m
+        mse_path = (np.sum(np.square(desired_x - actual_x) + np.square(desired_y - actual_y))) / H
+        
+        # MSE heading term
+        w_heading = 0.2
+        max_mse_heading = 0.174 #rad
+        mse_heading = np.sum(np.square(desired_theta - actual_theta)) / H
+        
+        # MSE effort term
+        w_effort = 0.05
+        max_mse_effort = 0.174 #rad
+        mse_effort = np.sum(np.square(deltas - self.delta_ff)) / H
+        
+        # MSE of delta derivative term
+        w_delta_dot = 0.00005
+        max_mse_delta_dot = 0.174 #rad/s
+        deltas_dot = np.diff(deltas, prepend=self.last_delta) / self.sample_time_s
+        mse_delta_dot = np.sum(np.square(deltas_dot)) / H
+        
+        # normalize costs
+        norm_mse_path = mse_path / max_mse_path
+        norm_mse_heading = mse_heading / max_mse_heading
+        norm_mse_effort = mse_effort / max_mse_effort
+        norm_mse_delta_dot = mse_delta_dot / max_mse_delta_dot
+        
+        # total cost
+        # print(f"""MSE path: {norm_mse_path:.5f}, \
+        #       | MSE heading: {norm_mse_heading:.5f} \
+        #       | MSE effort: {norm_mse_effort:.5f} \
+        #       | MSE delta dot: {norm_mse_delta_dot:.5f}""")
+        total_cost = w_path * norm_mse_path + w_heading * norm_mse_heading + w_effort * norm_mse_effort + w_delta_dot * norm_mse_delta_dot
         return total_cost
     
     def simulate_and_get_cost(self, deltas):
         N = len(deltas)
-        xs, ys = self.simulate_over_horizon(deltas)
-        return self.cost_function(self.path[0][self.timestep:self.timestep+N], self.path[1][self.timestep:self.timestep+N], xs, ys, deltas)
+        xs, ys, thetas = self.simulate_over_horizon(deltas)
+        return self.cost_function(
+            self.path[0][self.timestep:self.timestep+N], # x values from trajectory over horizon
+            self.path[1][self.timestep:self.timestep+N], # y values from trajectory over horizon
+            self.headings[self.timestep:self.timestep+N], # theta values from trajectory over horizon
+            xs, # x values from simulated vbm over horizon
+            ys, # y values from simulated vbm over horizon
+            thetas, # theta values from simulated vbm over horizon
+            deltas # control actions (rwas)
+        )
     
     def get_init_feedforward_deltas(self, curvatures):
     
@@ -148,6 +192,7 @@ class MpcController:
         
         # Solve MPC optimization problem
         delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts:final_ts]) # initial guess for control signal
+        self.delta_ff = delta_init
         bounds = [(-0.5, 0.5)] * num_steps
         result = minimize(self.simulate_and_get_cost, delta_init, method='SLSQP', bounds=bounds) # optimization
         
@@ -156,6 +201,7 @@ class MpcController:
         
         # return first rwa in horizon
         curr_delta = result.x[0]
+        self.last_delta = curr_delta
         
         # update simulated current state and vehicle pose (use to get an estimate for vy since that's not measured)
         self.step_simulation(self.curr_state, self.curr_pose, curr_delta)
