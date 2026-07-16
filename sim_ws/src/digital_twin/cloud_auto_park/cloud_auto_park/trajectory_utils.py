@@ -156,7 +156,7 @@ class TrajectoryOptimizer:
         for idx, obstacle_obb in enumerate(obstacles):
             min_separation = get_min_separation_between_traj_and_obs(traj, obstacle_obb)
             obstacle_separations[idx] = min_separation
-            print(f'obstacle min separation: {min_separation:.2f}')
+            # print(f'obstacle min separation: {min_separation:.2f}')
             
         # exponentially penalize traj as it gets closer to min distance allowable distance from obstacles
         obstacle_costs = np.exp(-1 * OBSTACLE_GROWTH_FACTOR * (obstacle_separations - MIN_ALLOWABLE_DISTANCE))
@@ -183,7 +183,7 @@ class TrajectoryOptimizer:
         w_effort = 0.01
 
         total_cost = (w_obs * obstacle_cost) + (w_curv * high_curv_cost) + (w_effort * mse_effort)
-        print(f'obstacle cost (norm): {obstacle_costs} | high curv cost (norm): {high_curv_cost} | mse effort cost (norm): {mse_effort} | total cost: {total_cost}')
+        # print(f'obstacle cost (norm): {obstacle_costs} | high curv cost (norm): {high_curv_cost} | mse effort cost (norm): {mse_effort} | total cost: {total_cost}')
         
         return total_cost
         
