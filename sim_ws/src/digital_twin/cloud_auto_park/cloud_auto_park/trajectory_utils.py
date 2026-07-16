@@ -7,6 +7,8 @@ from scipy.interpolate import CubicSpline
 from scipy import interpolate
 from typing import List
 from geometry_helpers import OrientedBoundingBox, get_exact_distance_or_overlap
+from scipy.optimize import minimize
+from copy import deepcopy
 
 @dataclass
 class VehiclePose:
@@ -90,9 +92,9 @@ def generate_control_points(target_obb: OrientedBoundingBox):
         (point1_x/8, 0.0),
         (point1_x/6, 0.0),
         (point1_x/5, 0.0),
-        (point1_x - 0.01, point1_y),
+        # (point1_x - 0.01, point1_y),
         (point1_x, point1_y),
-        (point1_x + 0.01, point1_y),
+        # (point1_x + 0.01, point1_y),
         (point2_x, point2_y),
         (point4_x, point4_y),
         (point5_x, point5_y),
@@ -128,40 +130,101 @@ def get_min_separation_between_traj_and_obs(traj: Trajectory, obs_obb: OrientedB
             min_separation = min_intermediate_separation
             
     return min_separation
-    
 
-def get_traj_cost(traj: Trajectory, obstacles: List[OrientedBoundingBox]):
+class TrajectoryOptimizer:
     
-    ## == OBSTACLE COST CALCULATION ==
-    
-    MIN_ALLOWABLE_DISTANCE = 0.3
-    OBSTACLE_GROWTH_FACTOR = 10.0
-    
-    obstacle_separations = np.zeros(len(obstacles))
-    
-    # for each obstacle, get closest distance between ego following trajectory and the obstacle
-    for idx, obstacle_obb in enumerate(obstacles):
-        min_separation = get_min_separation_between_traj_and_obs(traj, obstacle_obb)
-        obstacle_separations[idx] = min_separation
-        print(f'obstacle min separation: {min_separation:.2f}')
+    def __init__(self, speed_mps=1.0, sample_rate_hz=50, method='BFGS'):
+        self.speed_mps = speed_mps
+        self.sample_rate_hz = sample_rate_hz
+        self.target_obb = None
+        self.obstacles = None
+        self.initial_traj = None
+        self.optimized_traj = None
+        self.modifiable_control_point_idxs = []
+        self.method = method
         
-    # exponentially penalize traj as it gets closer to min distance allowable distance from obstacles
-    obstacle_costs = np.exp(-1 * OBSTACLE_GROWTH_FACTOR * (obstacle_separations - MIN_ALLOWABLE_DISTANCE))
-    obstacle_cost = np.sum(obstacle_costs)
+    def get_traj_cost(self, traj: Trajectory, obstacles: List[OrientedBoundingBox]):
     
-    ## == MAX CURV CALCULATION
-    
-    # penalize curvatures that have higher mean-squared curvatures
-    MAX_ABS_CURV = 2.0
-    high_curv_cost = np.mean(np.square(traj.curvatures)) / MAX_ABS_CURV
-    
-    ## == WEIGH IT AND SEND IT
-    
-    w_obs = 10.0
-    w_curv = 0.1
+        ## == OBSTACLE COST CALCULATION ==
+        
+        MIN_ALLOWABLE_DISTANCE = 0.3
+        OBSTACLE_GROWTH_FACTOR = 1.0
+        
+        obstacle_separations = np.zeros(len(obstacles))
+        
+        # for each obstacle, get closest distance between ego following trajectory and the obstacle
+        for idx, obstacle_obb in enumerate(obstacles):
+            min_separation = get_min_separation_between_traj_and_obs(traj, obstacle_obb)
+            obstacle_separations[idx] = min_separation
+            print(f'obstacle min separation: {min_separation:.2f}')
+            
+        # exponentially penalize traj as it gets closer to min distance allowable distance from obstacles
+        obstacle_costs = np.exp(-1 * OBSTACLE_GROWTH_FACTOR * (obstacle_separations - MIN_ALLOWABLE_DISTANCE))
+        obstacle_cost = np.sum(obstacle_costs)
+        
+        ## == MAX CURV CALCULATION ==
+        
+        # penalize curvatures that have higher mean-squared curvatures
+        MAX_ABS_CURV = 5.0
+        high_curv_cost = np.max(np.abs(traj.curvatures)) / MAX_ABS_CURV
+        
+        ## == EFFORT COST CALCULATION ==
+        
+        # penalize very different trajectories from the original
+        MAX_EFFORT = 2.0
+        initial_points = self.initial_traj.control_points[self.modifiable_control_point_idxs[0]:self.modifiable_control_point_idxs[1]].flatten()
+        optimized_points = self.optimized_traj.control_points[self.modifiable_control_point_idxs[0]:self.modifiable_control_point_idxs[1]].flatten()
+        mse_effort = np.mean(np.square(optimized_points - initial_points)) / MAX_EFFORT
+        
+        ## == WEIGH IT AND SEND IT ==
+        
+        w_obs = 10.0
+        w_curv = 5.0
+        w_effort = 0.01
 
-    print(f'obstacle cost (norm): {obstacle_costs} | high curv cost (norm): {high_curv_cost}')
-    return (w_obs * obstacle_cost) + (w_curv * high_curv_cost)
+        total_cost = (w_obs * obstacle_cost) + (w_curv * high_curv_cost) + (w_effort * mse_effort)
+        print(f'obstacle cost (norm): {obstacle_costs} | high curv cost (norm): {high_curv_cost} | mse effort cost (norm): {mse_effort} | total cost: {total_cost}')
+        
+        return total_cost
+        
+    def update_traj_and_get_cost(self, control_points_flattened):
+        
+        # regenerate trajectory with new control points
+        modified_control_points = control_points_flattened.reshape(-1, 2)
+        self.optimized_traj.control_points[self.modifiable_control_point_idxs[0]:self.modifiable_control_point_idxs[1]] = modified_control_points
+        path, headings, curvatures = cubic_spline(self.optimized_traj.control_points, self.speed_mps, self.sample_rate_hz)
+        self.optimized_traj = Trajectory(path, headings, curvatures, self.optimized_traj.control_points, self.optimized_traj.target_obb)
+        
+        # get cost of new traj
+        return self.get_traj_cost(self.optimized_traj, self.obstacles)
+        
+    def optimize_trajectory(self, modifiable_control_point_idxs=[4, 6]):
+        
+        # Determine how many points we're modifying
+        self.modifiable_control_point_idxs = modifiable_control_point_idxs
+        num_points = self.modifiable_control_point_idxs[1] - self.modifiable_control_point_idxs[0]
+        bounds = [(-20, 20)] * num_points * 2 # TODO: come up with a smarter bound for this based on the desired final pose
+        
+        # get initial set of modifiable control points and copy the initial traj to an optimized traj
+        self.optimized_traj = deepcopy(self.initial_traj)
+        init_points = self.optimized_traj.control_points[self.modifiable_control_point_idxs[0]:self.modifiable_control_point_idxs[1]].flatten()
+        
+        # solve the optimization problem!
+        result = minimize(self.update_traj_and_get_cost, init_points, method=self.method, bounds=bounds) # optimization
+        
+        return self.optimized_traj
+        
+    def generate_optimal_trajectory(self, target_obb: OrientedBoundingBox, obstacles: List[OrientedBoundingBox]):
+        
+        # set state variables
+        self.target_obb = target_obb
+        self.obstacles = obstacles
+        
+        # do a first pass run to get initital control point placement
+        self.initial_traj = generate_desired_traj(self.target_obb, self.speed_mps, self.sample_rate_hz)
+        
+        # optimize the trajectory
+        self.optimized_traj = self.optimize_trajectory()
 
 def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], num_intermediate_ego = 10):
     
@@ -220,7 +283,7 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
 
     # plot stars for initial and final ego poses
     ax.scatter(0, 0, marker='*', edgecolor='black', s=200, c='cyan', label='initial pose')
-    ax.scatter(*xy_to_plot(traj.target_obb.centroid_x_m, traj..target_obb.centroid_y_m), marker='*', edgecolor='black', s=200, c='red', label='final pose')
+    ax.scatter(*xy_to_plot(traj.target_obb.centroid_x_m, traj.target_obb.centroid_y_m), marker='*', edgecolor='black', s=200, c='red', label='final pose')
     
     # stylistic things :)
     ax.grid()
