@@ -64,37 +64,42 @@ def generate_control_points(target_obb: OrientedBoundingBox):
     
     final_veh_pose = VehiclePose(target_obb.centroid_x_m, target_obb.centroid_y_m, target_obb.heading_rad)
     
-    point1_x = final_veh_pose.x_m + 2.0
-    point1_y = -final_veh_pose.y_m * 0.25
+    point1_x, point1_y = 0, 0
+    point2_x, point2_y = (1/16)*final_veh_pose.x_m, 0
+    point3_x, point3_y = (2/16)*final_veh_pose.x_m, 0
+    point4_x, point4_y = (3/16)*final_veh_pose.x_m, 0
+    
+    point5_x = final_veh_pose.x_m + 2.0
+    point5_y = -final_veh_pose.y_m * 0.15
     
     final_pose_offset = np.array([[-abs(final_veh_pose.y_m)*0.75, 0]])
     final_pose_offset_trans = (final_pose_offset @ get_rot_mat(-final_veh_pose.theta_rad)).flatten()
     
-    # print(final_pose_offset_trans)
+    point6_x = final_veh_pose.x_m + final_pose_offset_trans[0]
+    point6_y = final_veh_pose.y_m + final_pose_offset_trans[1]
     
-    point2_x = final_veh_pose.x_m + final_pose_offset_trans[0]
-    point2_y = final_veh_pose.y_m + final_pose_offset_trans[1]
+    point7_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (3/16)
+    point7_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (3/16)
     
-    point3_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (3/16)
-    point3_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (3/16)
+    point8_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (2/16)
+    point8_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (2/16)
     
-    point4_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (2/16)
-    point4_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (2/16)
+    point9_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (1/16)
+    point9_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (1/16)
     
-    point5_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (1/16)
-    point5_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (1/16)
+    point10_x, point10_y = final_veh_pose.x_m, final_veh_pose.y_m
     
     control_points = [
-        (0, 0),
-        (point1_x * (1/16), 0.0),
-        (point1_x * (2/16), 0.0),
-        (point1_x * (3/16), 0.0),
         (point1_x, point1_y),
         (point2_x, point2_y),
         (point3_x, point3_y),
         (point4_x, point4_y),
         (point5_x, point5_y),
-        (final_veh_pose.x_m, final_veh_pose.y_m)
+        (point6_x, point6_y),
+        (point7_x, point7_y),
+        (point8_x, point8_y),
+        (point9_x, point9_y),
+        (point10_x, point10_y)
     ]
     
     return control_points
@@ -173,8 +178,8 @@ class TrajectoryOptimizer:
         
         ## == WEIGH IT AND SEND IT ==
         
-        w_obs = 10.0
-        w_curv = 3.0
+        w_obs = 20.0
+        w_curv = 5.0
         w_effort = 0.005
 
         total_cost = (w_obs * obstacle_cost) + (w_curv * high_curv_cost) + (w_effort * mse_effort)
