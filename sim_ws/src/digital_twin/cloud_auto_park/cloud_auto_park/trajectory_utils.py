@@ -75,30 +75,25 @@ def generate_control_points(target_obb: OrientedBoundingBox):
     point2_x = final_veh_pose.x_m + final_pose_offset_trans[0]
     point2_y = final_veh_pose.y_m + final_pose_offset_trans[1]
     
-    point3_x = final_veh_pose.x_m + final_pose_offset_trans[0] / 2
-    point3_y = final_veh_pose.y_m + final_pose_offset_trans[1] / 2
+    point3_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (3/16)
+    point3_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (3/16)
     
-    point4_x = final_veh_pose.x_m + final_pose_offset_trans[0] *0.35
-    point4_y = final_veh_pose.y_m + final_pose_offset_trans[1] *0.35
+    point4_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (2/16)
+    point4_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (2/16)
     
-    point5_x = final_veh_pose.x_m + final_pose_offset_trans[0] *0.15
-    point5_y = final_veh_pose.y_m + final_pose_offset_trans[1] *0.15
-    
-    point6_x = final_veh_pose.x_m + final_pose_offset_trans[0] *0.05
-    point6_y = final_veh_pose.y_m + final_pose_offset_trans[1] *0.05
+    point5_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (1/16)
+    point5_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (1/16)
     
     control_points = [
         (0, 0),
-        (point1_x/8, 0.0),
-        (point1_x/6, 0.0),
-        (point1_x/5, 0.0),
-        # (point1_x - 0.01, point1_y),
+        (point1_x * (1/16), 0.0),
+        (point1_x * (2/16), 0.0),
+        (point1_x * (3/16), 0.0),
         (point1_x, point1_y),
-        # (point1_x + 0.01, point1_y),
         (point2_x, point2_y),
+        (point3_x, point3_y),
         (point4_x, point4_y),
         (point5_x, point5_y),
-        (point6_x, point6_y),
         (final_veh_pose.x_m, final_veh_pose.y_m)
     ]
     
@@ -165,7 +160,7 @@ class TrajectoryOptimizer:
         ## == MAX CURV CALCULATION ==
         
         # penalize curvatures that have higher mean-squared curvatures
-        MAX_ABS_CURV = 5.0
+        MAX_ABS_CURV = 1.0
         high_curv_cost = np.max(np.abs(traj.curvatures)) / MAX_ABS_CURV
         
         ## == EFFORT COST CALCULATION ==
