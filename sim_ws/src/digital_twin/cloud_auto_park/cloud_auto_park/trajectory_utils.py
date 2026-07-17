@@ -64,11 +64,11 @@ def generate_control_points(target_obb: OrientedBoundingBox):
     
     final_veh_pose = VehiclePose(target_obb.centroid_x_m, target_obb.centroid_y_m, target_obb.heading_rad)
     
-    point1_x = final_veh_pose.x_m - 2.0
-    point1_y = -final_veh_pose.y_m * 0.5
+    point1_x = final_veh_pose.x_m + 2.0
+    point1_y = -final_veh_pose.y_m * 0.25
     
     final_pose_offset = np.array([[-abs(final_veh_pose.y_m)*0.75, 0]])
-    final_pose_offset_trans = (final_pose_offset @ get_rot_mat(final_veh_pose.theta_rad)).flatten()
+    final_pose_offset_trans = (final_pose_offset @ get_rot_mat(-final_veh_pose.theta_rad)).flatten()
     
     # print(final_pose_offset_trans)
     
@@ -174,8 +174,8 @@ class TrajectoryOptimizer:
         ## == WEIGH IT AND SEND IT ==
         
         w_obs = 10.0
-        w_curv = 5.0
-        w_effort = 0.01
+        w_curv = 3.0
+        w_effort = 0.005
 
         total_cost = (w_obs * obstacle_cost) + (w_curv * high_curv_cost) + (w_effort * mse_effort)
         # print(f'obstacle cost (norm): {obstacle_costs} | high curv cost (norm): {high_curv_cost} | mse effort cost (norm): {mse_effort} | total cost: {total_cost}')
@@ -198,14 +198,13 @@ class TrajectoryOptimizer:
         # Determine how many points we're modifying
         self.modifiable_control_point_idxs = modifiable_control_point_idxs
         num_points = self.modifiable_control_point_idxs[1] - self.modifiable_control_point_idxs[0]
-        bounds = [(-20, 20)] * num_points * 2 # TODO: come up with a smarter bound for this based on the desired final pose
         
         # get initial set of modifiable control points and copy the initial traj to an optimized traj
         self.optimized_traj = deepcopy(self.initial_traj)
         init_points = self.optimized_traj.control_points[self.modifiable_control_point_idxs[0]:self.modifiable_control_point_idxs[1]].flatten()
         
         # solve the optimization problem!
-        result = minimize(self.update_traj_and_get_cost, init_points, method=self.method, bounds=bounds) # optimization
+        result = minimize(self.update_traj_and_get_cost, init_points, method=self.method) # optimization
         
         return self.optimized_traj
         
@@ -264,7 +263,8 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
     
     # plot trajectory itself (color by curvature)
     sc = ax.scatter(-traj.path[1], traj.path[0], c=traj.curvatures, cmap='viridis', s=10)
-    fig.colorbar(sc)
+    cbar = fig.colorbar(sc)
+    cbar.set_label('Curvature (1/m)')
     
     # plot control points as green points
     for point in traj.control_points:
@@ -277,10 +277,15 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
         ax.scatter(*xy_to_plot(obs.centroid_x_m, obs.centroid_y_m), marker='o', edgecolor='black', s=50, c='blue')
 
     # plot stars for initial and final ego poses
-    ax.scatter(0, 0, marker='*', edgecolor='black', s=200, c='cyan', label='initial pose')
-    ax.scatter(*xy_to_plot(traj.target_obb.centroid_x_m, traj.target_obb.centroid_y_m), marker='*', edgecolor='black', s=200, c='red', label='final pose')
+    ax.scatter(0, 0, marker='*', edgecolor='black', s=200, c='cyan', label='Initial Ego Pose')
+    ax.scatter(*xy_to_plot(traj.target_obb.centroid_x_m, traj.target_obb.centroid_y_m), marker='*', edgecolor='black', s=200, c='red', label='Final Ego Pose')
     
     # stylistic things :)
     ax.grid()
     fig.set_size_inches(5, 7)
+    ax.set_xlabel('Lateral Distance (m)')
+    ax.set_ylabel('Longitudinal Distance (m)')
+    ax.legend()
+    fig.set_tight_layout(True)
     
+    return fig, ax
