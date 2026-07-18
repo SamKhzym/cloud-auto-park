@@ -8,3 +8,6 @@ report/out/**
 **/build/**
 **/install/**
 **/log/**
+
+# doe figures (there are lots of them)
+sim_ws/src/digital_twin/cloud_auto_park/analysis/figures/

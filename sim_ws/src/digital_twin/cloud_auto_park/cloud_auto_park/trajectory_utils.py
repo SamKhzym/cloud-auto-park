@@ -227,7 +227,7 @@ class TrajectoryOptimizer:
 
 def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], num_intermediate_ego = 10):
     
-    def get_obstacle_patch(obb: OrientedBoundingBox, color='blue', alpha=0.6):
+    def get_obstacle_patch(obb: OrientedBoundingBox, color='blue', alpha=0.6, linewidth=2):
         
         lower_left_x = obb.centroid_x_m - (obb.length_m / 2)
         lower_left_y = obb.centroid_y_m + (obb.width_m / 2)
@@ -236,9 +236,15 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
         if color == 'blue':
             edgecolor = 'blue'
             facecolor = 'lightblue'
-        elif color == 'red':
+        elif color == 'darkblue':
+            edgecolor = 'darkblue'
+            facecolor = 'blue'
+        elif color == 'orange':
             edgecolor = 'red'
             facecolor = 'orange'
+        elif color == 'red':
+            edgecolor = 'darkred'
+            facecolor = 'red'
         
         rect = matplotlib.patches.Rectangle(
             xy=(-lower_left_y, lower_left_x),
@@ -249,12 +255,19 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
             edgecolor=edgecolor,
             facecolor=facecolor,
             alpha=alpha,
-            linewidth=2
+            linewidth=linewidth
         )
         return rect
     
     # make the plot
     fig, ax = plt.subplots(1)
+    ax.set_aspect('equal')
+    
+    # put two blue rectangles at the initial and final vehicle poses
+    start_ego_obb_patch = get_obstacle_patch(OrientedBoundingBox(traj.path[0][0], traj.path[1][0], traj.target_obb.length_m, traj.target_obb.width_m, 0.0), color='blue', alpha=1.0, linewidth=3.5)
+    end_ego_obb_patch = get_obstacle_patch(OrientedBoundingBox(traj.path[0][-1], traj.path[1][-1], traj.target_obb.length_m, traj.target_obb.width_m, traj.headings[-1]), color='blue', alpha=1.0, linewidth=3.5)
+    ax.add_patch(start_ego_obb_patch)
+    ax.add_patch(end_ego_obb_patch)
         
     # plot intermediate ego vehicle obbs along the trajectory
     for ego_idx in range(num_intermediate_ego):
@@ -263,23 +276,25 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
         # print(path_idx)
         
         intermediate_ego_obb = OrientedBoundingBox(traj.path[0][path_idx], traj.path[1][path_idx], traj.target_obb.length_m, traj.target_obb.width_m, traj.headings[path_idx])
-        intermediate_ego_rect = get_obstacle_patch(intermediate_ego_obb, 'red', 0.2)
+        intermediate_ego_rect = get_obstacle_patch(intermediate_ego_obb, 'blue', 0.15)
         ax.add_patch(intermediate_ego_rect)
     
+    # plot obstacle obbs as orange rectangles with red dots as centers
+    for i, obs in enumerate(obstacles):
+        label = 'Obstacle Pose' if i == 0 else None
+        rect = get_obstacle_patch(obs, color='orange', alpha=1.0, linewidth=3.5)
+        ax.add_patch(rect)
+        ax.scatter(*xy_to_plot(obs.centroid_x_m, obs.centroid_y_m), marker='o', edgecolor='black', s=50, c='red', label=label)
+    
     # plot trajectory itself (color by curvature)
-    sc = ax.scatter(-traj.path[1], traj.path[0], c=traj.curvatures, cmap='viridis', s=10)
+    sc = ax.scatter(-traj.path[1], traj.path[0], c=traj.curvatures, cmap='plasma', s=10)
     cbar = fig.colorbar(sc)
     cbar.set_label('Curvature (1/m)')
     
     # plot control points as green points
-    for point in traj.control_points:
-        ax.scatter(*xy_to_plot(point[0], point[1]), marker='o', edgecolor='black', s=50, c='green')
-    
-    # plot obstacle obbs as blue rectangles with blue dots as centers
-    for obs in obstacles:
-        rect = get_obstacle_patch(obs)
-        ax.add_patch(rect)
-        ax.scatter(*xy_to_plot(obs.centroid_x_m, obs.centroid_y_m), marker='o', edgecolor='black', s=50, c='blue')
+    for i, point in enumerate(traj.control_points):
+        label = 'Spline Data Point' if i == 0 else None
+        ax.scatter(*xy_to_plot(point[0], point[1]), marker='o', edgecolor='black', s=50, c='green', label=label)
 
     # plot stars for initial and final ego poses
     ax.scatter(0, 0, marker='*', edgecolor='black', s=200, c='cyan', label='Initial Ego Pose')
@@ -287,7 +302,7 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
     
     # stylistic things :)
     ax.grid()
-    fig.set_size_inches(5, 7)
+    fig.set_size_inches(7, 7)
     ax.set_xlabel('Lateral Distance (m)')
     ax.set_ylabel('Longitudinal Distance (m)')
     ax.legend()
