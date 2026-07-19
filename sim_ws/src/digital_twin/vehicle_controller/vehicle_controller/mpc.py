@@ -128,12 +128,14 @@ class MpcController:
         H = len(deltas)
         
         # MSE vehicle path term
-        w_path = 5.0
-        max_mse_path = 0.1 #m
+        # w_path = 5.0
+        # max_mse_path = 0.1 #m
+        w_path = 1.0
+        max_mse_path = 0.3 #m
         mse_path = (np.sum(np.square(desired_x - actual_x) + np.square(desired_y - actual_y))) / H
         
         # MSE heading term
-        w_heading = 0.7
+        w_heading = 1.0
         max_mse_heading = 0.174 #rad
         desired_theta = normalize_angles(desired_theta)
         actual_theta = normalize_angles(actual_theta)
@@ -175,11 +177,14 @@ class MpcController:
     def simulate_and_get_cost(self, deltas):
         N = len(deltas)
         xs, ys, thetas, omegas = self.simulate_over_horizon(deltas)
+        theta_offset = 35
+        actual_theta_offset = max(min(len(self.curvatures) - self.timestep, 2 * theta_offset) - theta_offset, 0)
+        print(len(self.curvatures), self.timestep, actual_theta_offset)
         return self.cost_function(
             self.path[0][self.timestep:self.timestep+N], # x values from trajectory over horizon
-            self.path[1][self.timestep:self.timestep+N], # y values from trajectory over horizon
-            self.headings[self.timestep:self.timestep+N], # theta values from trajectory over horizon
-            self.curvatures[self.timestep:self.timestep+N], # theta values from trajectory over horizon
+            self.path[1][(self.timestep):(self.timestep+N)], # y values from trajectory over horizon
+            self.headings[(self.timestep+actual_theta_offset):(self.timestep+N+actual_theta_offset)], # theta values from trajectory over horizon
+            self.curvatures[self.timestep+actual_theta_offset:self.timestep+N+actual_theta_offset], # theta values from trajectory over horizon
             xs, # x values from simulated vbm over horizon
             ys, # y values from simulated vbm over horizon
             thetas, # theta values from simulated vbm over horizon
