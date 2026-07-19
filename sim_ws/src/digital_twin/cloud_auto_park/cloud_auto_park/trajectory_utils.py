@@ -47,7 +47,7 @@ def get_path_length(path):
     cumu_dist = np.cumsum(diffs)
     return cumu_dist[-1]
 
-def cubic_spline(control_points, speed_mps=1.0, sample_rate_hz=25):
+def cubic_spline(control_points, speed_mps=1.0, sample_rate_hz=50):
     tck,u = interpolate.splprep([control_points[:,0], control_points[:,1]], s=0)
     u_initial_sample = np.arange(0, 1.01, 0.005)
     out = interpolate.splev(u_initial_sample, tck)
@@ -56,7 +56,7 @@ def cubic_spline(control_points, speed_mps=1.0, sample_rate_hz=25):
     path = interpolate.splev(u_final_sample, tck)
     first_derivative = interpolate.splev(u_final_sample, tck, der=1)
     second_derivative = interpolate.splev(u_final_sample, tck, der=2)
-    headings = np.arctan2(first_derivative[1], first_derivative[0])
+    headings = np.arctan2(-1 * first_derivative[1], -1 * first_derivative[0])
     curvature = (first_derivative[0] * second_derivative[1] - first_derivative[1] * second_derivative[0]) / np.power(np.square(first_derivative[0]) + np.square(first_derivative[1]), 1.5)
     return path, headings, curvature
 
@@ -65,9 +65,10 @@ def generate_control_points(target_obb: OrientedBoundingBox):
     final_veh_pose = VehiclePose(target_obb.centroid_x_m, target_obb.centroid_y_m, target_obb.heading_rad)
     
     point1_x, point1_y = 0, 0
-    point2_x, point2_y = (1/16)*final_veh_pose.x_m, 0
-    point3_x, point3_y = (2/16)*final_veh_pose.x_m, 0
-    point4_x, point4_y = (3/16)*final_veh_pose.x_m, 0
+    point2_x, point2_y = (1/32)*final_veh_pose.x_m, 0
+    point3_x, point3_y = (2/32)*final_veh_pose.x_m, 0
+    point4_x, point4_y = (3/32)*final_veh_pose.x_m, 0
+    point4_2_x, point4_2_y = (4/32)*final_veh_pose.x_m, 0
     
     point5_x = final_veh_pose.x_m + 2.0
     point5_y = -final_veh_pose.y_m * 0.15
@@ -78,14 +79,17 @@ def generate_control_points(target_obb: OrientedBoundingBox):
     point6_x = final_veh_pose.x_m + final_pose_offset_trans[0]
     point6_y = final_veh_pose.y_m + final_pose_offset_trans[1]
     
-    point7_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (3/16)
-    point7_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (3/16)
+    point6_2_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (4/32)
+    point6_2_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (4/32)
     
-    point8_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (2/16)
-    point8_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (2/16)
+    point7_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (3/32)
+    point7_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (3/32)
     
-    point9_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (1/16)
-    point9_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (1/16)
+    point8_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (2/32)
+    point8_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (2/32)
+    
+    point9_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (1/32)
+    point9_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (1/32)
     
     point10_x, point10_y = final_veh_pose.x_m, final_veh_pose.y_m
     
@@ -94,8 +98,10 @@ def generate_control_points(target_obb: OrientedBoundingBox):
         (point2_x, point2_y),
         (point3_x, point3_y),
         (point4_x, point4_y),
+        (point4_2_x, point4_2_y),
         (point5_x, point5_y),
         (point6_x, point6_y),
+        (point6_2_x, point6_2_y),
         (point7_x, point7_y),
         (point8_x, point8_y),
         (point9_x, point9_y),
@@ -104,7 +110,7 @@ def generate_control_points(target_obb: OrientedBoundingBox):
     
     return control_points
 
-def generate_desired_traj(target_obb: OrientedBoundingBox, speed_mps=1.0, sample_rate_hz=25) -> Trajectory:
+def generate_desired_traj(target_obb: OrientedBoundingBox, speed_mps=1.0, sample_rate_hz=50) -> Trajectory:
     control_points = np.array(generate_control_points(target_obb))
     path, headings, curvatures = cubic_spline(control_points, speed_mps, sample_rate_hz)
     return Trajectory(path, headings, curvatures, control_points, target_obb)
@@ -133,7 +139,7 @@ def get_min_separation_between_traj_and_obs(traj: Trajectory, obs_obb: OrientedB
 
 class TrajectoryOptimizer:
     
-    def __init__(self, speed_mps=1.0, sample_rate_hz=50, method='BFGS'):
+    def __init__(self, speed_mps=1.0, sample_rate_hz=50, method='BFGS', reverse=False):
         self.speed_mps = speed_mps
         self.sample_rate_hz = sample_rate_hz
         self.target_obb = None
@@ -142,12 +148,13 @@ class TrajectoryOptimizer:
         self.optimized_traj = None
         self.modifiable_control_point_idxs = []
         self.method = method
+        self.reverse = reverse
         
     def get_traj_cost(self, traj: Trajectory, obstacles: List[OrientedBoundingBox]):
     
         ## == OBSTACLE COST CALCULATION ==
         
-        MIN_ALLOWABLE_DISTANCE = 0.3
+        MIN_ALLOWABLE_DISTANCE = 0.25
         OBSTACLE_GROWTH_FACTOR = 1.0
         
         obstacle_separations = np.zeros(len(obstacles))
@@ -193,12 +200,14 @@ class TrajectoryOptimizer:
         modified_control_points = control_points_flattened.reshape(-1, 2)
         self.optimized_traj.control_points[self.modifiable_control_point_idxs[0]:self.modifiable_control_point_idxs[1]] = modified_control_points
         path, headings, curvatures = cubic_spline(self.optimized_traj.control_points, self.speed_mps, self.sample_rate_hz)
+        if self.reverse:
+            curvatures *= -1
         self.optimized_traj = Trajectory(path, headings, curvatures, self.optimized_traj.control_points, self.optimized_traj.target_obb)
         
         # get cost of new traj
         return self.get_traj_cost(self.optimized_traj, self.obstacles)
         
-    def optimize_trajectory(self, modifiable_control_point_idxs=[4, 6]):
+    def optimize_trajectory(self, modifiable_control_point_idxs=[5, 7]):
         
         # Determine how many points we're modifying
         self.modifiable_control_point_idxs = modifiable_control_point_idxs
