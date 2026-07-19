@@ -34,6 +34,8 @@ class MpcController:
         self.last_timestep = 0
         self.path = np.array([[], []])
         self.curvatures = np.array([])
+        self.ff_delta_history = []
+        self.theta_offset = 35
         self.reset()
         
     def reset(self):
@@ -131,11 +133,11 @@ class MpcController:
         # w_path = 5.0
         # max_mse_path = 0.1 #m
         w_path = 1.0
-        max_mse_path = 0.3 #m
+        max_mse_path = 0.2 #m
         mse_path = (np.sum(np.square(desired_x - actual_x) + np.square(desired_y - actual_y))) / H
         
         # MSE heading term
-        w_heading = 1.0
+        w_heading = 0.5
         max_mse_heading = 0.174 #rad
         desired_theta = normalize_angles(desired_theta)
         actual_theta = normalize_angles(actual_theta)
@@ -153,7 +155,7 @@ class MpcController:
         mse_effort = np.sum(np.square(deltas - self.delta_ff)) / H
         
         # MSE of delta derivative term
-        w_delta_dot = 0.00005
+        w_delta_dot = 0.0005
         max_mse_delta_dot = 0.174 #rad/s
         deltas_dot = np.diff(deltas, prepend=self.last_delta) / self.sample_time_s
         mse_delta_dot = np.sum(np.square(deltas_dot)) / H
@@ -166,20 +168,19 @@ class MpcController:
         norm_mse_delta_dot = mse_delta_dot / max_mse_delta_dot
         
         # total cost
-        print(f"""MSE path: {norm_mse_path:.5f}, \
-              | MSE heading: {norm_mse_heading:.5f} \
-              | MSE yawrate: {norm_mse_yawrate:.5f} \
-              | MSE effort: {norm_mse_effort:.5f} \
-              | MSE delta dot: {norm_mse_delta_dot:.5f}""")
+        # print(f"""MSE path: {norm_mse_path:.5f}, \
+        #       | MSE heading: {norm_mse_heading:.5f} \
+        #       | MSE yawrate: {norm_mse_yawrate:.5f} \
+        #       | MSE effort: {norm_mse_effort:.5f} \
+        #       | MSE delta dot: {norm_mse_delta_dot:.5f}""")
         total_cost = w_path * norm_mse_path + w_heading * norm_mse_heading + w_yawrate * norm_mse_yawrate + w_effort * norm_mse_effort + w_delta_dot * norm_mse_delta_dot
         return total_cost
     
     def simulate_and_get_cost(self, deltas):
         N = len(deltas)
         xs, ys, thetas, omegas = self.simulate_over_horizon(deltas)
-        theta_offset = 35
-        actual_theta_offset = max(min(len(self.curvatures) - self.timestep, 2 * theta_offset) - theta_offset, 0)
-        print(len(self.curvatures), self.timestep, actual_theta_offset)
+        actual_theta_offset = max(min(len(self.curvatures) - self.timestep, 2 * self.theta_offset) - self.theta_offset, 0)
+        # print(len(self.curvatures), self.timestep, actual_theta_offset)
         return self.cost_function(
             self.path[0][self.timestep:self.timestep+N], # x values from trajectory over horizon
             self.path[1][(self.timestep):(self.timestep+N)], # y values from trajectory over horizon
@@ -214,7 +215,9 @@ class MpcController:
         num_steps = final_ts - init_ts
         
         # Solve MPC optimization problem
-        delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts:final_ts]) # initial guess for control signal
+        actual_theta_offset = max(min(len(self.curvatures) - self.timestep, 2 * self.theta_offset) - self.theta_offset, 0)
+        delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts+actual_theta_offset:final_ts+actual_theta_offset]) # initial guess for control signal
+        self.ff_delta_history.append(delta_init[0])
         self.delta_ff = delta_init
         # print(self.delta_ff)
         bounds = [(-0.3, 0.3)] * num_steps
