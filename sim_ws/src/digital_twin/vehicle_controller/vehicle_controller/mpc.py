@@ -35,7 +35,7 @@ class MpcController:
         self.path = np.array([[], []])
         self.curvatures = np.array([])
         self.ff_delta_history = []
-        self.theta_offset = 32
+        self.theta_offset = 36
         self.reset()
         
     def reset(self):
@@ -132,19 +132,19 @@ class MpcController:
         # MSE vehicle path term
         # w_path = 5.0
         # max_mse_path = 0.1 #m
-        w_path = 0.5
+        w_path = 2.0
         max_mse_path = 0.1 #m
         mse_path = (np.sum(np.square(desired_x - actual_x) + np.square(desired_y - actual_y))) / H
         
         # MSE heading term
-        w_heading = 3.0
+        w_heading = 100.0
         max_mse_heading = 0.174 #rad
         desired_theta = normalize_angles(desired_theta)
         actual_theta = normalize_angles(actual_theta)
         mse_heading = np.sum(np.square(desired_theta - actual_theta)) / H
         
         # MSE yaw rate
-        w_yawrate = 0.1
+        w_yawrate = 1.0
         max_mse_yawrate = 0.174 # rad/s
         dersired_omegas = desired_curvs * self.speed_mps
         mse_yawrate = np.sum(np.square(dersired_omegas - actual_omegas)) / H
@@ -185,7 +185,8 @@ class MpcController:
             self.path[0][self.timestep:self.timestep+N], # x values from trajectory over horizon
             self.path[1][(self.timestep):(self.timestep+N)], # y values from trajectory over horizon
             self.headings[(self.timestep+actual_theta_offset):(self.timestep+N+actual_theta_offset)], # theta values from trajectory over horizon
-            self.curvatures[self.timestep+actual_theta_offset:self.timestep+N+actual_theta_offset], # theta values from trajectory over horizon
+            # self.curvatures[self.timestep+actual_theta_offset:self.timestep+N+actual_theta_offset], # theta values from trajectory over horizon
+            self.curvatures[self.timestep:self.timestep+N], # theta values from trajectory over horizon
             xs, # x values from simulated vbm over horizon
             ys, # y values from simulated vbm over horizon
             thetas, # theta values from simulated vbm over horizon
@@ -216,7 +217,8 @@ class MpcController:
         
         # Solve MPC optimization problem
         actual_theta_offset = max(min(len(self.curvatures) - self.timestep, 2 * self.theta_offset) - self.theta_offset, 0)
-        delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts+actual_theta_offset:final_ts+actual_theta_offset]) # initial guess for control signal
+        # delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts+actual_theta_offset:final_ts+actual_theta_offset]) # initial guess for control signal
+        delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts:final_ts]) # initial guess for control signal
         self.ff_delta_history.append(delta_init[0])
         self.delta_ff = delta_init
         # print(self.delta_ff)
