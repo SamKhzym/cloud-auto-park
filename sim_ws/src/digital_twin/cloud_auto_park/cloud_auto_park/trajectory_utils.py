@@ -68,44 +68,44 @@ def generate_control_points(target_obb: OrientedBoundingBox):
     point2_x, point2_y = (1/32)*final_veh_pose.x_m, 0
     point3_x, point3_y = (2/32)*final_veh_pose.x_m, 0
     point4_x, point4_y = (3/32)*final_veh_pose.x_m, 0
-    point4_2_x, point4_2_y = (4/32)*final_veh_pose.x_m, 0
+    point5_x, point5_y = (4/32)*final_veh_pose.x_m, 0
     
-    point5_x = final_veh_pose.x_m + 2.0
-    point5_y = -final_veh_pose.y_m * 0.15
+    point6_x = final_veh_pose.x_m + 2.0
+    point6_y = -final_veh_pose.y_m * 0.15
     
     final_pose_offset = np.array([[-abs(final_veh_pose.y_m)*0.75, 0]])
     final_pose_offset_trans = (final_pose_offset @ get_rot_mat(-final_veh_pose.theta_rad)).flatten()
     
-    point6_x = final_veh_pose.x_m + final_pose_offset_trans[0]
-    point6_y = final_veh_pose.y_m + final_pose_offset_trans[1]
+    point7_x = final_veh_pose.x_m + final_pose_offset_trans[0]
+    point7_y = final_veh_pose.y_m + final_pose_offset_trans[1]
     
-    point6_2_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (4/32)
-    point6_2_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (4/32)
+    point8_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (4/32)
+    point8_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (4/32)
     
-    point7_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (3/32)
-    point7_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (3/32)
+    point9_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (3/32)
+    point9_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (3/32)
     
-    point8_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (2/32)
-    point8_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (2/32)
+    point10_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (2/32)
+    point10_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (2/32)
     
-    point9_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (1/32)
-    point9_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (1/32)
+    point11_x = final_veh_pose.x_m + final_pose_offset_trans[0] * (1/32)
+    point11_y = final_veh_pose.y_m + final_pose_offset_trans[1] * (1/32)
     
-    point10_x, point10_y = final_veh_pose.x_m, final_veh_pose.y_m
+    point12_x, point12_y = final_veh_pose.x_m, final_veh_pose.y_m
     
     control_points = [
         (point1_x, point1_y),
         (point2_x, point2_y),
         (point3_x, point3_y),
         (point4_x, point4_y),
-        (point4_2_x, point4_2_y),
         (point5_x, point5_y),
         (point6_x, point6_y),
-        (point6_2_x, point6_2_y),
         (point7_x, point7_y),
         (point8_x, point8_y),
         (point9_x, point9_y),
-        (point10_x, point10_y)
+        (point10_x, point10_y),
+        (point11_x, point11_y),
+        (point12_x, point12_y)
     ]
     
     return control_points
@@ -234,7 +234,7 @@ class TrajectoryOptimizer:
         # optimize the trajectory
         self.optimized_traj = self.optimize_trajectory()
 
-def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], num_intermediate_ego = 10, plot_desired = False):
+def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], num_intermediate_ego = 10, plot_desired = False, plot_traj = True,):
     
     def get_obstacle_patch(obb: OrientedBoundingBox, color='blue', alpha=0.6, linewidth=2):
         
@@ -254,6 +254,9 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
         elif color == 'red':
             edgecolor = 'darkred'
             facecolor = 'red'
+        elif color == 'black':
+            edgecolor = 'black'
+            facecolor = 'grey'
         
         rect = matplotlib.patches.Rectangle(
             xy=(-lower_left_y, lower_left_x),
@@ -281,14 +284,15 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
         ax.add_patch(end_ego_obb_patch)
         
     # plot intermediate ego vehicle obbs along the trajectory
-    for ego_idx in range(num_intermediate_ego):
-        N = len(traj.path[0])
-        path_idx = int((N-1) * ego_idx / (num_intermediate_ego - 1))
-        # print(path_idx)
-        
-        intermediate_ego_obb = OrientedBoundingBox(traj.path[0][path_idx], traj.path[1][path_idx], traj.target_obb.length_m, traj.target_obb.width_m, traj.headings[path_idx])
-        intermediate_ego_rect = get_obstacle_patch(intermediate_ego_obb, 'blue', 0.15)
-        ax.add_patch(intermediate_ego_rect)
+    if plot_traj:
+        for ego_idx in range(num_intermediate_ego):
+            N = len(traj.path[0])
+            path_idx = int((N-1) * ego_idx / (num_intermediate_ego - 1))
+            # print(path_idx)
+            
+            intermediate_ego_obb = OrientedBoundingBox(traj.path[0][path_idx], traj.path[1][path_idx], traj.target_obb.length_m, traj.target_obb.width_m, traj.headings[path_idx])
+            intermediate_ego_rect = get_obstacle_patch(intermediate_ego_obb, 'blue', 0.15)
+            ax.add_patch(intermediate_ego_rect)
     
     # plot obstacle obbs as orange rectangles with red dots as centers
     for i, obs in enumerate(obstacles):
@@ -298,14 +302,16 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
         ax.scatter(*xy_to_plot(obs.centroid_x_m, obs.centroid_y_m), marker='o', edgecolor='black', s=50, c='red', label=label)
     
     # plot trajectory itself (color by curvature)
-    sc = ax.scatter(-traj.path[1], traj.path[0], c=traj.curvatures, cmap='plasma', s=10)
-    cbar = fig.colorbar(sc)
-    cbar.set_label('Curvature (1/m)')
+    if plot_traj:
+        sc = ax.scatter(-traj.path[1], traj.path[0], c=traj.curvatures, cmap='plasma', s=10)
+        cbar = fig.colorbar(sc)
+        cbar.set_label('Curvature (1/m)')
     
     # plot control points as green points
-    for i, point in enumerate(traj.control_points):
-        label = 'Spline Data Point' if i == 0 else None
-        ax.scatter(*xy_to_plot(point[0], point[1]), marker='o', edgecolor='black', s=50, c='green', label=label)
+    if plot_traj:
+        for i, point in enumerate(traj.control_points):
+            label = 'Spline Data Point' if i == 0 else None
+            ax.scatter(*xy_to_plot(point[0], point[1]), marker='o', edgecolor='black', s=50, c='green', label=label)
 
     # plot stars for initial and final ego poses
     ax.scatter(0, 0, marker='*', edgecolor='black', s=200, c='cyan', label='Initial Ego Pose')
