@@ -172,7 +172,7 @@ class TrajectoryOptimizer:
         ## == MAX CURV CALCULATION ==
         
         # penalize curvatures that have higher mean-squared curvatures
-        MAX_ABS_CURV = 1.0
+        MAX_ABS_CURV = 0.8
         high_curv_cost = np.max(np.abs(traj.curvatures)) / MAX_ABS_CURV
         
         ## == EFFORT COST CALCULATION ==
@@ -234,7 +234,7 @@ class TrajectoryOptimizer:
         # optimize the trajectory
         self.optimized_traj = self.optimize_trajectory()
 
-def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], num_intermediate_ego = 10):
+def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], num_intermediate_ego = 10, plot_desired = False):
     
     def get_obstacle_patch(obb: OrientedBoundingBox, color='blue', alpha=0.6, linewidth=2):
         
@@ -274,9 +274,11 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
     
     # put two blue rectangles at the initial and final vehicle poses
     start_ego_obb_patch = get_obstacle_patch(OrientedBoundingBox(traj.path[0][0], traj.path[1][0], traj.target_obb.length_m, traj.target_obb.width_m, 0.0), color='blue', alpha=1.0, linewidth=3.5)
-    end_ego_obb_patch = get_obstacle_patch(OrientedBoundingBox(traj.path[0][-1], traj.path[1][-1], traj.target_obb.length_m, traj.target_obb.width_m, traj.headings[-1]), color='blue', alpha=1.0, linewidth=3.5)
     ax.add_patch(start_ego_obb_patch)
-    ax.add_patch(end_ego_obb_patch)
+    
+    if plot_desired:
+        end_ego_obb_patch = get_obstacle_patch(OrientedBoundingBox(traj.path[0][-1], traj.path[1][-1], traj.target_obb.length_m, traj.target_obb.width_m, traj.headings[-1]), color='blue', alpha=1.0, linewidth=3.5)
+        ax.add_patch(end_ego_obb_patch)
         
     # plot intermediate ego vehicle obbs along the trajectory
     for ego_idx in range(num_intermediate_ego):
@@ -307,7 +309,7 @@ def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], nu
 
     # plot stars for initial and final ego poses
     ax.scatter(0, 0, marker='*', edgecolor='black', s=200, c='cyan', label='Initial Ego Pose')
-    ax.scatter(*xy_to_plot(traj.target_obb.centroid_x_m, traj.target_obb.centroid_y_m), marker='*', edgecolor='black', s=200, c='red', label='Final Ego Pose')
+    ax.scatter(*xy_to_plot(traj.target_obb.centroid_x_m, traj.target_obb.centroid_y_m), marker='*', edgecolor='black', s=200, c='red', label='Desired Ego Pose')
     
     # stylistic things :)
     ax.grid()

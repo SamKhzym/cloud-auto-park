@@ -35,7 +35,7 @@ class MpcController:
         self.path = np.array([[], []])
         self.curvatures = np.array([])
         self.ff_delta_history = []
-        self.theta_offset = 35
+        self.theta_offset = 32
         self.reset()
         
     def reset(self):
@@ -132,12 +132,12 @@ class MpcController:
         # MSE vehicle path term
         # w_path = 5.0
         # max_mse_path = 0.1 #m
-        w_path = 1.0
-        max_mse_path = 0.2 #m
+        w_path = 0.5
+        max_mse_path = 0.1 #m
         mse_path = (np.sum(np.square(desired_x - actual_x) + np.square(desired_y - actual_y))) / H
         
         # MSE heading term
-        w_heading = 0.5
+        w_heading = 3.0
         max_mse_heading = 0.174 #rad
         desired_theta = normalize_angles(desired_theta)
         actual_theta = normalize_angles(actual_theta)
