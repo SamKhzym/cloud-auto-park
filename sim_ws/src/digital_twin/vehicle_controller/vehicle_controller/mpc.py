@@ -6,6 +6,7 @@ from scipy.interpolate import CubicSpline
 from scipy import interpolate
 from copy import deepcopy
 from scipy.optimize import minimize
+import warnings, time
 
 CONTROLLER_SAMPLETIME_S = 0.02
 MIN_SPEED = 0.001
@@ -18,6 +19,23 @@ class VehicleBicycleModelParams:
     lf_m: float = 0.0
     lr_m: float = 0.0
     izz_kgm2: float = 0.0
+    
+class TookTooLong(Warning):
+    pass
+
+class MinimizeStopper(object):
+    def __init__(self, max_sec=60):
+        self.max_sec = max_sec
+        self.start = time.time()
+    def __call__(self, xk=None):
+        elapsed = time.time() - self.start
+        if elapsed > self.max_sec:
+            warnings.warn("Terminating optimization: time limit reached",
+                          TookTooLong)
+        else:
+            pass
+            # you might want to report other stuff here
+            # print("Elapsed: %.3f sec" % elapsed)
 
 class MpcController:
     
@@ -217,13 +235,13 @@ class MpcController:
         
         # Solve MPC optimization problem
         actual_theta_offset = max(min(len(self.curvatures) - self.timestep, 2 * self.theta_offset) - self.theta_offset, 0)
-        # delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts+actual_theta_offset:final_ts+actual_theta_offset]) # initial guess for control signal
-        delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts:final_ts]) # initial guess for control signal
+        delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts+actual_theta_offset:final_ts+actual_theta_offset]) # initial guess for control signal
+        # delta_init = self.get_init_feedforward_deltas(self.curvatures[init_ts:final_ts]) # initial guess for control signal
         self.ff_delta_history.append(delta_init[0])
         self.delta_ff = delta_init
         # print(self.delta_ff)
         bounds = [(-0.3, 0.3)] * num_steps
-        result = minimize(self.simulate_and_get_cost, delta_init, method='SLSQP', bounds=bounds) # optimization
+        result = minimize(self.simulate_and_get_cost, delta_init, method='SLSQP', bounds=bounds, callback=MinimizeStopper(0.005)) # optimization
         
         # increment controller timestep
         self.timestep += 1

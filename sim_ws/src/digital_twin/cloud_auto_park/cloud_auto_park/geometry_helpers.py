@@ -237,6 +237,53 @@ def get_exact_distance_or_overlap(obb_a: OrientedBoundingBox, obb_b: OrientedBou
     _, penetration_depth = sat_obb_collision(obb_a, obb_b)
     return True, -1 * penetration_depth
 
+def is_obb_contained(
+    acceptable_region_obb: OrientedBoundingBox,
+    final_obb: OrientedBoundingBox,
+    tol: float = 1e-6
+) -> bool:
+    """
+    Checks if final_obb is fully contained within acceptable_region_obb in 2D space.
+    """
+    # 1. Half-extents
+    half_l_A = acceptable_region_obb.length_m / 2.0
+    half_w_A = acceptable_region_obb.width_m / 2.0
+    
+    half_l_B = final_obb.length_m / 2.0
+    half_w_B = final_obb.width_m / 2.0
+    
+    # 2. Local 4 corners of final_obb (B) prior to rotation
+    # (x along length, y along width)
+    local_corners_B = np.array([
+        [-half_l_B, -half_w_B],
+        [-half_l_B,  half_w_B],
+        [ half_l_B, -half_w_B],
+        [ half_l_B,  half_w_B]
+    ], dtype=np.float64)  # Shape: (4, 2)
+    
+    # 3. Rotation matrices
+    cos_B, sin_B = np.cos(final_obb.heading_rad), np.sin(final_obb.heading_rad)
+    R_B = np.array([[cos_B, -sin_B], 
+                    [sin_B,  cos_B]])
+    
+    cos_A, sin_A = np.cos(acceptable_region_obb.heading_rad), np.sin(acceptable_region_obb.heading_rad)
+    # R_A^T is rotation by -heading_rad_A
+    R_A_T = np.array([[ cos_A, sin_A], 
+                      [-sin_A, cos_A]])
+    
+    # 4. Transform B's corners to World frame: P_world = C_B + R_B * P_local_B
+    center_B = np.array([final_obb.centroid_x_m, final_obb.centroid_y_m])
+    world_corners_B = center_B + (R_B @ local_corners_B.T).T  # Shape: (4, 2)
+    
+    # 5. Transform World corners into A's local frame: P_local_A = R_A^T * (P_world - C_A)
+    center_A = np.array([acceptable_region_obb.centroid_x_m, acceptable_region_obb.centroid_y_m])
+    corners_in_A = (R_A_T @ (world_corners_B - center_A).T).T  # Shape: (4, 2)
+    
+    # 6. Check if all 4 corners lie within A's local half-extents
+    within_length = np.abs(corners_in_A[:, 0]) <= (half_l_A + tol)
+    within_width  = np.abs(corners_in_A[:, 1]) <= (half_w_A + tol)
+    
+    return bool(np.all(within_length & within_width))
 
 def run_hybrid_test_suite():
     tests = [
