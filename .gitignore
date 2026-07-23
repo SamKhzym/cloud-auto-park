@@ -12,3 +12,4 @@ report/out/**
 # doe figures (there are lots of them)
 sim_ws/src/digital_twin/cloud_auto_park/analysis/figures/
 sim_ws/src/digital_twin/vehicle_controller/analysis/figures/
+sim_ws/src/digital_twin/param_estimator/analysis/figures/
