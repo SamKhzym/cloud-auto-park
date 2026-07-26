@@ -110,7 +110,7 @@ class BicycleModelOptimizer:
         self.optimize_mass = optimize_mass
         self.optimize_iz = optimize_iz
         
-        self.w_path, self.w_theta, self.w_yawrate, self.w_accel = 0.00, 0.0, 0.0, 0.0
+        self.w_path, self.w_theta, self.w_yawrate, self.w_accel, self.w_vy_dot = 0.00, 0.0, 0.0, 0.0, 0.0
         self.best_kus = 0.0
         
     def get_kus(self, param_set):
@@ -152,6 +152,7 @@ class BicycleModelOptimizer:
         ys_pred = np.zeros(N)
         yaw_rates_pred = np.zeros(N)
         ay_pred = np.zeros(N)
+        vy_dots_pred = np.zeros(N)
         
         for i in range(0, N-1):
         
@@ -181,15 +182,16 @@ class BicycleModelOptimizer:
             yaws_pred[i+1] = yaw_last + dyaw
             yaw_rates_pred[i+1] = yaw_rate
             ay_pred[i+1] = state_dot[0] + vx*yaw_rate
+            vy_dots_pred[i+1] = state_dot[0]
             
-        return xs_pred, ys_pred, yaws_pred, yaw_rates_pred, ay_pred
+        return xs_pred, ys_pred, yaws_pred, yaw_rates_pred, ay_pred, vy_dots_pred
     
     # THIS IS THE COST FUNCTION AND I CAN CHANGE MY WEIGHTS HERE :)))))
-    def cost_function(self, actual_x, actual_y, actual_yr, actual_theta, actual_ay, predicted_x, predicted_y, predicted_yr, predicted_theta, predicted_ay):
+    def cost_function(self, actual_x, actual_y, actual_yr, actual_theta, actual_ay, actual_vy_dot, predicted_x, predicted_y, predicted_yr, predicted_theta, predicted_ay, predicted_vy_dot):
         
         w_path = self.w_path
         max_mse_path = 10.0
-        mse_path = np.mean(np.square(actual_y.flatten() - predicted_y.flatten()))
+        mse_path = np.mean(np.square(actual_x.flatten() - predicted_x.flatten()) + np.square(actual_y.flatten() - predicted_y.flatten()))
         
         w_theta = self.w_theta
         max_mse_theta = 0.1
@@ -203,12 +205,16 @@ class BicycleModelOptimizer:
         max_mse_ay = 0.1
         mse_ay = np.mean(np.square(actual_ay.flatten() - predicted_ay.flatten()))
         
+        w_vy_dot = self.w_vy_dot
+        max_mse_vy_dot = 0.1
+        mse_vy_dot = np.mean(np.square(actual_vy_dot.flatten() - predicted_vy_dot.flatten()))
+        
         # print(f'MSE path: {mse_path:.2f}, MSE heading: {mse_theta:.2f}, MSE yaw rate: {mse_yawrate:.2f}')
         
-        cost = w_path * (mse_path / max_mse_path) + w_theta * (mse_theta / max_mse_theta) + w_yawrate * (mse_yawrate / max_mse_yawrate) + w_ay * (mse_ay / max_mse_ay)    
-        return cost, [(mse_path / max_mse_path), (mse_theta / max_mse_theta), (mse_yawrate / max_mse_yawrate), (mse_ay / max_mse_ay)]
+        cost = w_path * (mse_path / max_mse_path) + w_theta * (mse_theta / max_mse_theta) + w_yawrate * (mse_yawrate / max_mse_yawrate) + w_ay * (mse_ay / max_mse_ay) + w_vy_dot * (mse_vy_dot / max_mse_vy_dot)
+        return cost, [(mse_path / max_mse_path), (mse_theta / max_mse_theta), (mse_yawrate / max_mse_yawrate), (mse_ay / max_mse_ay), (mse_vy_dot / max_mse_vy_dot)]
     
-    def simulate_and_get_cost(self, param_scalars):
+    def simulate_and_get_cost(self, param_scalars, return_terms=False):
         
         # update vbm params with newest guess
         self.vbm_params.cf_Nprad = param_scalars[0] * self.init_vbm_params.cf_Nprad
@@ -220,13 +226,15 @@ class BicycleModelOptimizer:
             
         # print('attempt: ' + str(self.vbm_params))
         
-        xs_pred, ys_pred, yaws_pred, yaw_rates_pred, ay_pred = self.simulate_vbm(self.times_s, self.rwas_rad, self.speeds_mps)
-        cost, cost_terms = self.cost_function(self.xs_actual, self.ys_actual, self.yrs_actual, self.thetas_actual, self.ays_actual, xs_pred, ys_pred, yaw_rates_pred, yaws_pred, ay_pred)
+        xs_pred, ys_pred, yaws_pred, yaw_rates_pred, ay_pred, vys_dot_pred = self.simulate_vbm(self.times_s, self.rwas_rad, self.speeds_mps)
+        cost, cost_terms = self.cost_function(self.xs_actual, self.ys_actual, self.yrs_actual, self.thetas_actual, self.ays_actual, self.vys_dot_actual, xs_pred, ys_pred, yaw_rates_pred, yaws_pred, ay_pred, vys_dot_pred)
         
         # print(f'cost is {cost:.10f} for params {self.vbm_params}')
         
-        # return cost, cost_terms
-        return cost
+        if return_terms:
+            return cost, cost_terms
+        else:
+            return cost
         
     def simulate_and_get_cost_kus(self, kus_scalar):
         kus = kus_scalar * self.init_kus
@@ -241,7 +249,7 @@ class BicycleModelOptimizer:
         cf_scalar = cf / self.init_vbm_params.cf_Nprad
         return self.simulate_and_get_cost([cf_scalar, scalars[1], 1.0, 1.0])
     
-    def optimize_vbm_params(self, times_s, rwas_rad, speeds_mps, xs_actual, ys_actual, yrs_actual, thetas_actual, ays_actual):
+    def optimize_vbm_params(self, times_s, rwas_rad, speeds_mps, xs_actual, ys_actual, yrs_actual, thetas_actual, ays_actual, vys_dot_actual):
         param_scalars = [1, 1, 1]
         param_scalar_bounds = [[0.7, 1.3], [0.7, 1.3], [0.7, 1.3]]
         if self.optimize_iz:
@@ -259,9 +267,10 @@ class BicycleModelOptimizer:
         self.yrs_actual = yrs_actual
         self.thetas_actual = thetas_actual
         self.ays_actual = ays_actual
+        self.vys_dot_actual = vys_dot_actual
         
         # == FIRST PASS == #
-        self.w_path, self.w_theta, self.w_yawrate, self.w_accel = 0.015, 0.0, 0.000, 1.0
+        self.w_path, self.w_theta, self.w_yawrate, self.w_accel, self.w_vy_dot = 0.001, 0.001, 0.000, 1.0, 0.001
         
         solution = minimize(
             self.simulate_and_get_cost,
