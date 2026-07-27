@@ -30,7 +30,7 @@ MAP_PATH = F1TENTH_GYM_NODE_BASE / 'maps'
 
 # sim length to actual length
 RATIO = 0.966 / 2.0
-ORIGIN = [3, 2, 0.000000]
+ORIGIN = [0, -2, 0.000000]
 
 class ParkedActor:
     
@@ -58,7 +58,8 @@ class ParkingLotRow:
         spot_skew_deg: float = 0.0,
         spot_width_m: float = 2.7,
         spot_length_m: float = 5.4,
-        spot_separation_m: float = 0.1016
+        spot_separation_m: float = 0.1016,
+        wall_sep = None
     ):
         
         # parameters configuring geometry of parking spaces
@@ -70,6 +71,7 @@ class ParkingLotRow:
         self.spot_length_m = spot_length_m
         self.spot_separation_m = spot_separation_m
         self.actor_centroids = []
+        self.wall_sep = wall_sep
         
         # occupancy map that contains actors
         self.occupancy_map: List[None | ParkedActor] = [None for _ in range(self.num_spots)]
@@ -150,6 +152,24 @@ class ParkingLotRow:
                 
             ax.add_patch(rect_patch)
             
+        if self.wall_sep is not None:
+            wall_width = 0.2
+            wall_length = self.get_horizontal_spot_spacing() * self.num_spots
+            
+            wall_patch = patches.Rectangle(
+                (self.x_coord_m, self.y_coord_m + self.spot_length_m + self.wall_sep), 
+                # (x1_m, self.y_coord_m),
+                wall_length, 
+                wall_width, 
+                # angle=(self.spot_skew_deg + actor.skew_offset_deg), 
+                rotation_point='xy',
+                facecolor='grey',
+                edgecolor='black',
+                linewidth=2,
+                zorder=999
+            )
+            ax.add_patch(wall_patch)
+            
         ax.set_xlim(0, 20)
         ax.set_ylim(0, 20)
         ax.set_frame_on(False) # Removes the frame
@@ -196,9 +216,44 @@ class ParkingLotRow:
         
         with open(path, 'w') as f:
             yaml.dump(yaml_info, f)
-        
-p = ParkingLotRow(0, 0, 4, 45.0, spot_width_m=0.54, spot_length_m=1.08)
-p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 1)
-p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 3)
+            
+            
+scenario = 'straight_0_65_4actor'
+add_wall = True
+wall_sep = 2.0
+p = None
+
+wall_sep = wall_sep if add_wall else None
+if scenario == 'straight_0_54':
+    p = ParkingLotRow(0, 0, 5, 0.0, spot_width_m=0.54, spot_length_m=1.08, wall_sep=wall_sep)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 1)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 3)
+elif scenario == 'angled_in_0_54':
+    p = ParkingLotRow(0, 0, 5, 0.0, spot_width_m=0.54, spot_length_m=1.08, wall_sep=wall_sep)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, -5.0), 1)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 5.0), 3)
+elif scenario == 'angled_out_0_54':
+    p = ParkingLotRow(0, 0, 5, 0.0, spot_width_m=0.54, spot_length_m=1.08, wall_sep=wall_sep)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 5.0), 1)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, -5.0), 3)
+elif scenario == 'straight_0_65':
+    p = ParkingLotRow(0, 0, 5, 0.0, spot_width_m=0.65, spot_length_m=1.08, wall_sep=wall_sep)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 1)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 3)
+elif scenario == 'angled_in_0_65':
+    p = ParkingLotRow(0, 0, 5, 0.0, spot_width_m=0.65, spot_length_m=1.08, wall_sep=wall_sep)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, -5.0), 1)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 5.0), 3)
+elif scenario == 'angled_out_0_65':
+    p = ParkingLotRow(0, 0, 5, 0.0, spot_width_m=0.65, spot_length_m=1.08, wall_sep=wall_sep)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 5.0), 1)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, -5.0), 3)
+elif scenario == 'straight_0_65_4actor':
+    p = ParkingLotRow(0, 0, 5, 0.0, spot_width_m=0.65, spot_length_m=1.08, wall_sep=wall_sep)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 0)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 1)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 3)
+    p.set_actor_in_parking_space(ParkedActor(0.40, 0.7, 0.1, 0.0, 0.0), 4)
+
 p.draw_parking_lot()
-p.write_yaml_file('angled')
+p.write_yaml_file('my_custom_map')

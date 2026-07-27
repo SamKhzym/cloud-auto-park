@@ -137,6 +137,41 @@ def get_min_separation_between_traj_and_obs(traj: Trajectory, obs_obb: OrientedB
             
     return min_separation
 
+def get_obstacle_patch(obb: OrientedBoundingBox, color='blue', alpha=0.6, linewidth=2):
+        
+    lower_left_x = obb.centroid_x_m - (obb.length_m / 2)
+    lower_left_y = obb.centroid_y_m + (obb.width_m / 2)
+    
+    edgecolor, facecolor = '', ''
+    if color == 'blue':
+        edgecolor = 'blue'
+        facecolor = 'lightblue'
+    elif color == 'darkblue':
+        edgecolor = 'darkblue'
+        facecolor = 'blue'
+    elif color == 'orange':
+        edgecolor = 'red'
+        facecolor = 'orange'
+    elif color == 'red':
+        edgecolor = 'darkred'
+        facecolor = 'red'
+    elif color == 'black':
+        edgecolor = 'black'
+        facecolor = 'grey'
+    
+    rect = matplotlib.patches.Rectangle(
+        xy=(-lower_left_y, lower_left_x),
+        width=obb.width_m,
+        height=obb.length_m,
+        angle=np.degrees(obb.heading_rad),
+        rotation_point='center',  # Instructs matplotlib to rotate around the center
+        edgecolor=edgecolor,
+        facecolor=facecolor,
+        alpha=alpha,
+        linewidth=linewidth
+    )
+    return rect
+
 class TrajectoryOptimizer:
     
     def __init__(self, speed_mps=1.0, sample_rate_hz=50, method='BFGS', reverse=False):
@@ -234,42 +269,7 @@ class TrajectoryOptimizer:
         # optimize the trajectory
         self.optimized_traj = self.optimize_trajectory()
 
-def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], num_intermediate_ego = 10, plot_desired = False, plot_traj = True,):
-    
-    def get_obstacle_patch(obb: OrientedBoundingBox, color='blue', alpha=0.6, linewidth=2):
-        
-        lower_left_x = obb.centroid_x_m - (obb.length_m / 2)
-        lower_left_y = obb.centroid_y_m + (obb.width_m / 2)
-        
-        edgecolor, facecolor = '', ''
-        if color == 'blue':
-            edgecolor = 'blue'
-            facecolor = 'lightblue'
-        elif color == 'darkblue':
-            edgecolor = 'darkblue'
-            facecolor = 'blue'
-        elif color == 'orange':
-            edgecolor = 'red'
-            facecolor = 'orange'
-        elif color == 'red':
-            edgecolor = 'darkred'
-            facecolor = 'red'
-        elif color == 'black':
-            edgecolor = 'black'
-            facecolor = 'grey'
-        
-        rect = matplotlib.patches.Rectangle(
-            xy=(-lower_left_y, lower_left_x),
-            width=obb.width_m,
-            height=obb.length_m,
-            angle=np.degrees(obb.heading_rad),
-            rotation_point='center',  # Instructs matplotlib to rotate around the center
-            edgecolor=edgecolor,
-            facecolor=facecolor,
-            alpha=alpha,
-            linewidth=linewidth
-        )
-        return rect
+def plot_desired_path(traj: Trajectory, obstacles: List[OrientedBoundingBox], num_intermediate_ego = 10, plot_desired = False, plot_traj = True):
     
     # make the plot
     fig, ax = plt.subplots(1)
