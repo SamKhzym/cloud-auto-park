@@ -76,6 +76,9 @@ class ParkingLotRow:
         # occupancy map that contains actors
         self.occupancy_map: List[None | ParkedActor] = [None for _ in range(self.num_spots)]
         
+        # rects that exist in the plot
+        self.actor_rects = []
+        
     def set_actor_in_parking_space(
         self, 
         actor: ParkedActor,
@@ -149,6 +152,7 @@ class ParkingLotRow:
                 ])
                 
                 print('actor centroid:', centroid)
+                self.actor_rects.append(rect_patch)
                 
             ax.add_patch(rect_patch)
             
@@ -169,6 +173,7 @@ class ParkingLotRow:
                 zorder=999
             )
             ax.add_patch(wall_patch)
+            self.actor_rects.append(wall_patch)
             
         ax.set_xlim(0, 20)
         ax.set_ylim(0, 20)
@@ -204,6 +209,15 @@ class ParkingLotRow:
                 'width': centroid[4],
             })
         
+        if self.wall_sep is not None:
+            actor_centroid_array.append({
+                'x': float(centroid[0] + ORIGIN[0]), 
+                'y': float(centroid[1] + ORIGIN[1]), 
+                'theta': float(centroid[2] + math.pi/2), # adding pi/2 to account for coord frame of gym
+                'length': centroid[3],
+                'width': centroid[4],
+            })
+        
         yaml_info = {
             'image': f'{filename}.png',
             'resolution': 0.01,
@@ -218,8 +232,8 @@ class ParkingLotRow:
             yaml.dump(yaml_info, f)
             
             
-scenario = 'straight_0_65_4actor'
-add_wall = True
+scenario = 'angled_in_0_54'
+add_wall = False
 wall_sep = 2.0
 p = None
 
@@ -257,3 +271,6 @@ elif scenario == 'straight_0_65_4actor':
 
 p.draw_parking_lot()
 p.write_yaml_file('my_custom_map')
+RATIO = 1.035
+rects = [[RATIO * (r.get_center()[0] + ORIGIN[0]), RATIO * (r.get_center()[1] + ORIGIN[1]), RATIO * r.get_height(), RATIO * r.get_width(), (math.pi / 2) + (r.get_angle() * math.pi / 180)] for r in p.actor_rects]
+for r in rects: print(f'OrientedBoundingBox({r[0]:.4f}, {r[1]:.4f}, {r[2]:.4f}, {r[3]:.4f}, {r[4]:.4f}), ', end='')
